@@ -24,8 +24,8 @@ export default function Home() {
       <section className="flex-1 flex flex-col justify-center px-8 max-w-4xl mx-auto w-full py-24">
         <p className="text-white/40 text-sm tracking-widest uppercase mb-6">English for B1–B2 learners</p>
         <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight mb-8">
-          Stories that teach.<br />Not the other way around.
-        </h1>
+  Stories for learners.<br />Made by a learner.
+</h1>
         <p className="text-white/50 text-lg max-w-2xl leading-relaxed mb-12">
           Your cozy corner where stories and the English language come together. Short, calm audio stories with real characters and everyday situations — told in warm, natural English. No grammar drills. No pressure. Made for learners who are done with textbooks and just want to feel comfortable in the language.
         </p>
