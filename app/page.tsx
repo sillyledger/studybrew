@@ -34,12 +34,9 @@ export default function Home() {
             <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
             <span className="text-white/60 text-sm">Language learning app in development</span>
           </div>
-          
-            href="#"
-            className="inline-flex items-center justify-center gap-2 bg-amber-400 hover:bg-amber-300 text-[#0F1923] font-semibold text-sm rounded-full px-6 py-3 w-fit transition-colors"
-          >
+          <button className="inline-flex items-center justify-center gap-2 bg-amber-400 hover:bg-amber-300 text-[#0F1923] font-semibold text-sm rounded-full px-6 py-3 w-fit transition-colors">
             Join the waitlist
-          </a>
+          </button>
         </div>
       </section>
 
