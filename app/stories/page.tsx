@@ -2,11 +2,11 @@
 import React from "react";
 
 const categories = [
-  { name: "Bedtime Stories", description: "Wind down with calm, slow English.", available: true, emoji: "🌙" },
-  { name: "Daily Life", description: "Everyday situations, natural English.", available: false, emoji: "☀️" },
-  { name: "Travel", description: "Stories from cities and quiet corners.", available: false, emoji: "✈️" },
-  { name: "Career", description: "Work, ambition, and small victories.", available: false, emoji: "💼" },
-  { name: "Culture", description: "Habits, traditions, and human moments.", available: false, emoji: "🌍" },
+  { name: "Bedtime Stories", slug: "bedtime", description: "Wind down with calm, slow English.", available: true, emoji: "🌙" },
+  { name: "Daily Life", slug: "daily-life", description: "Everyday situations, natural English.", available: false, emoji: "☀️" },
+  { name: "Travel", slug: "travel", description: "Stories from cities and quiet corners.", available: false, emoji: "✈️" },
+  { name: "Career", slug: "career", description: "Work, ambition, and small victories.", available: false, emoji: "💼" },
+  { name: "Culture", slug: "culture", description: "Habits, traditions, and human moments.", available: false, emoji: "🌍" },
 ];
 
 const characters = [
@@ -51,7 +51,7 @@ export default function Stories() {
           {categories.map((cat) => (
             <a
               key={cat.name}
-              href={cat.available ? `/stories/${cat.name.toLowerCase().replace(/ /g, '-')}` : undefined}
+              href={cat.available ? `/stories/${cat.slug}` : undefined}
               className={`relative rounded-2xl p-6 border transition-all no-underline block ${
                 cat.available
                   ? "border-white/10 bg-white/5 hover:bg-white/10 cursor-pointer"
