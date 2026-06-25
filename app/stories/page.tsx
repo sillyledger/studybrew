@@ -49,9 +49,10 @@ export default function Stories() {
         <p className="text-white/40 text-xs tracking-widest uppercase mb-6">Browse by category</p>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-16">
           {categories.map((cat) => (
-            <div
+            <a
               key={cat.name}
-              className={`relative rounded-2xl p-6 border transition-all ${
+              href={cat.available ? `/stories/${cat.name.toLowerCase().replace(/ /g, '-')}` : undefined}
+              className={`relative rounded-2xl p-6 border transition-all no-underline block ${
                 cat.available
                   ? "border-white/10 bg-white/5 hover:bg-white/10 cursor-pointer"
                   : "border-white/5 bg-white/[0.02] opacity-60 cursor-not-allowed"
@@ -65,7 +66,7 @@ export default function Stories() {
                   Soon
                 </span>
               )}
-            </div>
+            </a>
           ))}
         </div>
 
