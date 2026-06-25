@@ -1,10 +1,11 @@
 "use client";
 
+import React from "react";
+
 export default function Home() {
   return (
     <main className="min-h-screen flex flex-col">
 
-      {/* Nav */}
       <nav className="flex justify-between items-center px-8 py-6 max-w-4xl mx-auto w-full">
         <div className="flex items-center gap-3">
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,7 +22,6 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero */}
       <section className="flex-1 flex flex-col justify-center px-8 max-w-4xl mx-auto w-full py-24">
         <p className="text-white/40 text-sm tracking-widest uppercase mb-6">English for B1–B2 learners</p>
         <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight mb-8">
@@ -44,7 +44,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="px-8 py-6 max-w-4xl mx-auto w-full">
         <p className="text-white/20 text-sm">© 2026 Study Brew · Part of <a href="https://ryoka.xyz" className="hover:text-white/40 transition-colors">Ryoka</a></p>
       </footer>
