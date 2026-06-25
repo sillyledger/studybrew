@@ -56,32 +56,40 @@ export default async function BedtimeStories() {
         {!stories || stories.length === 0 ? (
           <p className="text-white/30 text-sm">No stories published yet. Check back soon.</p>
         ) : (
-          <div className="flex flex-col gap-4">
-            {stories.map((story: Story) => (
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '12px',
+            gridAutoRows: 'minmax(160px, auto)',
+          }}>
+            {stories.map((story: Story, i: number) => (
               <Link
                 key={story.id}
                 href={`/stories/${story.slug}`}
-                className="group rounded-2xl p-6 border border-white/10 bg-white/5 hover:bg-white/10 transition-all"
+                style={{
+                  gridColumn: i === 0 ? 'span 2' : 'span 1',
+                }}
+                className="group rounded-2xl p-6 border border-white/10 bg-white/5 hover:bg-white/8 transition-all flex flex-col justify-between"
               >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <h2 className="text-white font-semibold text-lg mb-1 group-hover:text-[#E8A45A] transition-colors">
-                      {story.title}
-                    </h2>
-                    {story.sub_category && (
-                      <p className="text-white/40 text-sm">{story.sub_category}</p>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-2 shrink-0">
-                    {story.level && (
-                      <span className="text-xs text-white/30 border border-white/10 rounded-full px-2 py-0.5">
-                        {story.level}
-                      </span>
-                    )}
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-white/20 group-hover:text-white/50 transition-colors">
-                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
+                <div>
+                  {story.sub_category && (
+                    <span className="text-xs text-[#E8A45A] border border-[#E8A45A]/20 rounded-full px-2 py-0.5 mb-3 inline-block">
+                      {story.sub_category}
+                    </span>
+                  )}
+                  <h2 className="text-white font-semibold text-lg leading-snug group-hover:text-[#E8A45A] transition-colors mt-2">
+                    {story.title}
+                  </h2>
+                </div>
+                <div className="flex items-center justify-between mt-6">
+                  {story.level ? (
+                    <span className="text-xs text-white/30 border border-white/10 rounded-full px-2 py-0.5">
+                      {story.level}
+                    </span>
+                  ) : <span />}
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-white/20 group-hover:text-white/50 transition-colors">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
                 </div>
               </Link>
             ))}
