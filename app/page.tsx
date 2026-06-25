@@ -26,9 +26,9 @@ export default function Home() {
         <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight mb-8">
   Stories for learners.<br />Made by a learner.
 </h1>
-        <p className="text-white/50 text-lg max-w-2xl leading-relaxed mb-12">
-          Your cozy corner where stories and the English language come together. Short, calm audio stories with real characters and everyday situations — told in warm, natural English. No grammar drills. No pressure. Made for learners who are done with textbooks and just want to feel comfortable in the language.
-        </p>
+        <p className="text-white/80 text-lg max-w-2xl leading-relaxed mb-12">
+  Short, calm audio stories with real characters and everyday situations, written and recorded by a non-native speaker, for non-native speakers. No grammar drills. No pressure. Just warm, natural English for when you want the language to sink in without trying too hard.
+</p>
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="inline-flex items-center gap-3 bg-white/5 border border-white/10 rounded-full px-5 py-3 w-fit">
             <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
