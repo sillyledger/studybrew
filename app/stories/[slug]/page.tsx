@@ -4,22 +4,23 @@ import { notFound } from 'next/navigation'
 export const revalidate = 60
 
 interface Props {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 function spotifyEmbedUrl(url: string): string | null {
-  // Convert open.spotify.com/episode/ID to embed URL
   const match = url.match(/spotify\.com\/(episode|track)\/([a-zA-Z0-9]+)/)
   if (!match) return null
   return `https://open.spotify.com/embed/${match[1]}/${match[2]}?utm_source=generator&theme=0`
 }
 
 export default async function StoryPage({ params }: Props) {
+  const { slug } = await params
+
   const supabase = createClient()
   const { data: story } = await supabase
     .from('posts')
     .select('*')
-    .eq('slug', params.slug)
+    .eq('slug', slug)
     .eq('target_site', 'studybrew.co')
     .eq('status', 'published')
     .single()
@@ -53,7 +54,6 @@ export default async function StoryPage({ params }: Props) {
           <a href="/stories/bedtime" className="text-white/30 text-sm hover:text-white/50 transition-colors">← Bedtime Stories</a>
         </div>
 
-        {/* Meta */}
         <div className="flex items-center gap-3 mb-4">
           {story.sub_category && (
             <span className="text-xs text-[#E8A45A] border border-[#E8A45A]/20 rounded-full px-2 py-0.5">
@@ -71,7 +71,6 @@ export default async function StoryPage({ params }: Props) {
           {story.title}
         </h1>
 
-        {/* Spotify embed */}
         {embedUrl && (
           <div className="mb-12">
             <iframe
@@ -86,7 +85,6 @@ export default async function StoryPage({ params }: Props) {
           </div>
         )}
 
-        {/* Transcript */}
         {story.content && (
           <div>
             <p className="text-white/40 text-xs tracking-widest uppercase mb-6">Transcript</p>
