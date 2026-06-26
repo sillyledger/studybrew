@@ -13,17 +13,16 @@ interface Story {
 }
 
 function getGridStyle(i: number): { gridColumn: string; gridRow: string } {
-  // Pattern: wide, normal, normal, normal, wide, normal, wide, normal, normal
   const patterns: { gridColumn: string; gridRow: string }[] = [
-    { gridColumn: 'span 2', gridRow: 'span 2' }, // 0: big
-    { gridColumn: 'span 1', gridRow: 'span 1' }, // 1: small
-    { gridColumn: 'span 1', gridRow: 'span 1' }, // 2: small
-    { gridColumn: 'span 1', gridRow: 'span 1' }, // 3: small
-    { gridColumn: 'span 1', gridRow: 'span 2' }, // 4: tall
-    { gridColumn: 'span 1', gridRow: 'span 1' }, // 5: small
-    { gridColumn: 'span 1', gridRow: 'span 1' }, // 6: small
-    { gridColumn: 'span 2', gridRow: 'span 1' }, // 7: wide
-    { gridColumn: 'span 1', gridRow: 'span 1' }, // 8: small
+    { gridColumn: 'span 2', gridRow: 'span 2' },
+    { gridColumn: 'span 1', gridRow: 'span 1' },
+    { gridColumn: 'span 1', gridRow: 'span 1' },
+    { gridColumn: 'span 1', gridRow: 'span 1' },
+    { gridColumn: 'span 1', gridRow: 'span 2' },
+    { gridColumn: 'span 1', gridRow: 'span 1' },
+    { gridColumn: 'span 1', gridRow: 'span 1' },
+    { gridColumn: 'span 2', gridRow: 'span 1' },
+    { gridColumn: 'span 1', gridRow: 'span 1' },
   ]
   return patterns[i % patterns.length]
 }
@@ -87,7 +86,7 @@ export default async function Home() {
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
-            gridAutoRows: '140px',
+            gridTemplateRows: 'repeat(4, 160px)',
             gap: '12px',
           }}>
             {stories.map((story: Story, i: number) => {
