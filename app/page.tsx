@@ -12,6 +12,22 @@ interface Story {
   level: string | null
 }
 
+function getGridStyle(i: number): { gridColumn: string; gridRow: string } {
+  // Pattern: wide, normal, normal, normal, wide, normal, wide, normal, normal
+  const patterns: { gridColumn: string; gridRow: string }[] = [
+    { gridColumn: 'span 2', gridRow: 'span 2' }, // 0: big
+    { gridColumn: 'span 1', gridRow: 'span 1' }, // 1: small
+    { gridColumn: 'span 1', gridRow: 'span 1' }, // 2: small
+    { gridColumn: 'span 1', gridRow: 'span 1' }, // 3: small
+    { gridColumn: 'span 1', gridRow: 'span 2' }, // 4: tall
+    { gridColumn: 'span 1', gridRow: 'span 1' }, // 5: small
+    { gridColumn: 'span 1', gridRow: 'span 1' }, // 6: small
+    { gridColumn: 'span 2', gridRow: 'span 1' }, // 7: wide
+    { gridColumn: 'span 1', gridRow: 'span 1' }, // 8: small
+  ]
+  return patterns[i % patterns.length]
+}
+
 export default async function Home() {
   const supabase = createClient()
   const { data: stories } = await supabase
@@ -20,7 +36,7 @@ export default async function Home() {
     .eq('target_site', 'studybrew.co')
     .eq('status', 'published')
     .order('published_at', { ascending: false })
-    .limit(6)
+    .limit(9)
 
   return (
     <main className="min-h-screen flex flex-col">
@@ -71,40 +87,44 @@ export default async function Home() {
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
+            gridAutoRows: '140px',
             gap: '12px',
           }}>
-            {stories.map((story: Story, i: number) => (
-              <Link
-                key={story.id}
-                href={`/stories/${story.slug}`}
-                style={{ gridColumn: i === 0 ? 'span 2' : 'span 1' }}
-                className="group rounded-2xl p-6 border border-white/10 bg-white/5 hover:bg-white/8 transition-all flex flex-col justify-between min-h-[140px] no-underline"
-              >
-                <div>
-                  {story.sub_category && (
-                    <span className="text-xs text-[#E8A45A] border border-[#E8A45A]/20 rounded-full px-2 py-0.5 mb-3 inline-block">
-                      {story.sub_category}
-                    </span>
-                  )}
-                  <h2 className="text-white font-semibold text-base leading-snug group-hover:text-[#E8A45A] transition-colors mt-2">
-                    {story.title}
-                  </h2>
-                  {story.category && (
-                    <p className="text-white/30 text-xs mt-1">{story.category}</p>
-                  )}
-                </div>
-                <div className="flex items-center justify-between mt-4">
-                  {story.level ? (
-                    <span className="text-xs text-white/30 border border-white/10 rounded-full px-2 py-0.5">
-                      {story.level}
-                    </span>
-                  ) : <span />}
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="text-white/20 group-hover:text-white/50 transition-colors">
-                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-              </Link>
-            ))}
+            {stories.map((story: Story, i: number) => {
+              const { gridColumn, gridRow } = getGridStyle(i)
+              return (
+                <Link
+                  key={story.id}
+                  href={`/stories/${story.slug}`}
+                  style={{ gridColumn, gridRow }}
+                  className="group rounded-2xl p-6 border border-white/10 bg-white/5 hover:bg-white/8 transition-all flex flex-col justify-between no-underline overflow-hidden"
+                >
+                  <div>
+                    {story.sub_category && (
+                      <span className="text-xs text-[#E8A45A] border border-[#E8A45A]/20 rounded-full px-2 py-0.5 mb-3 inline-block">
+                        {story.sub_category}
+                      </span>
+                    )}
+                    <h2 className="text-white font-semibold text-base leading-snug group-hover:text-[#E8A45A] transition-colors mt-2">
+                      {story.title}
+                    </h2>
+                    {story.category && (
+                      <p className="text-white/30 text-xs mt-1">{story.category}</p>
+                    )}
+                  </div>
+                  <div className="flex items-center justify-between mt-4">
+                    {story.level ? (
+                      <span className="text-xs text-white/30 border border-white/10 rounded-full px-2 py-0.5">
+                        {story.level}
+                      </span>
+                    ) : <span />}
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="text-white/20 group-hover:text-white/50 transition-colors">
+                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                </Link>
+              )
+            })}
           </div>
         </section>
       )}
