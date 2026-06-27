@@ -21,7 +21,7 @@ export default function Stories() {
   return (
     <main className="min-h-screen flex flex-col">
 
-      <nav className="flex justify-between items-center px-8 py-6 max-w-5xl mx-auto w-full">
+      <nav className="flex justify-between items-center px-6 py-5 max-w-5xl mx-auto w-full">
         <div className="flex items-center gap-3">
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="32" height="32" rx="8" fill="#1E3A5F"/>
@@ -31,39 +31,39 @@ export default function Stories() {
           </svg>
           <a href="/" className="text-white font-semibold tracking-wide">Study Brew</a>
         </div>
-        <div className="flex gap-8 text-sm text-white/50">
+        <div className="flex gap-6 text-sm text-white/50">
           <a href="/stories" className="text-white transition-colors">stories</a>
           <a href="/about" className="hover:text-white transition-colors">about</a>
         </div>
       </nav>
 
-      <section className="px-8 max-w-5xl mx-auto w-full py-16">
+      <section className="px-6 max-w-5xl mx-auto w-full py-12 md:py-16">
         <p className="text-white/40 text-sm tracking-widest uppercase mb-4">Stories</p>
-        <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
+        <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-4">
           Find your story.
         </h1>
-        <p className="text-white/60 text-lg mb-16 max-w-xl">
+        <p className="text-white/60 text-base md:text-lg mb-12 max-w-xl">
           Browse by mood, topic, or character. All stories are B1–B2 level, written and recorded by a non-native speaker.
         </p>
 
         {/* Categories */}
-        <p className="text-white/40 text-xs tracking-widest uppercase mb-6">Browse by category</p>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-16">
+        <p className="text-white/40 text-xs tracking-widest uppercase mb-4">Browse by category</p>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-12 md:mb-16">
           {categories.map((cat) => (
             <a
               key={cat.name}
               href={cat.available ? `/stories/${cat.slug}` : undefined}
-              className={`relative rounded-2xl p-6 border transition-all no-underline block ${
+              className={`relative rounded-2xl p-4 md:p-6 border transition-all no-underline block ${
                 cat.available
                   ? "border-white/10 bg-white/5 hover:bg-white/10 cursor-pointer"
                   : "border-white/5 bg-white/[0.02] opacity-60 cursor-not-allowed"
               }`}
             >
-              <span className="text-2xl mb-3 block">{cat.emoji}</span>
-              <h3 className="text-white font-semibold mb-1">{cat.name}</h3>
-              <p className="text-white/50 text-sm leading-relaxed">{cat.description}</p>
+              <span className="text-xl md:text-2xl mb-2 md:mb-3 block">{cat.emoji}</span>
+              <h3 className="text-white font-semibold text-sm md:text-base mb-1">{cat.name}</h3>
+              <p className="text-white/50 text-xs md:text-sm leading-relaxed hidden sm:block">{cat.description}</p>
               {!cat.available && (
-                <span className="absolute top-4 right-4 text-xs text-white/30 border border-white/10 rounded-full px-2 py-0.5">
+                <span className="absolute top-3 right-3 md:top-4 md:right-4 text-xs text-white/30 border border-white/10 rounded-full px-2 py-0.5">
                   Soon
                 </span>
               )}
@@ -72,26 +72,26 @@ export default function Stories() {
         </div>
 
         {/* Characters */}
-        <p className="text-white/40 text-xs tracking-widest uppercase mb-6">Browse by character</p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <p className="text-white/40 text-xs tracking-widest uppercase mb-4">Browse by character</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           {characters.map((char) => (
             <div
               key={char.name}
-              className="rounded-2xl p-6 border border-white/10 bg-white/5 hover:bg-white/10 cursor-pointer transition-all"
+              className="rounded-2xl p-4 md:p-6 border border-white/10 bg-white/5 hover:bg-white/10 cursor-pointer transition-all"
             >
               <div
-                className="w-8 h-8 rounded-full mb-3"
+                className="w-7 h-7 md:w-8 md:h-8 rounded-full mb-2 md:mb-3"
                 style={{ backgroundColor: char.color + "33", border: `2px solid ${char.color}` }}
               />
-              <h3 className="text-white font-semibold mb-0.5">{char.name}</h3>
-              <p className="text-white/40 text-xs mb-2">{char.role}</p>
-              <p className="text-white/50 text-sm leading-relaxed">{char.description}</p>
+              <h3 className="text-white font-semibold text-sm md:text-base mb-0.5">{char.name}</h3>
+              <p className="text-white/40 text-xs mb-1 md:mb-2">{char.role}</p>
+              <p className="text-white/50 text-xs md:text-sm leading-relaxed hidden sm:block">{char.description}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <footer className="px-8 py-6 max-w-5xl mx-auto w-full mt-auto">
+      <footer className="px-6 py-6 max-w-5xl mx-auto w-full mt-auto">
         <p className="text-white/20 text-sm">© 2026 Study Brew · Part of <a href="https://ryoka.xyz" className="hover:text-white/40 transition-colors">Ryoka</a></p>
       </footer>
 
