@@ -29,10 +29,16 @@ export default async function StoryPage({ params }: Props) {
 
   const embedUrl = story.spotify_url ? spotifyEmbedUrl(story.spotify_url) : null
 
+  const backHref = story.category
+    ? `/stories/${story.category.toLowerCase().replace(/ /g, '-')}`
+    : '/stories'
+
+  const backLabel = story.category ? `← ${story.category}` : '← Stories'
+
   return (
     <main className="min-h-screen flex flex-col">
 
-      <nav className="flex justify-between items-center px-8 py-6 max-w-5xl mx-auto w-full">
+      <nav className="flex justify-between items-center px-6 py-5 max-w-5xl mx-auto w-full">
         <div className="flex items-center gap-3">
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="32" height="32" rx="8" fill="#1E3A5F"/>
@@ -42,16 +48,18 @@ export default async function StoryPage({ params }: Props) {
           </svg>
           <a href="/" className="text-white font-semibold tracking-wide">Study Brew</a>
         </div>
-        <div className="flex gap-8 text-sm text-white/50">
+        <div className="flex gap-6 text-sm text-white/50">
           <a href="/stories" className="text-white transition-colors">stories</a>
           <a href="/about" className="hover:text-white transition-colors">about</a>
         </div>
       </nav>
 
-      <section className="px-8 max-w-3xl mx-auto w-full py-16">
+      <section className="px-6 max-w-3xl mx-auto w-full py-10 md:py-16">
 
-        <div className="mb-8">
-          <a href="/stories/bedtime" className="text-white/30 text-sm hover:text-white/50 transition-colors">← Bedtime Stories</a>
+        <div className="mb-6 md:mb-8">
+          <a href={backHref} className="text-white/30 text-sm hover:text-white/50 transition-colors">
+            {backLabel}
+          </a>
         </div>
 
         <div className="flex items-center gap-3 mb-4">
@@ -67,12 +75,12 @@ export default async function StoryPage({ params }: Props) {
           )}
         </div>
 
-        <h1 className="text-4xl font-bold text-white leading-tight mb-12">
+        <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight mb-8 md:mb-12">
           {story.title}
         </h1>
 
         {embedUrl && (
-          <div className="mb-12">
+          <div className="mb-8 md:mb-12">
             <iframe
               src={embedUrl}
               width="100%"
@@ -97,12 +105,13 @@ export default async function StoryPage({ params }: Props) {
 
       </section>
 
-      <footer className="px-8 py-6 max-w-5xl mx-auto w-full mt-auto">
+      <footer className="px-6 py-6 max-w-5xl mx-auto w-full mt-auto">
         <p className="text-white/20 text-sm">© 2026 Study Brew · Part of <a href="https://ryoka.xyz" className="hover:text-white/40 transition-colors">Ryoka</a></p>
       </footer>
 
       <style>{`
-        .prose-story p { color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 1.25em; font-size: 17px; }
+        .prose-story p { color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 1.25em; font-size: 16px; }
+        @media (min-width: 768px) { .prose-story p { font-size: 17px; } }
         .prose-story h1, .prose-story h2, .prose-story h3 { color: #eeede7; font-weight: 600; margin: 1.5em 0 0.5em; }
         .prose-story strong { color: #eeede7; }
         .prose-story em { font-style: italic; }
