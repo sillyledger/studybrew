@@ -54,7 +54,7 @@ export default async function StoryPage({ params }: Props) {
         </div>
       </nav>
 
-      <section className="px-6 max-w-3xl mx-auto w-full py-10 md:py-16">
+      <section className="px-6 max-w-2xl mx-auto w-full py-10 md:py-16">
 
         <div className="mb-6 md:mb-8">
           <a href={backHref} className="text-white/30 text-sm hover:text-white/50 transition-colors">
@@ -110,14 +110,14 @@ export default async function StoryPage({ params }: Props) {
       </footer>
 
       <style>{`
-        .prose-story p { color: rgba(255,255,255,0.86); line-height: 1.8; margin-bottom: 1.25em; font-size: 18px; }
-        @media (min-width: 768px) { .prose-story p { font-size: 19px; } }
+        .prose-story p { color: rgba(255,255,255,0.86); line-height: 1.85; margin-bottom: 1.25em; font-size: 19px; }
+        @media (min-width: 768px) { .prose-story p { font-size: 21px; } }
         .prose-story h1, .prose-story h2, .prose-story h3 { color: #ffffff; font-weight: 600; margin: 1.5em 0 0.5em; }
         .prose-story strong { color: #ffffff; }
         .prose-story em { font-style: italic; }
-        .prose-story ul, .prose-story ol { color: rgba(255,255,255,0.86); padding-left: 22px; margin-bottom: 1.25em; font-size: 18px; }
-        .prose-story li { margin-bottom: 4px; line-height: 1.8; }
-        .prose-story blockquote { border-left: 3px solid rgba(232,164,90,0.4); padding-left: 16px; color: rgba(255,255,255,0.7); margin: 1.25em 0; font-size: 18px; }
+        .prose-story ul, .prose-story ol { color: rgba(255,255,255,0.86); padding-left: 22px; margin-bottom: 1.25em; font-size: 19px; }
+        .prose-story li { margin-bottom: 4px; line-height: 1.85; }
+        .prose-story blockquote { border-left: 3px solid rgba(232,164,90,0.4); padding-left: 16px; color: rgba(255,255,255,0.7); margin: 1.25em 0; font-size: 19px; }
       `}</style>
 
     </main>
