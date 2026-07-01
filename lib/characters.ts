@@ -53,6 +53,16 @@ export const characters: Character[] = [
     color: "#A8D5A2",
     hasAvatar: false,
   },
+  {
+    slug: "princess-maja",
+    name: "Princess Maja",
+    role: "The Hopeful Princess",
+    description: "A princess who keeps her hopes close to her chest.",
+    bio: "Princess Maja lives in a world of wooden furniture and old stone walls, but her heart is set on something bigger than the life she was born into. She writes, she waits, and she is braver than she looks.",
+    tags: ["Princess", "Bedtime Stories", "Hopeful"],
+    color: "#E29B9B",
+    hasAvatar: false,
+  },
 ];
 
 export function getCharacter(slug: string): Character | undefined {
