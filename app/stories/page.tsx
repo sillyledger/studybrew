@@ -44,7 +44,7 @@ export default function Stories() {
         <p className="text-white/40 text-xs tracking-widest uppercase mb-4">Browse by category</p>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-12 md:mb-16">
           {categories.map((cat) => (
-            
+            <a
               key={cat.name}
               href={cat.available ? `/stories/${cat.slug}` : undefined}
               className={`relative rounded-2xl p-4 md:p-6 border transition-all no-underline block ${
@@ -69,7 +69,7 @@ export default function Stories() {
         <p className="text-white/40 text-xs tracking-widest uppercase mb-4">Browse by character</p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           {characters.map((char) => (
-            
+            <a
               key={char.slug}
               href={`/stories/characters/${char.slug}`}
               className="rounded-2xl p-4 md:p-6 border border-white/10 bg-white/5 hover:bg-white/10 cursor-pointer transition-all no-underline block"
