@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { characters } from "../../lib/characters";
 
 const categories = [
   { name: "Bedtime Stories", slug: "bedtime", description: "Wind down with calm, slow English.", available: true, emoji: "🌙" },
@@ -8,13 +9,6 @@ const categories = [
   { name: "Career", slug: "career", description: "Work, ambition, and small victories.", available: false, emoji: "💼" },
   { name: "Culture", slug: "culture", description: "Habits, traditions, and human moments.", available: false, emoji: "🌍" },
   { name: "Fantasy", slug: "fantasy", description: "Magical worlds and unexpected adventures.", available: true, emoji: "✨" },
-];
-
-const characters = [
-  { name: "Anna", role: "The Curious Traveller", description: "28, freelance photographer. Always exploring.", color: "#E8A45A" },
-  { name: "Daniel", role: "The Quiet Problem-Solver", description: "31, developer. Works from home with his cat Biscuit.", color: "#7EB8C9" },
-  { name: "Luna", role: "The Wandering Cat", description: "Travels with a worn notebook and favourite scarf.", color: "#B8A9E8" },
-  { name: "Marco", role: "The Friendly Neighbour", description: "28, community worker. Always cooking for others.", color: "#A8D5A2" },
 ];
 
 export default function Stories() {
@@ -50,7 +44,7 @@ export default function Stories() {
         <p className="text-white/40 text-xs tracking-widest uppercase mb-4">Browse by category</p>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-12 md:mb-16">
           {categories.map((cat) => (
-            <a
+            
               key={cat.name}
               href={cat.available ? `/stories/${cat.slug}` : undefined}
               className={`relative rounded-2xl p-4 md:p-6 border transition-all no-underline block ${
@@ -75,18 +69,28 @@ export default function Stories() {
         <p className="text-white/40 text-xs tracking-widest uppercase mb-4">Browse by character</p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           {characters.map((char) => (
-            <div
-              key={char.name}
-              className="rounded-2xl p-4 md:p-6 border border-white/10 bg-white/5 hover:bg-white/10 cursor-pointer transition-all"
+            
+              key={char.slug}
+              href={`/stories/characters/${char.slug}`}
+              className="rounded-2xl p-4 md:p-6 border border-white/10 bg-white/5 hover:bg-white/10 cursor-pointer transition-all no-underline block"
             >
-              <div
-                className="w-7 h-7 md:w-8 md:h-8 rounded-full mb-2 md:mb-3"
-                style={{ backgroundColor: char.color + "33", border: `2px solid ${char.color}` }}
-              />
+              {char.hasAvatar ? (
+                <img
+                  src={`/characters/${char.slug}.png`}
+                  alt={char.name}
+                  className="w-7 h-7 md:w-8 md:h-8 rounded-full mb-2 md:mb-3 object-cover"
+                  style={{ border: `2px solid ${char.color}` }}
+                />
+              ) : (
+                <div
+                  className="w-7 h-7 md:w-8 md:h-8 rounded-full mb-2 md:mb-3"
+                  style={{ backgroundColor: char.color + "33", border: `2px solid ${char.color}` }}
+                />
+              )}
               <h3 className="text-white font-semibold text-sm md:text-base mb-0.5">{char.name}</h3>
               <p className="text-white/40 text-xs mb-1 md:mb-2">{char.role}</p>
               <p className="text-white/50 text-xs md:text-sm leading-relaxed hidden sm:block">{char.description}</p>
-            </div>
+            </a>
           ))}
         </div>
       </section>
