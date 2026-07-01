@@ -110,14 +110,14 @@ export default async function StoryPage({ params }: Props) {
       </footer>
 
       <style>{`
-        .prose-story p { color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 1.25em; font-size: 16px; }
-        @media (min-width: 768px) { .prose-story p { font-size: 17px; } }
-        .prose-story h1, .prose-story h2, .prose-story h3 { color: #eeede7; font-weight: 600; margin: 1.5em 0 0.5em; }
-        .prose-story strong { color: #eeede7; }
+        .prose-story p { color: rgba(255,255,255,0.86); line-height: 1.8; margin-bottom: 1.25em; font-size: 18px; }
+        @media (min-width: 768px) { .prose-story p { font-size: 19px; } }
+        .prose-story h1, .prose-story h2, .prose-story h3 { color: #ffffff; font-weight: 600; margin: 1.5em 0 0.5em; }
+        .prose-story strong { color: #ffffff; }
         .prose-story em { font-style: italic; }
-        .prose-story ul, .prose-story ol { color: rgba(255,255,255,0.7); padding-left: 22px; margin-bottom: 1.25em; }
+        .prose-story ul, .prose-story ol { color: rgba(255,255,255,0.86); padding-left: 22px; margin-bottom: 1.25em; font-size: 18px; }
         .prose-story li { margin-bottom: 4px; line-height: 1.8; }
-        .prose-story blockquote { border-left: 3px solid rgba(232,164,90,0.4); padding-left: 16px; color: rgba(255,255,255,0.5); margin: 1.25em 0; }
+        .prose-story blockquote { border-left: 3px solid rgba(232,164,90,0.4); padding-left: 16px; color: rgba(255,255,255,0.7); margin: 1.25em 0; font-size: 18px; }
       `}</style>
 
     </main>
