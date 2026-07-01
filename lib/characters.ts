@@ -1,0 +1,60 @@
+export interface Character {
+  slug: string;
+  name: string;
+  role: string;
+  // Short line shown on the character card in /stories
+  description: string;
+  // Longer paragraph shown on the character detail page
+  bio: string;
+  tags: string[];
+  color: string;
+  // Set to true once a real illustration exists at /public/characters/{slug}.png
+  hasAvatar: boolean;
+}
+
+export const characters: Character[] = [
+  {
+    slug: "anna",
+    name: "Anna",
+    role: "The Curious Traveller",
+    description: "28, freelance photographer. Always exploring.",
+    bio: "Anna is a 28-year-old freelance photographer who is always exploring new places. She notices small details other people miss, and she is never afraid to ask questions or start a conversation with a stranger.",
+    tags: ["28 years old", "Freelance photographer", "Curious"],
+    color: "#E8A45A",
+    hasAvatar: false,
+  },
+  {
+    slug: "daniel",
+    name: "Daniel",
+    role: "The Quiet Problem-Solver",
+    description: "31, developer. Works from home with his cat Biscuit.",
+    bio: "Daniel is a 31-year-old developer who works from home with his cat Biscuit. He thinks before he speaks, likes routine, and finds calm, practical solutions to everyday problems.",
+    tags: ["31 years old", "Developer", "Works from home"],
+    color: "#7EB8C9",
+    hasAvatar: false,
+  },
+  {
+    slug: "luna",
+    name: "Luna",
+    role: "The Wandering Cat",
+    description: "Travels with a worn notebook and favourite scarf.",
+    bio: "Luna is a cat who travels with a worn notebook and her favourite scarf. She turns up in the most unexpected places, and somehow always finds her way into someone else's story.",
+    tags: ["Wandering", "Notebook", "Favourite scarf"],
+    color: "#B8A9E8",
+    hasAvatar: false,
+  },
+  {
+    slug: "marco",
+    name: "Marco",
+    role: "The Friendly Neighbour",
+    description: "28, community worker. Always cooking for others.",
+    bio: "Marco is a 28-year-old community worker who is always cooking for others. He knows everyone on his street by name, and his door is never really closed.",
+    tags: ["28 years old", "Community worker", "Always cooking"],
+    color: "#A8D5A2",
+    hasAvatar: false,
+  },
+];
+
+export function getCharacter(slug: string): Character | undefined {
+  return characters.find((c) => c.slug === slug);
+}
