@@ -30,7 +30,7 @@ export default async function CharacterPage({ params }: Props) {
     .select('id, title, slug, category, level, published_at')
     .eq('target_site', 'studybrew.co')
     .eq('status', 'published')
-    .ilike('sub_category', character.name)
+    .ilike('sub_category', `%${character.name}%`)
     .order('published_at', { ascending: false })
 
   return (
