@@ -1,6 +1,12 @@
-"use client";
 import React from "react";
 import Image from "next/image";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Study Brew | Created by Pieter Borremans",
+  description:
+    "Pieter Borremans is the voice behind Study Brew, a podcast of short English audio stories for B1-B2 learners.",
+};
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -84,7 +90,7 @@ export default function About() {
               Study Brew is a podcast of short, calm English audio stories. Written and recorded for people at the B1–B2 level. The idea is simple: listen, and let the language sink in naturally. No grammar drills. No pressure. Just a good story told slowly and clearly.
             </p>
             <p>
-              I&apos;m Pieter Borremans. The voice behind Study Brew. I&apos;m not a native English speaker either — which is exactly why I made this. Born in Indonesia, raised in Belgium, and educated at KdG University College Antwerp, I&apos;ve spent most of my adult life learning languages the hard way, moving between Taipei and London along the way.
+              I&apos;m Pieter. The voice behind Study Brew. I&apos;m not a native English speaker either — which is exactly why I made this. Born in Indonesia, raised in Belgium, and educated at KdG University College Antwerp, I&apos;ve spent most of my adult life learning languages the hard way, moving between Taipei and London along the way.
             </p>
             <p>
               I know what it feels like to understand almost everything, but still need that extra bit of exposure to feel truly comfortable in a language. Study Brew is my small contribution to that gap. One story at a time.
