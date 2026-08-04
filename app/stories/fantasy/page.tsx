@@ -45,12 +45,7 @@ export default async function FantasyStories() {
 
       <nav className="flex justify-between items-center px-6 py-5 max-w-5xl mx-auto w-full">
         <div className="flex items-center gap-3">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="32" height="32" rx="8" fill="#1E3A5F"/>
-            <path d="M8 22 Q10 10 16 10 Q22 10 24 22" stroke="#E8A45A" strokeWidth="2" strokeLinecap="round" fill="none"/>
-            <path d="M12 22 Q13 16 16 16 Q19 16 20 22" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.6"/>
-            <circle cx="16" cy="25" r="1.5" fill="#E8A45A"/>
-          </svg>
+          <img src="/studybrew-logo.svg" alt="Study Brew logo" width={32} height={32} />
           <a href="/" className="text-white font-semibold tracking-wide">Study Brew</a>
         </div>
         <div className="flex gap-6 text-sm text-white/50">
