@@ -1,0 +1,15 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Study Brew logo">
+  <defs>
+    <clipPath id="sb-clip">
+      <rect x="0" y="0" width="120" height="120" rx="20" />
+    </clipPath>
+  </defs>
+  <g clip-path="url(#sb-clip)">
+    <rect x="0" y="0" width="120" height="120" fill="#5DCAA5" />
+    <rect x="62" y="0" width="58" height="120" fill="#7CACDD" />
+    <rect x="62" y="0" width="16" height="120" fill="#042C53" opacity="0.3" />
+    <rect x="86" y="0" width="20" height="52" fill="#F0997B" />
+    <path d="M86,52 L106,52 L96,66 Z" fill="#F0997B" />
+    <text x="31" y="98" font-size="24" font-weight="700" fill="#F4F1E8" opacity="0.4" text-anchor="middle" font-family="Verdana, Geneva, sans-serif">SB</text>
+  </g>
+</svg>
