@@ -1,6 +1,5 @@
 import Link from "next/link";
 import CaptureDemo from "@/components/CaptureDemo";
-import WaitlistForm from "@/components/WaitlistForm";
 
 const FLASHCARDS = [
   {
@@ -89,12 +88,10 @@ export default function Home() {
             App
           </Link>
         </div>
-        <a
-          href="#waitlist"
-          className="rounded-full bg-teal px-[1.15rem] py-[0.6rem] font-mono text-[0.74rem] font-medium text-teal-ink"
-        >
-          Join waitlist
-        </a>
+        <div className="flex items-center gap-2 font-mono text-[0.74rem] text-text-muted">
+          <span className="h-1.5 w-1.5 rounded-full bg-coral" />
+          App in development
+        </div>
       </nav>
 
       {/* Hero */}
@@ -102,25 +99,17 @@ export default function Home() {
         <div>
           <div className="mb-5 flex items-center gap-2.5 font-mono text-[0.72rem] uppercase tracking-[0.12em] text-teal">
             <span className="h-px w-5 bg-teal-dim" />
-            Notes for English learners
+            Learn the language. Keep the words.
           </div>
           <h1 className="text-[clamp(2.6rem,4.6vw,4.1rem)] font-black leading-[0.98] tracking-[-0.01em]">
-            Circle a word.
-            <br />
-            Keep it <span className="text-teal">forever.</span>
+            A notebook for <span className="text-teal">language learners.</span>
           </h1>
           <p className="mt-5 max-w-[42ch] text-[1.06rem] leading-[1.65] text-text-muted">
-            Study Brew is becoming a note-taking app for language learners —
-            tap any word in a story or flashcard, and it&apos;s saved with a
-            definition and your own example, ready for review.
+            Study Brew is becoming a notebook for language learners. A simple
+            place to save new words as you learn, and come back to them when
+            you&apos;re ready to review.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-[1.1rem]">
-            <a
-              href="#waitlist"
-              className="inline-block rounded-[9px] bg-teal px-[1.6rem] py-[0.95rem] font-mono text-[0.82rem] font-medium text-teal-ink"
-            >
-              Join the app waitlist
-            </a>
             <a
               href="#how"
               className="border-b border-line pb-0.5 font-mono text-[0.82rem] text-text-muted"
@@ -130,7 +119,7 @@ export default function Home() {
           </div>
           <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-coral/35 bg-coral-tint px-3 py-1.5 font-mono text-[0.7rem] text-coral">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-coral motion-reduce:animate-none" />
-            Notes app — in development
+            App — in development
           </div>
         </div>
 
@@ -138,7 +127,7 @@ export default function Home() {
       </section>
 
       {/* How it works */}
-      <section id="how" className="border-y border-line-soft bg-panel-2 px-6 py-14 md:px-14 md:py-24">
+      <section id="how" className="border-y border-line-soft bg-background px-6 py-14 md:px-14 md:py-24">
         <div className="mx-auto max-w-[1120px]">
           <div className="mb-12 max-w-[46ch]">
             <h2 className="text-[clamp(1.8rem,3vw,2.4rem)] font-extrabold">
@@ -243,7 +232,7 @@ export default function Home() {
       {/* App status band */}
       <section
         id="waitlist"
-        className="border-t border-line-soft bg-gradient-to-b from-panel-2 to-background px-6 py-14 md:px-14 md:py-24"
+        className="border-t border-line-soft bg-background px-6 py-14 md:px-14 md:py-24"
       >
         <div className="mx-auto grid max-w-[1120px] items-center gap-12 md:grid-cols-2">
           <div>
@@ -255,7 +244,6 @@ export default function Home() {
               together — your own running notebook of every word you&apos;ve
               learned — is what we&apos;re building next.
             </p>
-            <WaitlistForm />
           </div>
 
           <div className="rounded-2xl border border-line bg-panel p-7">
