@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Nav from "@/components/Nav";
 import CaptureDemo from "@/components/CaptureDemo";
 
 const FLASHCARDS = [
@@ -66,39 +67,7 @@ const AVATARS = [
 export default function Home() {
   return (
     <main className="flex flex-col">
-      <nav className="sticky top-0 z-20 flex items-center justify-between bg-background/90 px-6 py-5 backdrop-blur-md md:px-14">
-        <Link href="/" className="flex items-center gap-3">
-          <img src="/studybrew-logo.svg" alt="Study Brew logo" width={26} height={26} />
-          <span className="text-xl font-bold">Study Brew</span>
-        </Link>
-        <div className="hidden items-center gap-6 font-mono text-[0.74rem] uppercase tracking-wide md:flex lg:gap-9">
-          <Link href="/" className="border-b-2 border-teal pb-1 text-teal">
-            Home
-          </Link>
-          <Link
-            href="/flashcards"
-            className="border-b-2 border-transparent pb-1 text-text-muted transition-colors hover:text-text-primary"
-          >
-            Flashcards
-          </Link>
-          <Link
-            href="/stories"
-            className="border-b-2 border-transparent pb-1 text-text-muted transition-colors hover:text-text-primary"
-          >
-            Stories
-          </Link>
-          <Link
-            href="/app"
-            className="border-b-2 border-transparent pb-1 text-text-muted transition-colors hover:text-text-primary"
-          >
-            App
-          </Link>
-        </div>
-        <div className="flex items-center gap-2 font-mono text-[0.74rem] text-text-muted">
-          <span className="h-1.5 w-1.5 rounded-full bg-coral" />
-          App in development
-        </div>
-      </nav>
+      <Nav />
 
       {/* Hero */}
       <section className="mx-auto grid w-full max-w-[1120px] items-center gap-12 px-6 pb-14 pt-12 md:grid-cols-[1.05fr_0.95fr] md:px-14 md:pb-24 md:pt-20">

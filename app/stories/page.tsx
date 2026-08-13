@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import Nav from "@/components/Nav";
 import { characters } from "../../lib/characters";
 
 const categories = [
@@ -24,41 +25,7 @@ export default function Stories() {
 
   return (
     <main className="flex min-h-screen flex-col">
-      <nav className="sticky top-0 z-20 flex items-center justify-between bg-background/90 px-6 py-5 backdrop-blur-md md:px-14">
-        <Link href="/" className="flex items-center gap-3">
-          <img src="/studybrew-logo.svg" alt="Study Brew logo" width={26} height={26} />
-          <span className="text-xl font-bold">Study Brew</span>
-        </Link>
-        <div className="hidden items-center gap-6 font-mono text-[0.74rem] uppercase tracking-wide md:flex lg:gap-9">
-          <Link
-            href="/"
-            className="border-b-2 border-transparent pb-1 text-text-muted transition-colors hover:text-text-primary"
-          >
-            Home
-          </Link>
-          <Link
-            href="/flashcards"
-            className="border-b-2 border-transparent pb-1 text-text-muted transition-colors hover:text-text-primary"
-          >
-            Flashcards
-          </Link>
-          <Link href="/stories" className="border-b-2 border-teal pb-1 text-teal">
-            Stories
-          </Link>
-          <Link
-            href="/app"
-            className="border-b-2 border-transparent pb-1 text-text-muted transition-colors hover:text-text-primary"
-          >
-            App
-          </Link>
-        </div>
-        <a
-          href="/#waitlist"
-          className="rounded-full bg-teal px-[1.15rem] py-[0.6rem] font-mono text-[0.74rem] font-medium text-teal-ink"
-        >
-          Join waitlist
-        </a>
-      </nav>
+      <Nav />
 
       {/* Page head */}
       <div className="mx-auto w-full max-w-[1180px] px-6 pb-10 pt-10 md:px-14 md:pt-16">
