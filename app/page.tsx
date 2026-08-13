@@ -116,10 +116,10 @@ export default function Home() {
             >
               See how it works
             </a>
-          </div>
-          <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-coral/35 bg-coral-tint px-3 py-1.5 font-mono text-[0.7rem] text-coral">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-coral motion-reduce:animate-none" />
-            App — in development
+            <div className="inline-flex items-center gap-2 rounded-full border border-coral/35 bg-coral-tint px-3 py-1.5 font-mono text-[0.7rem] text-coral">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-coral motion-reduce:animate-none" />
+              App — in development
+            </div>
           </div>
         </div>
 
@@ -127,7 +127,7 @@ export default function Home() {
       </section>
 
       {/* How it works */}
-      <section id="how" className="border-y border-line-soft bg-background px-6 py-14 md:px-14 md:py-24">
+      <section id="how" className="bg-background px-6 py-14 md:px-14 md:py-24">
         <div className="mx-auto max-w-[1120px]">
           <div className="mb-12 max-w-[46ch]">
             <h2 className="text-[clamp(1.8rem,3vw,2.4rem)] font-extrabold">
@@ -197,7 +197,7 @@ export default function Home() {
       </section>
 
       {/* Stories teaser */}
-      <section className="border-b border-line-soft bg-background px-6 py-14 md:px-14 md:py-24">
+      <section className="bg-background px-6 py-14 md:px-14 md:py-24">
         <div className="mx-auto flex max-w-[1120px] flex-wrap items-center justify-between gap-8">
           <div>
             <h2 className="text-2xl font-bold text-text-primary">
@@ -232,7 +232,7 @@ export default function Home() {
       {/* App status band */}
       <section
         id="waitlist"
-        className="border-t border-line-soft bg-background px-6 py-14 md:px-14 md:py-24"
+        className="bg-background px-6 py-14 md:px-14 md:py-24"
       >
         <div className="mx-auto grid max-w-[1120px] items-center gap-12 md:grid-cols-2">
           <div>
