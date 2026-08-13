@@ -2,21 +2,93 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-background: #10151b;
+  --color-panel: #161d25;
+  --color-panel-2: #131920;
+  --color-panel-hover: #1c2530;
+  --color-border: #263140;
+  --color-teal: #5DCAA5;
+  --color-blue: #7CACDD;
+  --color-coral: #F0997B;
+  --color-text-primary: #F2F0E9;
+  --color-text-muted: #8b96a3;
+  --color-text-muted-2: #5c6673;
+}
+
 html {
   font-size: 113%; /* bumps every rem-based text size site-wide, e.g. text-sm/base/lg/xl etc */
 }
 
 body {
-  background-color: #0F1923;
-  color: #f9f9f9;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans), system-ui, sans-serif;
 }
 
-/* Raise the minimum readability of the gray text used across the site.
-   These override Tailwind's text-white/NN utility classes wherever they're used. */
-.text-white\/20 { color: rgba(255, 255, 255, 0.5) !important; }
-.text-white\/30 { color: rgba(255, 255, 255, 0.58) !important; }
-.text-white\/40 { color: rgba(255, 255, 255, 0.66) !important; }
-.text-white\/50 { color: rgba(255, 255, 255, 0.74) !important; }
-.text-white\/60 { color: rgba(255, 255, 255, 0.8) !important; }
-.text-white\/70 { color: rgba(255, 255, 255, 0.86) !important; }
-.text-white\/80 { color: rgba(255, 255, 255, 0.92) !important; }
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), system-ui, sans-serif;
+}
+
+/* Small uppercase UI text (eyebrows/labels use Tailwind's `uppercase` utility)
+   and nav links get the mono UI font. */
+.uppercase,
+nav a {
+  font-family: var(--font-mono), monospace;
+}
+
+/* ----------------------------------------------------------------------
+   Pages use raw text-white/N, bg-white/N and border-white/N utilities
+   rather than theme tokens. These overrides remap that existing white-
+   opacity system onto the new dark-theme palette so every page inherits
+   the rebrand without per-page edits.
+   ------------------------------------------------------------------- */
+
+/* Full-emphasis text -> primary text color */
+.text-white,
+.hover\:text-white:hover {
+  color: var(--color-text-primary) !important;
+}
+
+/* Real body copy (paragraphs meant to be read) -> primary text, lightly dimmed.
+   Never drops to the muted-tertiary tier, which is reserved for small UI labels. */
+.text-white\/80 { color: rgba(242, 240, 233, 0.92) !important; }
+.text-white\/70 { color: rgba(242, 240, 233, 0.85) !important; }
+.text-white\/60 { color: rgba(242, 240, 233, 0.78) !important; }
+
+/* Interactive / secondary UI text (nav links, etc.) -> muted-secondary */
+.text-white\/50,
+.hover\:text-white\/50:hover {
+  color: var(--color-text-muted) !important;
+}
+.group:hover .group-hover\:text-white\/50 {
+  color: var(--color-text-muted) !important;
+}
+
+/* Small UI labels (eyebrows, tags, footer, arrows) -> muted-tertiary */
+.text-white\/40,
+.hover\:text-white\/40:hover {
+  color: var(--color-text-muted-2) !important;
+}
+.text-white\/30 { color: rgba(92, 102, 115, 0.85) !important; }
+.text-white\/20 { color: rgba(92, 102, 115, 0.65) !important; }
+
+/* Panel / card surfaces */
+.bg-white\/5 {
+  background-color: var(--color-panel) !important;
+}
+[class~="bg-white/[0.02]"] {
+  background-color: var(--color-panel-2) !important;
+}
+.hover\:bg-white\/8:hover,
+.hover\:bg-white\/10:hover {
+  background-color: var(--color-panel-hover) !important;
+}
+
+/* Borders / dividers */
+.border-white\/10 {
+  border-color: var(--color-border) !important;
+}
+.border-white\/5 {
+  border-color: rgba(38, 49, 64, 0.6) !important;
+}

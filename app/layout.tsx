@@ -1,10 +1,23 @@
 import type { Metadata } from "next";
-import { Urbanist } from "next/font/google";
+import { Reddit_Sans, Reddit_Sans_Condensed, Reddit_Mono } from "next/font/google";
 import "./globals.css";
 
-const urbanist = Urbanist({
+const redditSans = Reddit_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-sans",
+});
+
+const redditSansCondensed = Reddit_Sans_Condensed({
+  subsets: ["latin"],
+  weight: ["700", "800", "900"],
+  variable: "--font-heading",
+});
+
+const redditMono = Reddit_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
@@ -19,7 +32,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={urbanist.className}>{children}</body>
+      <body
+        className={`${redditSans.variable} ${redditSansCondensed.variable} ${redditMono.variable}`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
