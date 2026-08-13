@@ -1,161 +1,302 @@
-import { createClient } from '../lib/supabase'
-import Link from 'next/link'
+import Link from "next/link";
+import CaptureDemo from "@/components/CaptureDemo";
+import WaitlistForm from "@/components/WaitlistForm";
 
-export const revalidate = 60
+const FLASHCARDS = [
+  {
+    kind: "Word",
+    word: "procrastinate",
+    pos: "verb",
+    def: "to delay doing something you should be doing.",
+    example: "I always procrastinate before exams.",
+  },
+  {
+    kind: "Idiom",
+    word: "break the ice",
+    pos: "informal · social",
+    def: "to ease tension when people first meet.",
+    example: "He told a joke to break the ice.",
+  },
+  {
+    kind: "Grammar",
+    word: "used to + verb",
+    pos: "past habit",
+    def: "describes something that was true before, but isn't now.",
+    example: "I used to live in Taipei.",
+  },
+];
 
-interface Story {
-  id: string
-  title: string
-  slug: string
-  category: string | null
-  sub_category: string | null
-  level: string | null
-}
+const HOW_STEPS = [
+  {
+    num: "01 — Capture",
+    title: "Tap any word",
+    body: "Reading a story or reviewing a deck, tap a word you don't know. No copy-paste, no switching apps.",
+  },
+  {
+    num: "02 — Save",
+    title: "It becomes a note",
+    body: "Definition, pronunciation, and the exact sentence it came from — saved automatically as a flashcard.",
+  },
+  {
+    num: "03 — Review",
+    title: "Keep it in your head",
+    body: "Spaced review brings it back right before you'd forget it, until it's just part of how you talk.",
+  },
+];
 
-function getGridStyle(i: number): { gridColumn: string; gridRow: string } {
-  const patterns: { gridColumn: string; gridRow: string }[] = [
-    { gridColumn: 'span 2', gridRow: 'span 2' },
-    { gridColumn: 'span 1', gridRow: 'span 1' },
-    { gridColumn: 'span 1', gridRow: 'span 1' },
-    { gridColumn: 'span 1', gridRow: 'span 1' },
-    { gridColumn: 'span 1', gridRow: 'span 2' },
-    { gridColumn: 'span 1', gridRow: 'span 1' },
-    { gridColumn: 'span 1', gridRow: 'span 1' },
-    { gridColumn: 'span 2', gridRow: 'span 1' },
-    { gridColumn: 'span 1', gridRow: 'span 1' },
-  ]
-  return patterns[i % patterns.length]
-}
+const TIMELINE = [
+  { label: "Stories & flashcards", status: "Live now", state: "done" },
+  { label: "Note capture, designed", status: "Complete", state: "done" },
+  { label: "Building the notes core", status: "In progress", state: "active" },
+  { label: "Private beta", status: "Up next", state: "upcoming" },
+] as const;
 
-export default async function Home() {
-  const supabase = createClient()
-  const { data: stories } = await supabase
-    .from('posts')
-    .select('id, title, slug, category, sub_category, level')
-    .eq('target_site', 'studybrew.co')
-    .eq('status', 'published')
-    .order('published_at', { ascending: false })
-    .limit(9)
+const AVATARS = [
+  { letter: "A", bg: "bg-teal", ink: "text-teal-ink" },
+  { letter: "D", bg: "bg-blue", ink: "text-[#04203e]" },
+  { letter: "L", bg: "bg-coral", ink: "text-[#3a1608]" },
+  { letter: "M", bg: "bg-[#c9a6e8]", ink: "text-[#2a1240]" },
+];
 
+export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col">
-
-      <nav className="flex justify-between items-center px-6 py-5 max-w-4xl mx-auto w-full">
-        <div className="flex items-center gap-3">
-          <img src="/studybrew-logo.svg" alt="Study Brew logo" width={32} height={32} />
-          <span className="text-white font-semibold tracking-wide">Study Brew</span>
+    <main className="flex flex-col">
+      <nav className="sticky top-0 z-20 flex items-center justify-between bg-background/90 px-6 py-5 backdrop-blur-md md:px-14">
+        <Link href="/" className="flex items-center gap-3">
+          <img src="/studybrew-logo.svg" alt="Study Brew logo" width={26} height={26} />
+          <span className="text-xl font-bold">Study Brew</span>
+        </Link>
+        <div className="hidden items-center gap-6 font-mono text-[0.74rem] uppercase tracking-wide md:flex lg:gap-9">
+          <Link href="/" className="border-b-2 border-teal pb-1 text-teal">
+            Home
+          </Link>
+          <Link
+            href="/flashcards"
+            className="border-b-2 border-transparent pb-1 text-text-muted transition-colors hover:text-text-primary"
+          >
+            Flashcards
+          </Link>
+          <Link
+            href="/stories"
+            className="border-b-2 border-transparent pb-1 text-text-muted transition-colors hover:text-text-primary"
+          >
+            Stories
+          </Link>
+          <Link
+            href="/app"
+            className="border-b-2 border-transparent pb-1 text-text-muted transition-colors hover:text-text-primary"
+          >
+            App
+          </Link>
         </div>
-        <div className="flex gap-6 text-sm text-white/50">
-          <a href="/stories" className="hover:text-white transition-colors">stories</a>
-          <a href="/about" className="hover:text-white transition-colors">about</a>
-        </div>
+        <a
+          href="#waitlist"
+          className="rounded-full bg-teal px-[1.15rem] py-[0.6rem] font-mono text-[0.74rem] font-medium text-teal-ink"
+        >
+          Join waitlist
+        </a>
       </nav>
 
       {/* Hero */}
-      <section className="flex-1 flex flex-col justify-center items-center text-center px-6 max-w-4xl mx-auto w-full py-16 md:py-24">
-        <p className="text-white/50 text-sm tracking-widest uppercase mb-6">English for B1–B2 learners</p>
-        <h1 className="text-4xl md:text-7xl font-bold text-white leading-tight mb-8">
-          Stories for learners.<br />Made by a learner.
-        </h1>
-        <p className="text-white/80 text-base md:text-lg max-w-2xl leading-relaxed mb-10">
-          Short, calm audio stories with real characters and everyday situations — written and recorded by a non-native speaker, for non-native speakers. No grammar drills. No pressure. Just warm, natural English for when you want the language to sink in without trying too hard.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
-          <div className="inline-flex items-center gap-3 bg-white/5 border border-white/10 rounded-full px-5 py-3">
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shrink-0"></span>
-            <span className="text-white/70 text-sm">Language learning app in development</span>
+      <section className="mx-auto grid w-full max-w-[1120px] items-center gap-12 px-6 pb-14 pt-12 md:grid-cols-[1.05fr_0.95fr] md:px-14 md:pb-24 md:pt-20">
+        <div>
+          <div className="mb-5 flex items-center gap-2.5 font-mono text-[0.72rem] uppercase tracking-[0.12em] text-teal">
+            <span className="h-px w-5 bg-teal-dim" />
+            Notes for English learners
           </div>
-          <a href="/stories" className="inline-flex items-center justify-center gap-2 bg-amber-400 hover:bg-amber-300 text-[#0F1923] font-semibold text-sm rounded-full px-6 py-3 transition-colors">
-            Browse stories
-          </a>
+          <h1 className="text-[clamp(2.6rem,4.6vw,4.1rem)] font-black leading-[0.98] tracking-[-0.01em]">
+            Circle a word.
+            <br />
+            Keep it <span className="text-teal">forever.</span>
+          </h1>
+          <p className="mt-5 max-w-[42ch] text-[1.06rem] leading-[1.65] text-text-muted">
+            Study Brew is becoming a note-taking app for language learners —
+            tap any word in a story or flashcard, and it&apos;s saved with a
+            definition and your own example, ready for review.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-[1.1rem]">
+            <a
+              href="#waitlist"
+              className="inline-block rounded-[9px] bg-teal px-[1.6rem] py-[0.95rem] font-mono text-[0.82rem] font-medium text-teal-ink"
+            >
+              Join the app waitlist
+            </a>
+            <a
+              href="#how"
+              className="border-b border-line pb-0.5 font-mono text-[0.82rem] text-text-muted"
+            >
+              See how it works
+            </a>
+          </div>
+          <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-coral/35 bg-coral-tint px-3 py-1.5 font-mono text-[0.7rem] text-coral">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-coral motion-reduce:animate-none" />
+            Notes app — in development
+          </div>
+        </div>
+
+        <CaptureDemo />
+      </section>
+
+      {/* How it works */}
+      <section id="how" className="border-y border-line-soft bg-panel-2 px-6 py-14 md:px-14 md:py-24">
+        <div className="mx-auto max-w-[1120px]">
+          <div className="mb-12 max-w-[46ch]">
+            <h2 className="text-[clamp(1.8rem,3vw,2.4rem)] font-extrabold">
+              From story to <span className="text-teal">flashcard,</span>{" "}
+              automatically.
+            </h2>
+            <p className="mt-3 text-text-muted">
+              This is a real sequence — each step depends on the one before
+              it.
+            </p>
+          </div>
+          <div className="grid gap-8 md:grid-cols-3">
+            {HOW_STEPS.map((step) => (
+              <div key={step.num} className="border-t-2 border-line pt-5">
+                <span className="mb-3 block font-mono text-[0.75rem] text-teal">
+                  {step.num}
+                </span>
+                <h3 className="mb-2 text-[1.3rem] font-bold">{step.title}</h3>
+                <p className="text-[0.95rem] leading-[1.6] text-text-muted">
+                  {step.body}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Recent stories bento */}
-      {stories && stories.length > 0 && (
-        <section className="px-6 max-w-4xl mx-auto w-full pb-16 md:pb-24">
-          <div className="flex items-center justify-between mb-6">
-            <p className="text-white/40 text-xs tracking-widest uppercase">Recent Stories</p>
-            <a href="/stories" className="text-white/30 text-xs hover:text-white/50 transition-colors">View all →</a>
+      {/* Flashcards teaser */}
+      <section className="mx-auto w-full max-w-[1120px] px-6 py-14 md:px-14 md:py-24">
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <h2 className="max-w-[20ch] text-[clamp(1.8rem,3vw,2.4rem)] font-extrabold">
+              Public decks, free to browse.
+            </h2>
+            <p className="mt-2 max-w-[40ch] leading-[1.6] text-text-muted">
+              Verbs, everyday words, and grammar — no signup needed to start
+              learning.
+            </p>
           </div>
+          <Link
+            href="/flashcards"
+            className="whitespace-nowrap border-b border-teal-dim pb-0.5 font-mono text-[0.78rem] text-teal"
+          >
+            Browse all flashcards →
+          </Link>
+        </div>
+        <div className="grid gap-5 md:grid-cols-3">
+          {FLASHCARDS.map((card) => (
+            <div
+              key={card.word}
+              className="flex flex-col gap-2 rounded-2xl border border-line bg-panel p-6 transition-[transform,border-color] duration-200 hover:-translate-y-1 hover:border-teal-dim"
+            >
+              <div className="font-mono text-[0.64rem] uppercase tracking-wide text-text-muted-2">
+                {card.kind}
+              </div>
+              <div className="text-[1.4rem] font-bold">{card.word}</div>
+              <div className="font-mono text-[0.72rem] text-blue">{card.pos}</div>
+              <div className="mt-0.5 text-[0.86rem] leading-[1.55] text-text-muted">
+                {card.def}
+              </div>
+              <div className="text-[0.82rem] italic text-text-muted-2">
+                &quot;{card.example}&quot;
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
-          {/* Mobile: single column list */}
-          <div className="flex flex-col gap-3 md:hidden">
-            {stories.map((story: Story) => (
-              <Link
-                key={story.id}
-                href={`/stories/${story.slug}`}
-                className="group rounded-2xl p-5 border border-white/10 bg-white/5 hover:bg-white/8 transition-all flex items-center justify-between no-underline"
+      {/* Stories teaser */}
+      <section className="border-b border-line-soft bg-background px-6 py-14 md:px-14 md:py-24">
+        <div className="mx-auto flex max-w-[1120px] flex-wrap items-center justify-between gap-8">
+          <div>
+            <h2 className="text-2xl font-bold text-text-primary">
+              Stories are still here.
+            </h2>
+            <p className="mt-1.5 max-w-[38ch] text-[0.92rem] text-text-muted-2">
+              Short, calm audio stories — where a lot of your flashcards will
+              come from.
+            </p>
+          </div>
+          <div className="flex">
+            {AVATARS.map((avatar, i) => (
+              <div
+                key={avatar.letter}
+                className={`flex h-[42px] w-[42px] items-center justify-center rounded-full border-2 border-background text-sm font-bold ${avatar.bg} ${avatar.ink} ${
+                  i === 0 ? "" : "-ml-3"
+                }`}
               >
-                <div>
-                  {story.sub_category && (
-                    <span className="text-xs text-[#E8A45A] border border-[#E8A45A]/20 rounded-full px-2 py-0.5 mb-2 inline-block">
-                      {story.sub_category}
-                    </span>
-                  )}
-                  <h2 className="text-white font-semibold text-sm leading-snug group-hover:text-[#E8A45A] transition-colors">
-                    {story.title}
-                  </h2>
-                  {story.category && (
-                    <p className="text-white/30 text-xs mt-0.5">{story.category}</p>
-                  )}
-                </div>
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="text-white/20 shrink-0 ml-4">
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </Link>
+                {avatar.letter}
+              </div>
             ))}
           </div>
+          <Link
+            href="/stories"
+            className="shrink-0 rounded-full border border-line px-[1.1rem] py-[0.6rem] font-mono text-[0.78rem] text-text-muted"
+          >
+            Listen to stories
+          </Link>
+        </div>
+      </section>
 
-          {/* Desktop: bento grid */}
-          <div className="hidden md:grid" style={{
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gridTemplateRows: 'repeat(4, 160px)',
-            gap: '12px',
-          }}>
-            {stories.map((story: Story, i: number) => {
-              const { gridColumn, gridRow } = getGridStyle(i)
-              return (
-                <Link
-                  key={story.id}
-                  href={`/stories/${story.slug}`}
-                  style={{ gridColumn, gridRow }}
-                  className="group rounded-2xl p-6 border border-white/10 bg-white/5 hover:bg-white/8 transition-all flex flex-col justify-between no-underline overflow-hidden"
-                >
-                  <div>
-                    {story.sub_category && (
-                      <span className="text-xs text-[#E8A45A] border border-[#E8A45A]/20 rounded-full px-2 py-0.5 mb-3 inline-block">
-                        {story.sub_category}
-                      </span>
-                    )}
-                    <h2 className="text-white font-semibold text-base leading-snug group-hover:text-[#E8A45A] transition-colors mt-2">
-                      {story.title}
-                    </h2>
-                    {story.category && (
-                      <p className="text-white/30 text-xs mt-1">{story.category}</p>
-                    )}
-                  </div>
-                  <div className="flex items-center justify-between mt-4">
-                    {story.level ? (
-                      <span className="text-xs text-white/30 border border-white/10 rounded-full px-2 py-0.5">
-                        {story.level}
-                      </span>
-                    ) : <span />}
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="text-white/20 group-hover:text-white/50 transition-colors">
-                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                </Link>
-              )
-            })}
+      {/* App status band */}
+      <section
+        id="waitlist"
+        className="border-t border-line-soft bg-gradient-to-b from-panel-2 to-background px-6 py-14 md:px-14 md:py-24"
+      >
+        <div className="mx-auto grid max-w-[1120px] items-center gap-12 md:grid-cols-2">
+          <div>
+            <h2 className="text-[clamp(1.8rem,3vw,2.4rem)] font-extrabold leading-[1.08]">
+              The notes app is <span className="text-teal">in development.</span>
+            </h2>
+            <p className="mt-4 max-w-[38ch] leading-[1.65] text-text-muted">
+              Stories and flashcards are ready today. The part that ties them
+              together — your own running notebook of every word you&apos;ve
+              learned — is what we&apos;re building next.
+            </p>
+            <WaitlistForm />
           </div>
-        </section>
-      )}
 
-      <footer className="px-6 py-6 max-w-4xl mx-auto w-full text-center">
-        <p className="text-white/20 text-sm">© 2026 Study Brew · Part of <a href="https://ryoka.xyz" className="hover:text-white/40 transition-colors">Ryoka</a></p>
+          <div className="rounded-2xl border border-line bg-panel p-7">
+            {TIMELINE.map((item, i) => (
+              <div
+                key={item.label}
+                className={`relative border-l pl-6 ${
+                  i === TIMELINE.length - 1 ? "border-transparent" : "border-line pb-6"
+                }`}
+              >
+                <div
+                  className={`absolute -left-[5px] top-0.5 h-[9px] w-[9px] rounded-full border-2 border-panel ${
+                    item.state === "done"
+                      ? "bg-teal"
+                      : item.state === "active"
+                        ? "bg-coral ring-[3px] ring-coral-tint"
+                        : "bg-text-muted-2"
+                  }`}
+                />
+                <b className="mb-0.5 block text-[0.92rem] font-semibold">
+                  {item.label}
+                </b>
+                <span
+                  className={`font-mono text-[0.74rem] ${
+                    item.state === "active" ? "text-coral" : "text-text-muted"
+                  }`}
+                >
+                  {item.status}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <footer className="flex flex-wrap items-center justify-between gap-4 border-t border-line-soft px-6 py-10 md:px-14">
+        <span className="text-base font-bold">Study Brew</span>
+        <span className="font-mono text-[0.7rem] text-text-muted-2">
+          Made by a learner, for learners.
+        </span>
       </footer>
-
     </main>
-  )
+  );
 }
