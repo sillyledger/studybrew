@@ -27,21 +27,27 @@ const FLASHCARDS = [
 
 const HOW_STEPS = [
   {
-    num: "01 — Capture",
+    tab: "01 — Capture",
+    tabBg: "bg-teal",
+    tabInk: "text-teal-ink",
     title: "Tap any word",
-    body: "Reading a story or reviewing a deck, tap a word you don't know. No copy-paste, no switching apps.",
+    body: "Reading a story or reviewing a deck, tap a word you don't know.",
   },
   {
-    num: "02 — Save",
+    tab: "02 — Save",
+    tabBg: "bg-blue",
+    tabInk: "text-[#04203e]",
     title: "It becomes a note",
-    body: "Definition, pronunciation, and the exact sentence it came from — saved automatically as a flashcard.",
+    body: "Definition and the exact sentence it came from — saved as a flashcard.",
   },
   {
-    num: "03 — Review",
+    tab: "03 — Review",
+    tabBg: "bg-coral",
+    tabInk: "text-[#3a1608]",
     title: "Keep it in your head",
-    body: "Spaced review brings it back right before you'd forget it, until it's just part of how you talk.",
+    body: "Spaced review brings it back right before you'd forget it.",
   },
-];
+] as const;
 
 const TIMELINE = [
   { label: "Stories & flashcards", status: "Live now", state: "done" },
@@ -129,26 +135,78 @@ export default function Home() {
       {/* How it works */}
       <section id="how" className="bg-background px-6 py-14 md:px-14 md:py-24">
         <div className="mx-auto max-w-[1120px]">
-          <div className="mb-12 max-w-[46ch]">
+          <div className="max-w-[46ch]">
+            <div className="mb-3 font-mono text-[0.72rem] uppercase tracking-[0.12em] text-teal">
+              How it works
+            </div>
             <h2 className="text-[clamp(1.8rem,3vw,2.4rem)] font-extrabold">
-              From story to <span className="text-teal">flashcard,</span>{" "}
-              automatically.
+              Read it. Save it. <span className="text-teal">Keep it.</span>
             </h2>
             <p className="mt-3 text-text-muted">
-              This is a real sequence — each step depends on the one before
-              it.
+              This is the sequence we&apos;re building toward — each step
+              depends on the one before it.
             </p>
           </div>
-          <div className="grid gap-8 md:grid-cols-3">
-            {HOW_STEPS.map((step) => (
-              <div key={step.num} className="border-t-2 border-line pt-5">
-                <span className="mb-3 block font-mono text-[0.75rem] text-teal">
-                  {step.num}
+
+          <div className="relative mt-[3.2rem] grid grid-cols-1 gap-[1.6rem] md:grid-cols-3">
+            <div className="pointer-events-none absolute left-0 right-0 top-[38px] z-0 hidden border-t-2 border-dashed border-line-soft md:block" />
+
+            {HOW_STEPS.map((step, i) => (
+              <div
+                key={step.tab}
+                className="relative rounded-2xl border border-line bg-panel pt-[2.4rem] transition-transform duration-300 ease-out hover:-translate-y-[5px]"
+              >
+                <span
+                  className={`absolute -top-[14px] left-[1.6rem] z-[1] rounded-full px-[0.7rem] py-[0.35rem] font-mono text-[0.68rem] font-semibold ${step.tabBg} ${step.tabInk}`}
+                >
+                  {step.tab}
                 </span>
-                <h3 className="mb-2 text-[1.3rem] font-bold">{step.title}</h3>
-                <p className="text-[0.95rem] leading-[1.6] text-text-muted">
-                  {step.body}
-                </p>
+
+                {i === 0 && (
+                  <div className="mx-[1.6rem] mb-[1.4rem] flex h-[120px] items-center justify-center overflow-hidden rounded-[10px] bg-panel-2">
+                    <div className="p-[0.9rem] text-[0.82rem] leading-[1.6] text-text-muted">
+                      Daniel felt completely{" "}
+                      <span className="rounded bg-teal-tint px-[3px] text-teal">
+                        overwhelmed
+                      </span>{" "}
+                      on his first morning.
+                    </div>
+                  </div>
+                )}
+
+                {i === 1 && (
+                  <div className="mx-[1.6rem] mb-[1.4rem] flex h-[120px] flex-col items-start justify-center overflow-hidden rounded-[10px] border border-teal-dim bg-teal-tint p-[0.8rem]">
+                    <div className="font-mono text-[0.58rem] uppercase tracking-wide text-text-muted-2">
+                      New word
+                    </div>
+                    <div className="text-[1.15rem] font-bold">overwhelmed</div>
+                    <div className="mt-[0.3rem] text-[0.74rem] text-text-muted">
+                      <b className="text-teal">adj.</b> too much to deal with
+                      at once.
+                    </div>
+                  </div>
+                )}
+
+                {i === 2 && (
+                  <div className="mx-[1.6rem] mb-[1.4rem] flex h-[120px] items-center justify-center overflow-hidden rounded-[10px] bg-panel-2">
+                    <div className="flex gap-[10px]">
+                      <span className="h-[14px] w-[14px] rounded-full border-2 border-teal bg-teal" />
+                      <span className="h-[14px] w-[14px] rounded-full border-2 border-teal bg-teal" />
+                      <span className="h-[14px] w-[14px] rounded-full border-2 border-coral ring-[3px] ring-coral-tint" />
+                      <span className="h-[14px] w-[14px] rounded-full border-2 border-line" />
+                      <span className="h-[14px] w-[14px] rounded-full border-2 border-line" />
+                    </div>
+                  </div>
+                )}
+
+                <div className="px-[1.6rem] pb-[1.6rem]">
+                  <h3 className="mb-[0.4rem] text-[1.15rem] font-bold">
+                    {step.title}
+                  </h3>
+                  <p className="text-[0.85rem] leading-[1.55] text-text-muted">
+                    {step.body}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
