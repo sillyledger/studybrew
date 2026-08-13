@@ -20,6 +20,7 @@ const config: Config = {
         coral: "#F0997B",
         "coral-tint": "rgba(240,153,123,0.16)",
         "line-soft": "rgba(38,49,64,0.6)",
+        ink: "#1b1f24",
         text: {
           primary: "#F2F0E9",
           muted: "#8b96a3",
