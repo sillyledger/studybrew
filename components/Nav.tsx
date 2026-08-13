@@ -64,11 +64,9 @@ export default function Nav() {
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
-              className={`flex items-center gap-1.5 bg-transparent font-mono text-[0.74rem] uppercase tracking-wide transition-colors ${
+              className={`flex items-center gap-1.5 bg-transparent font-mono text-[0.74rem] font-normal uppercase leading-[1.5] tracking-wide ${linkClass(
                 isFlashcards || open
-                  ? "text-teal"
-                  : "text-text-muted hover:text-text-primary"
-              }`}
+              )}`}
             >
               Flashcards
               <span
