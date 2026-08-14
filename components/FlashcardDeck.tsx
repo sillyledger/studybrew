@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { FlashcardCard } from "@/app/flashcards/english/data";
 
 type Props = {
@@ -8,10 +8,29 @@ type Props = {
   tab: string;
 };
 
+function shuffle<T>(arr: T[]): T[] {
+  const result = [...arr];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
 export default function FlashcardDeck({ cards, tab }: Props) {
+  // Start in the given order so server and client render the same markup
+  // on first paint, then shuffle client-side once mounted.
+  const [order, setOrder] = useState(() => cards.map((_, i) => i));
   const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    setOrder(shuffle(cards.map((_, i) => i)));
+    setIndex(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const total = cards.length;
-  const card = cards[index];
+  const card = cards[order[index]];
 
   function goTo(next: number) {
     setIndex(((next % total) + total) % total);
@@ -37,13 +56,14 @@ export default function FlashcardDeck({ cards, tab }: Props) {
         </p>
 
         <div className="mt-8 flex gap-3">
-          <button
-            type="button"
-            onClick={() => goTo(index + 1)}
-            className="flex-1 rounded-xl border border-coral/35 bg-coral-tint py-3 font-mono text-[0.78rem] font-semibold text-coral transition-colors hover:bg-coral/20"
+          <a
+            href="https://app.studybrew.co"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex flex-1 items-center justify-center rounded-xl border border-coral/35 bg-coral-tint py-3 font-mono text-[0.78rem] font-semibold text-coral transition-colors hover:bg-coral/20"
           >
-            Still learning
-          </button>
+            Save to Notebook
+          </a>
           <button
             type="button"
             onClick={() => goTo(index + 1)}
