@@ -180,7 +180,7 @@ export default function Nav() {
           <span className="text-xl font-bold">Study Brew</span>
         </Link>
 
-        <div className="hidden items-center gap-6 font-mono text-[0.74rem] uppercase tracking-wide md:flex lg:gap-9">
+        <div className="hidden items-center gap-5 font-mono text-[0.74rem] uppercase tracking-wide md:flex lg:gap-7">
           <Link href="/" className={linkClass(pathname === "/")}>
             Home
           </Link>
@@ -193,6 +193,12 @@ export default function Nav() {
           </Link>
           <Link href="/app" className={linkClass(pathname === "/app")}>
             App
+          </Link>
+          <Link href="/about" className={linkClass(pathname === "/about")}>
+            About
+          </Link>
+          <Link href="/contact" className={linkClass(pathname === "/contact")}>
+            Contact
           </Link>
         </div>
 
