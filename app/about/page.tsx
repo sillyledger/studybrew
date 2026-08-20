@@ -1,11 +1,12 @@
 import React from "react";
 import Image from "next/image";
 import type { Metadata } from "next";
+import Nav from "@/components/Nav";
 
 export const metadata: Metadata = {
   title: "Study Brew | Created by Pieter Borremans",
   description:
-    "Pieter Borremans is the voice behind Study Brew, a podcast of short English audio stories for B1-B2 learners.",
+    "Pieter Borremans is the creator of Study Brew, a language-learning app for English learners at B1-B2 level.",
 };
 
 const personSchema = {
@@ -53,24 +54,22 @@ export default function About() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
       />
 
-      <nav className="flex justify-between items-center px-8 py-6 max-w-4xl mx-auto w-full">
-        <div className="flex items-center gap-3">
-          <img src="/studybrew-logo.svg" alt="Study Brew logo" width={32} height={32} />
-          <a href="/" className="text-white font-semibold tracking-wide">Study Brew</a>
-        </div>
-        <div className="flex gap-8 text-sm text-white/50">
-          <a href="/stories" className="hover:text-white transition-colors">stories</a>
-          <a href="/about" className="text-white transition-colors">about</a>
-        </div>
-      </nav>
+      <Nav />
 
-      <section className="flex-1 px-8 max-w-4xl mx-auto w-full py-24">
-        <p className="text-white/40 text-sm tracking-widest uppercase mb-6">About</p>
-        <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight mb-16">
-          English stories.<br />Made by a learner.
+      {/* Page head */}
+      <div className="mx-auto w-full max-w-[900px] px-6 pb-4 pt-10 md:px-14 md:pt-16">
+        <div className="mb-[1.1rem] font-mono text-[0.72rem] uppercase tracking-[0.12em] text-teal">
+          About
+        </div>
+        <h1 className="max-w-[16ch] text-[clamp(2.2rem,4vw,3.1rem)] font-black leading-[1.02]">
+          I got tired of
+          <br />
+          switching apps.
         </h1>
+      </div>
 
-        <div className="flex flex-col md:flex-row gap-12 items-start">
+      <section className="mx-auto w-full max-w-[900px] px-6 pb-20 pt-10 md:px-14">
+        <div className="flex flex-col items-start gap-12 md:flex-row">
           <div className="flex-shrink-0">
             <Image
               src="/pieter study brew.png"
@@ -80,31 +79,61 @@ export default function About() {
               className="rounded-full"
             />
           </div>
-          <div className="flex flex-col gap-6 text-white/80 text-lg leading-relaxed">
+          <div className="flex flex-col gap-6 text-[1.05rem] leading-relaxed text-text-muted">
             <p>
-              Study Brew is a podcast of short, calm English audio stories. Written and recorded for people at the B1–B2 level. The idea is simple: listen, and let the language sink in naturally. No grammar drills. No pressure. Just a good story told slowly and clearly.
+              Study Brew started as a podcast of short English audio
+              stories, and that's still part of it. But today it's a
+              language-learning app: a place to save the words you're
+              actually learning, turn them into notebooks, and review them
+              as flashcards, instead of losing them across five different
+              apps.
             </p>
             <p>
-              I&apos;m Pieter. The voice behind Study Brew. I&apos;m not a native English speaker either — which is exactly why I made this. Born in Indonesia, raised in Belgium, and educated at KdG University College Antwerp, I&apos;ve spent most of my adult life learning languages the hard way, moving between Taipei and London along the way.
+              I'm Pieter. The idea came out of my own frustration learning
+              Traditional Chinese. I had a dictionary app to look words up,
+              a flashcard app to review them, and a notes app to write
+              things down, but none of them talked to each other. I kept
+              re-learning words I'd already saved once. Study Brew is the
+              tool I wished existed: one place where the words you save
+              actually stick.
             </p>
             <p>
-              I know what it feels like to understand almost everything, but still need that extra bit of exposure to feel truly comfortable in a language. Study Brew is my small contribution to that gap. One story at a time.
+              I'm not a native English speaker either. Born in Indonesia,
+              raised in Belgium, and educated at KdG University College
+              Antwerp, I've spent most of my adult life learning languages
+              the hard way, moving between Taipei and London along the
+              way.
             </p>
             <p>
-              Study Brew is part of{" "}
+              I know what it feels like to understand almost everything,
+              but still need that extra structure to make a language
+              actually stick. Study Brew is my attempt to close that gap,
+              one word, one story at a time.
+            </p>
+            <p>Study Brew is part of OnPoint VC.</p>
+            <div className="flex flex-wrap gap-6 pt-2">
               <a
-                href="https://ryokagroup.com/founder"
-                className="text-amber-400 hover:text-amber-300 transition-colors"
+                href="https://app.studybrew.co"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="border-b border-teal-dim pb-0.5 font-mono text-[0.85rem] text-teal transition-colors hover:text-text-primary"
               >
-                Ryoka
+                Open the app →
               </a>
-              , where I build, operate, and invest in software products.
-            </p>
-            <div className="flex gap-6 pt-4">
-              <a href="https://open.spotify.com" target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:text-amber-300 text-sm transition-colors">
+              <a
+                href="https://open.spotify.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="border-b border-teal-dim pb-0.5 font-mono text-[0.85rem] text-teal transition-colors hover:text-text-primary"
+              >
                 Listen on Spotify →
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:text-amber-300 text-sm transition-colors">
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="border-b border-teal-dim pb-0.5 font-mono text-[0.85rem] text-teal transition-colors hover:text-text-primary"
+              >
                 Watch on YouTube →
               </a>
             </div>
