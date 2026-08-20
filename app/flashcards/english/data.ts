@@ -322,8 +322,52 @@ const VERBS_CARDS: FlashcardCard[] = [
   },
 ];
 
-// TODO: Idioms/Grammar aren't backed by real deck data yet. Wire up real
-// `cards` arrays for them (and drop the static `count`) once written.
+const IDIOMS_CARDS: FlashcardCard[] = [
+  { word: "break the ice", pos: "idiom", definition: "to make people feel more comfortable in a social situation", example: "He told a joke to break the ice at the meeting." },
+  { word: "piece of cake", pos: "idiom", definition: "something very easy to do", example: "The test was a piece of cake." },
+  { word: "under the weather", pos: "idiom", definition: "feeling slightly ill", example: "I'm staying home today, I feel a bit under the weather." },
+  { word: "hit the books", pos: "idiom", definition: "to study hard", example: "I need to hit the books before my exam." },
+  { word: "once in a blue moon", pos: "idiom", definition: "very rarely", example: "We only eat out once in a blue moon." },
+  { word: "cost an arm and a leg", pos: "idiom", definition: "to be very expensive", example: "That new phone cost an arm and a leg." },
+  { word: "let the cat out of the bag", pos: "idiom", definition: "to accidentally reveal a secret", example: "She let the cat out of the bag about the surprise party." },
+  { word: "on the same page", pos: "idiom", definition: "having the same understanding or opinion as someone else", example: "Let's make sure we're on the same page before we start." },
+  { word: "speak of the devil", pos: "idiom", definition: "said when someone you were just talking about suddenly appears", example: "Speak of the devil, here comes Tom now." },
+  { word: "hang in there", pos: "idiom", definition: "to stay positive during a difficult situation", example: "Hang in there, the exam will be over soon." },
+  { word: "call it a day", pos: "idiom", definition: "to stop working on something for the rest of the day", example: "We've done enough, let's call it a day." },
+  { word: "get out of hand", pos: "idiom", definition: "to become difficult to control", example: "The party got out of hand and the neighbors complained." },
+  { word: "keep an eye on", pos: "idiom", definition: "to watch or take care of something", example: "Can you keep an eye on my bag while I go to the bathroom?" },
+  { word: "miss the boat", pos: "idiom", definition: "to lose a chance to do something", example: "If you don't apply now, you'll miss the boat." },
+  { word: "give someone a piece of your mind", pos: "idiom", definition: "to tell someone honestly that you are angry with them", example: "I gave him a piece of my mind after he was late again." },
+  { word: "back to square one", pos: "idiom", definition: "to start again from the beginning", example: "Our plan failed, so we're back to square one." },
+  { word: "bite the bullet", pos: "idiom", definition: "to force yourself to do something unpleasant", example: "I decided to bite the bullet and finish the report." },
+  { word: "hit the nail on the head", pos: "idiom", definition: "to describe exactly what is causing a problem", example: "You hit the nail on the head with that comment." },
+  { word: "the ball is in your court", pos: "idiom", definition: "it's your turn to make a decision or take action", example: "I've done my part, now the ball is in your court." },
+  { word: "take it with a grain of salt", pos: "idiom", definition: "to not fully believe something", example: "You should take his advice with a grain of salt." },
+];
+
+const GRAMMAR_CARDS: FlashcardCard[] = [
+  { word: "Present Simple vs Present Continuous", pos: "grammar", definition: "Use the present simple for habits and facts, and the present continuous for actions happening right now.", example: "I work every day, but right now I'm working from home." },
+  { word: "Past Simple vs Present Perfect", pos: "grammar", definition: "Use the past simple for finished actions with a specific time, and the present perfect for past actions connected to now.", example: "I visited Paris last year. / I have visited Paris three times." },
+  { word: "First Conditional", pos: "grammar", definition: "Use 'if + present simple, will + base verb' to talk about real future possibilities.", example: "If it rains, I will stay home." },
+  { word: "Second Conditional", pos: "grammar", definition: "Use 'if + past simple, would + base verb' to talk about unreal or unlikely situations.", example: "If I won the lottery, I would travel the world." },
+  { word: "Third Conditional", pos: "grammar", definition: "Use 'if + past perfect, would have + past participle' to talk about impossible past situations.", example: "If I had studied harder, I would have passed the exam." },
+  { word: "Passive Voice", pos: "grammar", definition: "Use the passive voice when the action is more important than who did it.", example: "The letter was sent yesterday." },
+  { word: "Comparatives and Superlatives", pos: "grammar", definition: "Use comparatives to compare two things and superlatives to compare three or more.", example: "She is taller than me, but he is the tallest in the class." },
+  { word: "Countable and Uncountable Nouns", pos: "grammar", definition: "Countable nouns have plural forms, uncountable nouns don't and use words like 'some' or 'much'.", example: "I have three apples, but I need some water." },
+  { word: "Modal Verbs of Obligation", pos: "grammar", definition: "Use 'must' and 'have to' to talk about obligation, and 'don't have to' to talk about no obligation.", example: "You must wear a seatbelt, but you don't have to wear a helmet." },
+  { word: "Reported Speech", pos: "grammar", definition: "When reporting what someone said, verb tenses usually move one step back.", example: "She said, \"I am tired.\" → She said she was tired." },
+  { word: "Relative Clauses", pos: "grammar", definition: "Use 'who', 'which', and 'that' to give more information about a noun.", example: "The man who called you is my brother." },
+  { word: "Present Perfect Continuous", pos: "grammar", definition: "Use the present perfect continuous to emphasize the duration of an action that started in the past and continues now.", example: "I have been studying English for three years." },
+  { word: "Used to", pos: "grammar", definition: "Use 'used to' to talk about past habits or states that are no longer true.", example: "I used to live in Taipei, but now I live in Tainan." },
+  { word: "Gerunds and Infinitives", pos: "grammar", definition: "Some verbs are followed by a gerund (-ing), and others by an infinitive (to + verb).", example: "I enjoy reading, but I want to learn Spanish." },
+  { word: "Question Tags", pos: "grammar", definition: "Add a short question at the end of a sentence to confirm information.", example: "You're coming to the party, aren't you?" },
+  { word: "Articles: a/an vs the", pos: "grammar", definition: "Use 'a/an' for something general or first mentioned, and 'the' for something specific or already mentioned.", example: "I saw a dog. The dog was very friendly." },
+  { word: "Prepositions of Time", pos: "grammar", definition: "Use 'in' for months and years, 'on' for days and dates, and 'at' for specific times.", example: "The meeting is on Monday at 3pm in March." },
+  { word: "Phrasal Verbs", pos: "grammar", definition: "A phrasal verb is a verb combined with a preposition or adverb that creates a new meaning.", example: "Can you look after my cat this weekend?" },
+  { word: "Present Continuous for Future Plans", pos: "grammar", definition: "Use the present continuous to talk about fixed future arrangements.", example: "I'm meeting my friend tomorrow at noon." },
+  { word: "Zero Conditional", pos: "grammar", definition: "Use 'if + present simple, present simple' to talk about general truths and facts.", example: "If you heat ice, it melts." },
+];
+
 export const CATEGORIES: FlashcardCategory[] = [
   {
     slug: "everyday-words",
@@ -348,16 +392,18 @@ export const CATEGORIES: FlashcardCategory[] = [
     name: "Idioms",
     description: "Phrases that don't mean what they literally say.",
     tab: "bg-coral",
-    available: false,
-    count: 0,
+    available: true,
+    count: IDIOMS_CARDS.length,
+    cards: IDIOMS_CARDS,
   },
   {
     slug: "grammar",
     name: "Grammar",
     description: "The patterns and structures behind natural English.",
     tab: "bg-blue",
-    available: false,
-    count: 0,
+    available: true,
+    count: GRAMMAR_CARDS.length,
+    cards: GRAMMAR_CARDS,
   },
 ];
 
