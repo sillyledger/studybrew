@@ -111,32 +111,6 @@ export default function About() {
               one word, one story at a time.
             </p>
             <p>Study Brew is part of OnPoint VC.</p>
-            <div className="flex flex-wrap gap-6 pt-2">
-              <a
-                href="https://app.studybrew.co"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="border-b border-teal-dim pb-0.5 font-mono text-[0.85rem] text-teal transition-colors hover:text-text-primary"
-              >
-                Open the app →
-              </a>
-              <a
-                href="https://open.spotify.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="border-b border-teal-dim pb-0.5 font-mono text-[0.85rem] text-teal transition-colors hover:text-text-primary"
-              >
-                Listen on Spotify →
-              </a>
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="border-b border-teal-dim pb-0.5 font-mono text-[0.85rem] text-teal transition-colors hover:text-text-primary"
-              >
-                Watch on YouTube →
-              </a>
-            </div>
           </div>
         </div>
       </section>
