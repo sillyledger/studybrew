@@ -4,7 +4,7 @@ import { CATEGORIES } from "./data";
 
 export default function EnglishFlashcardsPage() {
   return (
-    <main className="flex min-h-screen flex-col">
+    <main className="flex flex-1 flex-col">
       <Nav />
 
       {/* Page head */}
@@ -89,13 +89,6 @@ export default function EnglishFlashcardsPage() {
           })}
         </div>
       </div>
-
-      <footer className="mt-auto flex flex-wrap items-center justify-between gap-4 border-t border-line-soft px-6 py-10 md:px-14">
-        <span className="text-base font-bold">Study Brew</span>
-        <span className="font-mono text-[0.7rem] text-text-muted-2">
-          Made by a learner, for learners.
-        </span>
-      </footer>
     </main>
   );
 }

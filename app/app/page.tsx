@@ -3,7 +3,7 @@ import Nav from "@/components/Nav";
 
 export default function AppPage() {
   return (
-    <main className="flex min-h-screen flex-col">
+    <main className="flex flex-1 flex-col">
       <Nav />
       <div className="flex flex-1 flex-col items-center justify-center gap-4 px-6 text-center">
         <h1 className="text-3xl font-black">The App</h1>

@@ -47,7 +47,7 @@ const personSchema = {
 
 export default function About() {
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className="flex flex-1 flex-col">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
@@ -111,11 +111,6 @@ export default function About() {
           </div>
         </div>
       </section>
-
-      <footer className="px-8 py-6 max-w-4xl mx-auto w-full">
-        <p className="text-white/20 text-sm">© 2026 Study Brew · Part of <a href="https://ryoka.xyz" className="hover:text-white/40 transition-colors">Ryoka</a></p>
-      </footer>
-
     </main>
   );
 }

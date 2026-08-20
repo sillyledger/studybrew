@@ -66,7 +66,7 @@ const AVATARS = [
 
 export default function Home() {
   return (
-    <main className="flex flex-col">
+    <main className="flex flex-1 flex-col">
       <Nav />
 
       {/* Hero */}
@@ -305,13 +305,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <footer className="flex flex-wrap items-center justify-between gap-4 border-t border-line-soft px-6 py-10 md:px-14">
-        <span className="text-base font-bold">Study Brew</span>
-        <span className="font-mono text-[0.7rem] text-text-muted-2">
-          Made by a learner, for learners.
-        </span>
-      </footer>
     </main>
   );
 }

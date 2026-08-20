@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Reddit_Sans, Reddit_Sans_Condensed, Reddit_Mono } from "next/font/google";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 const redditSans = Reddit_Sans({
@@ -33,9 +34,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${redditSans.variable} ${redditSansCondensed.variable} ${redditMono.variable}`}
+        className={`flex min-h-screen flex-col ${redditSans.variable} ${redditSansCondensed.variable} ${redditMono.variable}`}
       >
         {children}
+        <Footer />
       </body>
     </html>
   );

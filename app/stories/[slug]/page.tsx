@@ -36,7 +36,7 @@ export default async function StoryPage({ params }: Props) {
   const backLabel = story.category ? `← ${story.category}` : '← Stories'
 
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className="flex flex-1 flex-col">
 
       <nav className="flex justify-between items-center px-6 py-5 max-w-5xl mx-auto w-full">
         <div className="flex items-center gap-3">
@@ -99,10 +99,6 @@ export default async function StoryPage({ params }: Props) {
         )}
 
       </section>
-
-      <footer className="px-6 py-6 max-w-5xl mx-auto w-full mt-auto">
-        <p className="text-white/20 text-sm">© 2026 Study Brew · Part of <a href="https://ryoka.xyz" className="hover:text-white/40 transition-colors">Ryoka</a></p>
-      </footer>
 
       <style>{`
         .prose-story p { color: rgba(255,255,255,0.86); line-height: 1.85; margin-bottom: 1.25em; font-size: 19px; }
