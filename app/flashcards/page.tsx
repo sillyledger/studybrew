@@ -10,11 +10,11 @@ const LANGUAGES = [
     available: true,
   },
   {
-    slug: "chinese",
+    slug: "traditional-chinese",
     name: "繁體中文",
     description: "Traditional Chinese vocabulary decks.",
     tab: "bg-blue",
-    available: false,
+    available: true,
   },
   {
     slug: "more",

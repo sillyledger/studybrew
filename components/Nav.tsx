@@ -16,7 +16,7 @@ const LANGUAGES = [
     available: true,
   },
   {
-    href: "/flashcards/chinese",
+    href: "/flashcards/traditional-chinese",
     label: "繁體中文",
     sub: "Traditional Chinese · 0 words",
     tab: "bg-blue",
