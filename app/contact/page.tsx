@@ -14,8 +14,7 @@ export default function ContactPage() {
           Say hello.
         </h1>
         <p className="mt-4 max-w-[54ch] text-[1.02rem] leading-[1.6] text-text-muted">
-          There's no contact form yet — for now, the fastest way to reach
-          Study Brew is directly by email.
+          No forms, no bots — just an inbox with a real human on the other end.
         </p>
       </div>
 
