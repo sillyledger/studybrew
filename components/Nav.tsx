@@ -39,12 +39,6 @@ const PRACTICE_ITEMS = [
     tab: "bg-blue",
     available: true,
   },
-  {
-    label: "Shadowing",
-    sub: "Listen & repeat",
-    tab: "bg-coral",
-    available: false,
-  },
 ];
 
 type DropdownItem = {
