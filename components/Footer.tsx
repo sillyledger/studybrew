@@ -3,7 +3,7 @@ import Link from "next/link";
 const PRODUCT_LINKS = [
   { href: "/flashcards", label: "Flashcards" },
   { href: "/stories", label: "Stories" },
-  { href: "/practice/tongue-twisters", label: "Practice" },
+  { href: "/practice", label: "Practice" },
   { href: "/app", label: "App" },
 ];
 
