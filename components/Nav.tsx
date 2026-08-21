@@ -33,10 +33,11 @@ const PRACTICE_ITEMS = [
     available: true,
   },
   {
+    href: "/practice/minimal-pairs",
     label: "Minimal Pairs",
     sub: "Sound-pair practice",
     tab: "bg-blue",
-    available: false,
+    available: true,
   },
   {
     label: "Shadowing",

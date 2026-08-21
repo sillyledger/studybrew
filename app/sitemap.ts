@@ -22,6 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/stories/fantasy`, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE_URL}/stories/characters`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE_URL}/practice/tongue-twisters`, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${BASE_URL}/practice/minimal-pairs`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE_URL}/privacy`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${BASE_URL}/terms`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${BASE_URL}/cookies`, changeFrequency: "yearly", priority: 0.2 },
