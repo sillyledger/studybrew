@@ -1,12 +1,28 @@
+import type { Metadata } from 'next'
 import { createClient } from '../../../../lib/supabase'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import Nav from '@/components/Nav'
 import { getCharacter } from '../../../../lib/characters'
 
 export const revalidate = 60
 
 interface Props {
   params: Promise<{ slug: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const character = getCharacter(slug)
+
+  if (!character) {
+    return { title: 'Character Not Found | Study Brew' }
+  }
+
+  return {
+    title: `${character.name} — ${character.role} | Study Brew`,
+    description: character.description,
+  }
 }
 
 interface Story {
@@ -36,16 +52,7 @@ export default async function CharacterPage({ params }: Props) {
   return (
     <main className="flex flex-1 flex-col">
 
-      <nav className="flex justify-between items-center px-6 py-5 max-w-5xl mx-auto w-full">
-        <div className="flex items-center gap-3">
-          <img src="/studybrew-logo.svg" alt="Study Brew logo" width={32} height={32} />
-          <a href="/" className="text-white font-semibold tracking-wide">Study Brew</a>
-        </div>
-        <div className="flex gap-6 text-sm text-white/50">
-          <a href="/stories" className="text-white transition-colors">stories</a>
-          <a href="/about" className="hover:text-white transition-colors">about</a>
-        </div>
-      </nav>
+      <Nav />
 
       <section className="px-6 max-w-5xl mx-auto w-full py-10 md:py-16">
 

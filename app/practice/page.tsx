@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
+
+export const metadata: Metadata = {
+  title: "Study Brew | Practice",
+  description:
+    "Drills and exercises to sharpen your ear and pronunciation. Free to browse — no account needed.",
+};
 
 const DRILLS = [
   {

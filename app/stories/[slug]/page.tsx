@@ -1,10 +1,35 @@
+import type { Metadata } from 'next'
 import { createClient } from '../../../lib/supabase'
 import { notFound } from 'next/navigation'
+import Nav from '@/components/Nav'
 
 export const revalidate = 60
 
 interface Props {
   params: Promise<{ slug: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+
+  const supabase = createClient()
+  const { data: story } = await supabase
+    .from('posts')
+    .select('title, seo_title, seo_description')
+    .eq('slug', slug)
+    .eq('target_site', 'studybrew.co')
+    .eq('status', 'published')
+    .single()
+
+  if (!story) {
+    return { title: 'Story Not Found | Study Brew' }
+  }
+
+  return {
+    title: story.seo_title || `${story.title} | Study Brew Stories`,
+    description:
+      story.seo_description || 'A short, calm audio story for B1–B2 English learners.',
+  }
 }
 
 function spotifyEmbedUrl(url: string): string | null {
@@ -38,16 +63,7 @@ export default async function StoryPage({ params }: Props) {
   return (
     <main className="flex flex-1 flex-col">
 
-      <nav className="flex justify-between items-center px-6 py-5 max-w-5xl mx-auto w-full">
-        <div className="flex items-center gap-3">
-          <img src="/studybrew-logo.svg" alt="Study Brew logo" width={32} height={32} />
-          <a href="/" className="text-white font-semibold tracking-wide">Study Brew</a>
-        </div>
-        <div className="flex gap-6 text-sm text-white/50">
-          <a href="/stories" className="text-white transition-colors">stories</a>
-          <a href="/about" className="hover:text-white transition-colors">about</a>
-        </div>
-      </nav>
+      <Nav />
 
       <section className="px-6 max-w-2xl mx-auto w-full py-10 md:py-16">
 

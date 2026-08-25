@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import Nav from "@/components/Nav";
 import PlayButton from "@/components/PlayButton";
+
+export const metadata: Metadata = {
+  title: "Study Brew | Minimal Pairs Practice",
+  description:
+    "Word pairs that sound almost identical except for one sound — sharpen your ear for tricky English contrasts.",
+};
 
 const CHIP_CLASSES = [
   { chip: "bg-teal/10 text-teal", accent: "text-teal" },

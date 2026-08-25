@@ -1,7 +1,15 @@
+import type { Metadata } from 'next'
 import { createClient } from '../../../lib/supabase'
 import Link from 'next/link'
+import Nav from '@/components/Nav'
 
 export const revalidate = 60
+
+export const metadata: Metadata = {
+  title: 'Study Brew | Fantasy Stories',
+  description:
+    'Imaginative stories with a calm pace — perfect for B1–B2 learners who want something a little different.',
+}
 
 interface Story {
   id: string
@@ -43,16 +51,7 @@ export default async function FantasyStories() {
   return (
     <main className="flex flex-1 flex-col">
 
-      <nav className="flex justify-between items-center px-6 py-5 max-w-5xl mx-auto w-full">
-        <div className="flex items-center gap-3">
-          <img src="/studybrew-logo.svg" alt="Study Brew logo" width={32} height={32} />
-          <a href="/" className="text-white font-semibold tracking-wide">Study Brew</a>
-        </div>
-        <div className="flex gap-6 text-sm text-white/50">
-          <a href="/stories" className="text-white transition-colors">stories</a>
-          <a href="/about" className="hover:text-white transition-colors">about</a>
-        </div>
-      </nav>
+      <Nav />
 
       <section className="px-6 max-w-5xl mx-auto w-full py-12 md:py-16">
         <div className="mb-2">

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
@@ -6,6 +7,20 @@ import { getCategory } from "../data";
 
 interface Props {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const category = getCategory(slug);
+
+  if (!category) {
+    return { title: "Deck Not Found | Study Brew" };
+  }
+
+  return {
+    title: `Study Brew | ${category.name} Flashcards`,
+    description: category.description,
+  };
 }
 
 export default async function DeckPage({ params }: Props) {

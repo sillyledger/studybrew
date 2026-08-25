@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
+
+export const metadata: Metadata = {
+  title: "Study Brew | Traditional Chinese Flashcards",
+  description: "Traditional Chinese vocabulary decks — coming soon.",
+};
 
 export default function TraditionalChinesePage() {
   return (

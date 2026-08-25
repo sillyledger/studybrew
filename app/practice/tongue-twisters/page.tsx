@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import Nav from "@/components/Nav";
+
+export const metadata: Metadata = {
+  title: "Study Brew | Tongue Twisters Practice",
+  description:
+    "Classic English tongue twisters to sharpen your pronunciation, sound by sound.",
+};
 
 type Difficulty = "Easy" | "Medium" | "Hard";
 

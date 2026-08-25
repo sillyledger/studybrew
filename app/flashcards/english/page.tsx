@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import { CATEGORIES } from "./data";
+
+export const metadata: Metadata = {
+  title: "Study Brew | English Flashcards",
+  description:
+    "Vocabulary, idioms, and grammar decks built for B1–B2 English learners. Free to browse.",
+};
 
 export default function EnglishFlashcardsPage() {
   return (

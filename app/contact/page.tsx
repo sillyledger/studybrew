@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import Nav from "@/components/Nav";
+
+export const metadata: Metadata = {
+  title: "Study Brew | Contact",
+  description:
+    "Questions, feedback, or just want to say hi — get in touch with the Study Brew team.",
+};
 
 export default function ContactPage() {
   return (

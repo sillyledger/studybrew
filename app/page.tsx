@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import CaptureDemo from "@/components/CaptureDemo";
+
+export const metadata: Metadata = {
+  title: "Study Brew | Stories & Flashcards for English Learners",
+  description:
+    "A notebook for language learners: short B1–B2 audio stories, free flashcards, and pronunciation practice.",
+};
 
 const FLASHCARDS = [
   {

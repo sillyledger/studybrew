@@ -1,8 +1,13 @@
-"use client";
-import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import { characters } from "../../lib/characters";
+
+export const metadata: Metadata = {
+  title: "Study Brew | Audio Stories for English Learners",
+  description:
+    "Short, calm B1–B2 audio stories with real characters — browse bedtime, daily life, and fantasy stories.",
+};
 
 const categories = [
   { name: "Bedtime Stories", slug: "bedtime", description: "Wind down with calm, slow English.", available: true, emoji: "🌙" },
