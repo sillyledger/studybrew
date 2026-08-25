@@ -112,7 +112,7 @@ export default function Stories() {
               {characters.map((char, i) => (
                 <Link
                   key={char.slug}
-                  href={`/stories/characters/${char.slug}`}
+                  href={char.href ?? `/stories/characters/${char.slug}`}
                   className={`relative block rounded-[4px] bg-text-primary p-[10px] pb-[18px] shadow-[0_14px_28px_-14px_rgba(0,0,0,0.5)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:rotate-0 ${ROTATIONS[i % ROTATIONS.length]}`}
                 >
                   <span className="absolute -top-2 left-1/2 h-4 w-11 -translate-x-1/2 -rotate-[4deg] border border-coral/70 bg-coral/[0.55]" />

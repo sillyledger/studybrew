@@ -12,6 +12,8 @@ export interface Character {
   hasAvatar: boolean;
   // Set to true while the character has no published stories yet
   comingSoon?: boolean;
+  // Overrides the polaroid card link on /stories, e.g. to point straight at a published story
+  href?: string;
 }
 
 export const characters: Character[] = [
@@ -74,7 +76,7 @@ export const characters: Character[] = [
     tags: ["Wonder", "Solitude", "Small discoveries", "The cost of habit", "Learning to look again"],
     color: "#7CACDD",
     hasAvatar: false,
-    comingSoon: true,
+    href: "/stories/caspian-and-the-lost-magic",
   },
 ];
 
