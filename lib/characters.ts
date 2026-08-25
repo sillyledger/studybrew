@@ -10,6 +10,8 @@ export interface Character {
   color: string;
   // Set to true once a real illustration exists at /public/characters/{slug}.png
   hasAvatar: boolean;
+  // Set to true while the character has no published stories yet
+  comingSoon?: boolean;
 }
 
 export const characters: Character[] = [
@@ -62,6 +64,17 @@ export const characters: Character[] = [
     tags: ["Princess", "Bedtime Stories", "Hopeful"],
     color: "#E29B9B",
     hasAvatar: false,
+  },
+  {
+    slug: "caspian",
+    name: "Caspian",
+    role: "The Rational Wizard",
+    description: "60s, wizard. Lives quietly in his tower.",
+    bio: "In his 60s, a quiet and slightly absent-minded wizard who has lived alone in a tower for decades. Used to the world arranging itself around him through magic, he has slowly stopped noticing it. Warm beneath his distance, deeply curious when reminded how to be.",
+    tags: ["Wonder", "Solitude", "Small discoveries", "The cost of habit", "Learning to look again"],
+    color: "#7CACDD",
+    hasAvatar: false,
+    comingSoon: true,
   },
 ];
 
