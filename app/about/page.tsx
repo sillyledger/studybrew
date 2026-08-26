@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import Nav from "@/components/Nav";
 
 export const metadata: Metadata = {
-  title: "Study Brew | Created by Pieter Borremans",
+  title: "Study Brew | About Us",
   description:
     "Pieter Borremans is the creator of Study Brew, a language-learning app for English learners at B1-B2 level.",
 };
