@@ -82,35 +82,53 @@ export default function About() {
           <div className="flex flex-col gap-6 text-[1.05rem] leading-relaxed text-text-muted">
             <p>
               Study Brew started as a podcast of short English audio
-              stories, and that's still part of it. But today it's a
-              language-learning app: a place to save the words you're
-              actually learning, turn them into notebooks, and review them
-              as flashcards, instead of losing them across five different
-              apps.
+              stories. That's still part of it. Today it's a
+              language-learning app: save the words you're learning, turn
+              them into notebooks, review them as flashcards. No more
+              losing them across five different apps.
             </p>
             <p>
-              I'm Pieter. The idea came out of my own frustration learning
-              Traditional Chinese. I had a dictionary app to look words up,
-              a flashcard app to review them, and a notes app to write
-              things down, but none of them talked to each other. I kept
-              re-learning words I'd already saved once. Study Brew is the
-              tool I wished existed: one place where the words you save
-              actually stick.
+              I'm Pieter. The idea came from my own frustration learning
+              Traditional Chinese. A dictionary app to look words up, a
+              flashcard app to review them, a notes app to write things
+              down. None of them talked to each other. I kept re-learning
+              words I'd already saved. Study Brew is the tool I wished
+              existed: one place where the words you save stick.
             </p>
             <p>
               I'm not a native English speaker either. Born in Indonesia,
-              raised in Belgium, and educated at KdG University College
-              Antwerp, I've spent most of my adult life learning languages
+              raised in Belgium, educated at KdG University College
+              Antwerp. I've spent most of my adult life learning languages
               the hard way, moving between Taipei and London along the
               way.
             </p>
             <p>
               I know what it feels like to understand almost everything,
-              but still need that extra structure to make a language
-              actually stick. Study Brew is my attempt to close that gap,
-              one word, one story at a time.
+              but still need that extra structure to make it stick. Study
+              Brew is my attempt to close that gap, one word, one story at
+              a time.
             </p>
-            <p>Study Brew is part of OnPoint VC.</p>
+            <p>
+              Study Brew is part of{" "}
+              <a
+                className="text-teal underline decoration-teal-dim underline-offset-2 hover:text-text-primary"
+                href="https://www.onpointvc.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                OnPoint VC
+              </a>{" "}
+              and{" "}
+              <a
+                className="text-teal underline decoration-teal-dim underline-offset-2 hover:text-text-primary"
+                href="https://www.ryokagroup.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Ryoka Group
+              </a>
+              .
+            </p>
           </div>
         </div>
       </section>
