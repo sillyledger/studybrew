@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: story.seo_title || `${story.title} | Study Brew Stories`,
+    title: story.seo_title || `${story.title} | Study Brew`,
     description:
       story.seo_description || 'A short, calm audio story for B1–B2 English learners.',
   }

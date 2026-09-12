@@ -6,7 +6,7 @@ import Nav from '@/components/Nav'
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: 'Study Brew | Fantasy Stories',
+  title: 'Fantasy Stories | Study Brew',
   description:
     'Imaginative stories with a calm pace — perfect for B1–B2 learners who want something a little different.',
 }

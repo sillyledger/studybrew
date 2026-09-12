@@ -3,7 +3,7 @@ import Link from "next/link";
 import Nav from "@/components/Nav";
 
 export const metadata: Metadata = {
-  title: "Study Brew | The App",
+  title: "The App | Study Brew",
   description:
     "The Study Brew notes app is in development — a place to save and review the words you're learning.",
 };

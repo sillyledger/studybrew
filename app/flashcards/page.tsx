@@ -3,7 +3,7 @@ import Link from "next/link";
 import Nav from "@/components/Nav";
 
 export const metadata: Metadata = {
-  title: "Study Brew | Flashcards",
+  title: "Flashcards | Study Brew",
   description:
     "Pick a language to start browsing free flashcard decks — no account needed.",
 };

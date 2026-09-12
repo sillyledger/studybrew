@@ -3,7 +3,7 @@ import Link from "next/link";
 import Nav from "@/components/Nav";
 
 export const metadata: Metadata = {
-  title: "Study Brew | Traditional Chinese Flashcards",
+  title: "Traditional Chinese Flashcards | Study Brew",
   description: "Traditional Chinese vocabulary decks — coming soon.",
 };
 

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Nav from "@/components/Nav";
 
 export const metadata: Metadata = {
-  title: "Study Brew | Tongue Twisters Practice",
+  title: "Tongue Twisters Practice | Study Brew",
   description:
     "Classic English tongue twisters to sharpen your pronunciation, sound by sound.",
 };

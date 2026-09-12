@@ -4,7 +4,7 @@ import Nav from "@/components/Nav";
 import { characters } from "../../lib/characters";
 
 export const metadata: Metadata = {
-  title: "Study Brew | Audio Stories for English Learners",
+  title: "Audio Stories for English Learners | Study Brew",
   description:
     "Short, calm B1–B2 audio stories with real characters — browse bedtime, daily life, and fantasy stories.",
 };

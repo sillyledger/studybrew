@@ -4,7 +4,7 @@ import Nav from "@/components/Nav";
 import { CATEGORIES } from "./data";
 
 export const metadata: Metadata = {
-  title: "Study Brew | English Flashcards",
+  title: "English Flashcards | Study Brew",
   description:
     "Vocabulary, idioms, and grammar decks built for B1–B2 English learners. Free to browse.",
 };

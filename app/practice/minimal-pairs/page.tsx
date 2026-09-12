@@ -3,7 +3,7 @@ import Nav from "@/components/Nav";
 import PlayButton from "@/components/PlayButton";
 
 export const metadata: Metadata = {
-  title: "Study Brew | Minimal Pairs Practice",
+  title: "Minimal Pairs Practice | Study Brew",
   description:
     "Word pairs that sound almost identical except for one sound — sharpen your ear for tricky English contrasts.",
 };

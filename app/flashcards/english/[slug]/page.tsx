@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `Study Brew | ${category.name} Flashcards`,
+    title: `${category.name} Flashcards | Study Brew`,
     description: category.description,
   };
 }

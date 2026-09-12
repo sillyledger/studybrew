@@ -3,7 +3,7 @@ import Link from "next/link";
 import Nav from "@/components/Nav";
 
 export const metadata: Metadata = {
-  title: "Study Brew | Practice",
+  title: "Practice | Study Brew",
   description:
     "Drills and exercises to sharpen your ear and pronunciation. Free to browse — no account needed.",
 };
