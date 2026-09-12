@@ -4,7 +4,7 @@ import Nav from "@/components/Nav";
 import CaptureDemo from "@/components/CaptureDemo";
 
 export const metadata: Metadata = {
-  title: "Study Brew | Stories & Flashcards for English Learners",
+  title: "Study Brew | Note-Taking App for Language Learners",
   description:
     "A notebook for language learners: short B1–B2 audio stories, free flashcards, and pronunciation practice.",
 };
