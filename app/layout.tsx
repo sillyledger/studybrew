@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Reddit_Sans, Reddit_Sans_Condensed, Reddit_Mono } from "next/font/google";
+import Script from "next/script";
 import Footer from "@/components/Footer";
 import "./globals.css";
 
@@ -36,6 +37,18 @@ export default function RootLayout({
       <body
         className={`flex min-h-screen flex-col ${redditSans.variable} ${redditSansCondensed.variable} ${redditMono.variable}`}
       >
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-YJBP409ZS3"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-YJBP409ZS3');
+          `}
+        </Script>
         {children}
         <Footer />
       </body>
