@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import CaptureDemo from "@/components/CaptureDemo";
+import WaitlistForm from "@/components/WaitlistForm";
 
 export const metadata: Metadata = {
   title: "Study Brew | Note-Taking App for Language Learners",
@@ -91,18 +92,7 @@ export default function Home() {
             place to save new words as you learn, and come back to them when
             you&apos;re ready to review.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-[1.1rem]">
-            <a
-              href="#how"
-              className="border-b border-line pb-0.5 font-mono text-[0.82rem] text-text-muted"
-            >
-              See how it works
-            </a>
-            <div className="inline-flex items-center gap-2 rounded-full border border-coral/35 bg-coral-tint px-3 py-1.5 font-mono text-[0.7rem] text-coral">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-coral motion-reduce:animate-none" />
-              App — in development
-            </div>
-          </div>
+          <WaitlistForm />
         </div>
 
         <CaptureDemo />
