@@ -64,10 +64,9 @@ export default async function CharacterPage({ params }: Props) {
         <div className="flex gap-5 md:gap-6 items-start flex-wrap mb-10 md:mb-14">
           {character.hasAvatar ? (
             <img
-              src={`/characters/${character.slug}.png`}
+              src={`/characters/${character.slug}.svg`}
               alt={character.name}
-              className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover shrink-0"
-              style={{ border: `3px solid ${character.color}` }}
+              className="w-20 h-20 md:w-24 md:h-24 shrink-0"
             />
           ) : (
             <div

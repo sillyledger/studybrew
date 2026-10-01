@@ -8,7 +8,7 @@ export interface Character {
   bio: string;
   tags: string[];
   color: string;
-  // Set to true once a real illustration exists at /public/characters/{slug}.png
+  // Set to true once a real illustration exists at /public/characters/{slug}.svg
   hasAvatar: boolean;
   // Set to true while the character has no published stories yet
   comingSoon?: boolean;
@@ -25,7 +25,7 @@ export const characters: Character[] = [
     bio: "Anna is a 28-year-old freelance photographer who is always exploring new places. She notices small details other people miss, and she is never afraid to ask questions or start a conversation with a stranger.",
     tags: ["28 years old", "Freelance photographer", "Curious"],
     color: "#E8A45A",
-    hasAvatar: false,
+    hasAvatar: true,
   },
   {
     slug: "daniel",
@@ -35,7 +35,7 @@ export const characters: Character[] = [
     bio: "Daniel is a 31-year-old developer who works from home with his cat Biscuit. He thinks before he speaks, likes routine, and finds calm, practical solutions to everyday problems.",
     tags: ["31 years old", "Developer", "Works from home"],
     color: "#7EB8C9",
-    hasAvatar: false,
+    hasAvatar: true,
   },
   {
     slug: "luna",
@@ -45,7 +45,7 @@ export const characters: Character[] = [
     bio: "Luna is a cat who travels with a worn notebook and her favourite scarf. She turns up in the most unexpected places, and somehow always finds her way into someone else's story.",
     tags: ["Wandering", "Notebook", "Favourite scarf"],
     color: "#B8A9E8",
-    hasAvatar: false,
+    hasAvatar: true,
   },
   {
     slug: "marco",
@@ -55,7 +55,7 @@ export const characters: Character[] = [
     bio: "Marco is a 28-year-old community worker who is always cooking for others. He knows everyone on his street by name, and his door is never really closed.",
     tags: ["28 years old", "Community worker", "Always cooking"],
     color: "#A8D5A2",
-    hasAvatar: false,
+    hasAvatar: true,
   },
   {
     slug: "princess-maja",
@@ -65,7 +65,7 @@ export const characters: Character[] = [
     bio: "Princess Maja lives in a world of wooden furniture and old stone walls, but her heart is set on something bigger than the life she was born into. She writes, she waits, and she is braver than she looks.",
     tags: ["Princess", "Bedtime Stories", "Hopeful"],
     color: "#E29B9B",
-    hasAvatar: false,
+    hasAvatar: true,
   },
   {
     slug: "caspian",
@@ -75,7 +75,7 @@ export const characters: Character[] = [
     bio: "In his 60s, a quiet and slightly absent-minded wizard who has lived alone in a tower for decades. Used to the world arranging itself around him through magic, he has slowly stopped noticing it. Warm beneath his distance, deeply curious when reminded how to be.",
     tags: ["Wonder", "Solitude", "Small discoveries", "The cost of habit", "Learning to look again"],
     color: "#7CACDD",
-    hasAvatar: false,
+    hasAvatar: true,
     href: "/stories/caspian-and-the-lost-magic",
   },
 ];

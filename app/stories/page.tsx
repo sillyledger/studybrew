@@ -127,9 +127,18 @@ export default function Stories() {
                     </span>
                   )}
                   <div className="mb-[0.6rem] flex aspect-square items-center justify-center rounded-[2px] bg-panel">
-                    <div
-                      className={`h-[52%] w-[52%] rounded-full ${AVATAR_COLORS[i % AVATAR_COLORS.length]}`}
-                    />
+                    {char.hasAvatar ? (
+                      <img
+                        src={`/characters/${char.slug}.svg`}
+                        alt={char.name}
+                        className="h-[88%] w-[88%]"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div
+                        className={`h-[52%] w-[52%] rounded-full ${AVATAR_COLORS[i % AVATAR_COLORS.length]}`}
+                      />
+                    )}
                   </div>
                   <h3 className="text-center text-base font-extrabold text-ink">{char.name}</h3>
                   <div className="mt-[0.1rem] text-center font-mono text-[0.6rem] text-text-muted-2">
