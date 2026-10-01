@@ -87,7 +87,7 @@ export default function CaptureDemo() {
         </div>
 
         <div
-          className={`absolute bottom-[56px] right-4 h-[136px] w-[210px] md:-bottom-[18px] md:-right-[14px] md:h-[150px] md:w-[220px] rotate-3 [perspective:900px] transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.2,0.8,0.3,1)] motion-reduce:transition-none ${
+          className={`absolute bottom-[56px] min-[360px]:bottom-[64px] right-4 h-[136px] w-[210px] md:-bottom-[18px] md:-right-[14px] md:h-[150px] md:w-[220px] rotate-3 [perspective:900px] transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.2,0.8,0.3,1)] motion-reduce:transition-none ${
             flashVisible
               ? "translate-y-0 scale-100 opacity-100"
               : "translate-y-[18px] scale-90 opacity-0"
