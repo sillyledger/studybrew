@@ -34,13 +34,13 @@ export default function CaptureDemo() {
   const isSaved = stage === "saved";
 
   return (
-    <div className="relative h-[380px] md:h-[420px]">
+    <div className="relative h-[480px] min-[360px]:h-[450px] md:h-[420px]">
       <div className="absolute inset-0">
         <div className="absolute inset-0 flex flex-col rounded-2xl border border-line bg-panel p-7">
           <div className="mb-4 font-mono text-[0.66rem] uppercase tracking-wide text-text-muted-2">
             From &quot;Daniel&apos;s first day&quot;
           </div>
-          <div className="text-[1.28rem] leading-[1.7] text-text-muted">
+          <div className="text-[1.15rem] leading-[1.7] text-text-muted md:text-[1.28rem]">
             Daniel felt completely{" "}
             <span
               className={`rounded px-[3px] transition-[background-color,color] duration-300 ease-out motion-reduce:transition-none ${
@@ -87,7 +87,7 @@ export default function CaptureDemo() {
         </div>
 
         <div
-          className={`absolute -bottom-[18px] -right-[14px] h-[150px] w-[220px] rotate-3 [perspective:900px] transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.2,0.8,0.3,1)] motion-reduce:transition-none ${
+          className={`absolute bottom-[56px] right-4 h-[136px] w-[210px] md:-bottom-[18px] md:-right-[14px] md:h-[150px] md:w-[220px] rotate-3 [perspective:900px] transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.2,0.8,0.3,1)] motion-reduce:transition-none ${
             flashVisible
               ? "translate-y-0 scale-100 opacity-100"
               : "translate-y-[18px] scale-90 opacity-0"
@@ -104,11 +104,12 @@ export default function CaptureDemo() {
               </div>
               <div className="mt-2 text-[1.15rem] font-bold">overwhelmed</div>
             </div>
-            <div className="absolute inset-0 flex flex-col rounded-[14px] border border-teal-dim bg-teal-tint p-[1.1rem] [backface-visibility:hidden] [transform:rotateY(180deg)]">
-              <div className="font-mono text-[0.6rem] uppercase tracking-wide text-text-muted-2">
+            <div className="absolute inset-0 flex flex-col rounded-[14px] overflow-hidden border border-teal-dim bg-panel-2 p-[1.1rem] [backface-visibility:hidden] [transform:rotateY(180deg)]">
+              <div className="pointer-events-none absolute inset-0 bg-teal-tint" />
+              <div className="relative font-mono text-[0.6rem] uppercase tracking-wide text-text-muted-2">
                 Saved to your notes
               </div>
-              <div className="mt-2 text-[0.82rem] leading-[1.5] text-text-muted">
+              <div className="relative mt-2 text-[0.82rem] leading-[1.5] text-text-muted">
                 <b className="font-semibold text-teal">adj.</b> having too much to
                 deal with at once — from Daniel&apos;s story.
               </div>
