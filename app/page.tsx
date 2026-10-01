@@ -66,10 +66,12 @@ const TIMELINE = [
 ] as const;
 
 const AVATARS = [
-  { letter: "A", bg: "bg-teal", ink: "text-teal-ink" },
-  { letter: "D", bg: "bg-blue", ink: "text-[#04203e]" },
-  { letter: "L", bg: "bg-coral", ink: "text-[#3a1608]" },
-  { letter: "M", bg: "bg-[#c9a6e8]", ink: "text-[#2a1240]" },
+  { slug: "anna", name: "Anna" },
+  { slug: "daniel", name: "Daniel" },
+  { slug: "luna", name: "Luna" },
+  { slug: "marco", name: "Marco" },
+  { slug: "princess-maja", name: "Princess Maja" },
+  { slug: "caspian", name: "Caspian" },
 ];
 
 export default function Home() {
@@ -234,14 +236,21 @@ export default function Home() {
           </div>
           <div className="flex">
             {AVATARS.map((avatar, i) => (
-              <div
-                key={avatar.letter}
-                className={`flex h-[42px] w-[42px] items-center justify-center rounded-full border-2 border-background text-sm font-bold ${avatar.bg} ${avatar.ink} ${
+              <Link
+                key={avatar.slug}
+                href={`/stories/characters/${avatar.slug}`}
+                title={avatar.name}
+                aria-label={avatar.name}
+                className={`relative h-[52px] w-[52px] overflow-hidden rounded-full border-2 border-background bg-[#0f1319] transition-transform duration-200 hover:z-10 hover:-translate-y-1 motion-reduce:transition-none ${
                   i === 0 ? "" : "-ml-3"
                 }`}
               >
-                {avatar.letter}
-              </div>
+                <img
+                  src={`/characters/${avatar.slug}.svg`}
+                  alt=""
+                  className="h-full w-full scale-[1.22]"
+                />
+              </Link>
             ))}
           </div>
           <Link
