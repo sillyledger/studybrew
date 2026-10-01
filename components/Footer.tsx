@@ -38,8 +38,8 @@ export default function Footer() {
   return (
     <footer>
       <div className="mx-auto w-full max-w-[1120px] border-t border-line-soft px-6 pt-[3.2rem] md:px-14">
-        <div className="grid grid-cols-1 gap-[2.5rem] pb-[2.8rem] sm:grid-cols-2 md:grid-cols-[1.3fr_1fr_1fr_1fr]">
-          <div className="flex flex-col gap-[0.9rem]">
+        <div className="grid grid-cols-2 gap-[2.5rem] pb-[2.8rem] md:grid-cols-[1.3fr_1fr_1fr_1fr]">
+          <div className="col-span-2 flex flex-col gap-[0.9rem] sm:col-span-1">
             <div className="flex items-center gap-[0.6rem]">
               <img src="/studybrew-logo.svg" alt="Study Brew logo" width={26} height={26} />
               <span className="text-xl font-bold">Study Brew</span>

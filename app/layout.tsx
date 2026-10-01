@@ -35,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`flex min-h-screen flex-col ${redditSans.variable} ${redditSansCondensed.variable} ${redditMono.variable}`}
+        className={`flex min-h-screen flex-col overflow-x-clip ${redditSans.variable} ${redditSansCondensed.variable} ${redditMono.variable}`}
       >
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-YJBP409ZS3"

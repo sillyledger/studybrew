@@ -34,7 +34,7 @@ export default function ContactPage() {
           </div>
           <a
             href="mailto:jm@onpointvc.com"
-            className="text-[1.6rem] font-bold text-text-primary transition-colors hover:text-teal"
+            className="break-words text-[1.35rem] font-bold text-text-primary transition-colors hover:text-teal sm:text-[1.6rem]"
           >
             jm@onpointvc.com
           </a>

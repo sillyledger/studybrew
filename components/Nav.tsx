@@ -49,6 +49,23 @@ type DropdownItem = {
   available: boolean;
 };
 
+function DropdownItemContent({ item }: { item: DropdownItem }) {
+  return (
+    <>
+      <span className={`h-8 w-[6px] shrink-0 rounded-[3px] ${item.tab}`} />
+      <div className={item.available ? "" : "opacity-50"}>
+        <h3 className="text-[0.98rem] font-bold text-text-primary">{item.label}</h3>
+        <p className="mt-0.5 font-sans text-[0.78rem] text-text-muted">{item.sub}</p>
+      </div>
+      {!item.available && (
+        <span className="ml-auto shrink-0 self-center rounded-full border border-line px-[0.55rem] py-[0.22rem] font-mono text-[0.6rem] uppercase tracking-wide text-text-muted-2">
+          Soon
+        </span>
+      )}
+    </>
+  );
+}
+
 function DropdownPanel({
   items,
   open,
@@ -65,20 +82,7 @@ function DropdownPanel({
       }`}
     >
       {items.map((item) => {
-        const inner = (
-          <>
-            <span className={`h-8 w-[6px] shrink-0 rounded-[3px] ${item.tab}`} />
-            <div className={item.available ? "" : "opacity-50"}>
-              <h3 className="text-[0.98rem] font-bold text-text-primary">{item.label}</h3>
-              <p className="mt-0.5 font-sans text-[0.78rem] text-text-muted">{item.sub}</p>
-            </div>
-            {!item.available && (
-              <span className="ml-auto shrink-0 self-center rounded-full border border-line px-[0.55rem] py-[0.22rem] font-mono text-[0.6rem] uppercase tracking-wide text-text-muted-2">
-                Soon
-              </span>
-            )}
-          </>
-        );
+        const inner = <DropdownItemContent item={item} />;
 
         return item.available && item.href ? (
           <Link
@@ -154,11 +158,136 @@ function NavDropdown({
   );
 }
 
+function MobileMenuSection({
+  label,
+  items,
+  onNavigate,
+}: {
+  label: string;
+  items: DropdownItem[];
+  onNavigate: () => void;
+}) {
+  return (
+    <div className="border-b border-line-soft py-4">
+      <span className="font-mono text-[0.66rem] uppercase tracking-wide text-text-muted-2">
+        {label}
+      </span>
+      <div className="mt-2 flex flex-col">
+        {items.map((item) =>
+          item.available && item.href ? (
+            <Link
+              key={item.label}
+              href={item.href}
+              onClick={onNavigate}
+              className="flex items-center gap-[0.85rem] py-[0.6rem]"
+            >
+              <DropdownItemContent item={item} />
+            </Link>
+          ) : (
+            <div key={item.label} className="flex items-center gap-[0.85rem] py-[0.6rem]">
+              <DropdownItemContent item={item} />
+            </div>
+          )
+        )}
+      </div>
+    </div>
+  );
+}
+
+function MobileMenu({
+  open,
+  pathname,
+  onNavigate,
+}: {
+  open: boolean;
+  pathname: string;
+  onNavigate: () => void;
+}) {
+  const linkClass = (active: boolean) =>
+    `block border-b border-line-soft py-3 font-sans text-[1.35rem] font-bold ${
+      active ? "text-teal" : "text-text-primary"
+    }`;
+
+  return (
+    <div
+      id="mobile-menu"
+      className={`absolute inset-x-0 top-full h-[calc(100dvh-var(--nav-h))] overflow-y-auto overscroll-contain border-t border-line-soft bg-background px-6 py-6 transition-[opacity,transform,visibility] duration-200 ease-out motion-reduce:transition-none lg:hidden ${
+        open ? "visible translate-y-0 opacity-100" : "invisible -translate-y-2 opacity-0"
+      }`}
+    >
+      <Link href="/" onClick={onNavigate} className={linkClass(pathname === "/")}>
+        Home
+      </Link>
+
+      <MobileMenuSection label="Flashcards" items={LANGUAGES} onNavigate={onNavigate} />
+      <MobileMenuSection label="Practice" items={PRACTICE_ITEMS} onNavigate={onNavigate} />
+
+      <Link
+        href="/stories"
+        onClick={onNavigate}
+        className={linkClass(pathname.startsWith("/stories"))}
+      >
+        Stories
+      </Link>
+      <Link href="/app" onClick={onNavigate} className={linkClass(pathname === "/app")}>
+        App
+      </Link>
+      <Link href="/about" onClick={onNavigate} className={linkClass(pathname === "/about")}>
+        About
+      </Link>
+      <Link href="/contact" onClick={onNavigate} className={linkClass(pathname === "/contact")}>
+        Contact
+      </Link>
+
+      <div className="mt-6 flex items-center gap-2 border-t border-line-soft pt-6 font-mono text-[0.74rem] text-text-muted">
+        <span className="h-1.5 w-1.5 rounded-full bg-coral" />
+        App in development
+      </div>
+    </div>
+  );
+}
+
 export default function Nav() {
   const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [navHeight, setNavHeight] = useState(68);
+  const navRef = useRef<HTMLElement>(null);
 
   const isFlashcards = pathname.startsWith("/flashcards");
   const isPractice = pathname.startsWith("/practice");
+
+  // Close the menu whenever the route changes.
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    if (navRef.current) setNavHeight(navRef.current.offsetHeight);
+
+    const html = document.documentElement;
+    const previousOverflow = html.style.overflow;
+    html.style.overflow = "hidden";
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setMenuOpen(false);
+    }
+
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    function handleBreakpoint() {
+      if (desktop.matches) setMenuOpen(false);
+    }
+    handleBreakpoint();
+
+    document.addEventListener("keydown", handleKeyDown);
+    desktop.addEventListener("change", handleBreakpoint);
+    return () => {
+      html.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", handleKeyDown);
+      desktop.removeEventListener("change", handleBreakpoint);
+    };
+  }, [menuOpen]);
 
   const linkClass = (active: boolean) =>
     `border-b-2 pb-1 transition-colors ${
@@ -168,14 +297,18 @@ export default function Nav() {
     }`;
 
   return (
-    <nav className="sticky top-0 z-20 bg-background/90 backdrop-blur-md">
+    <nav
+      ref={navRef}
+      style={{ "--nav-h": `${navHeight}px` } as React.CSSProperties}
+      className="sticky top-0 z-20 bg-background/90 backdrop-blur-md"
+    >
       <div className="flex items-center justify-between px-6 py-5 md:px-14">
         <Link href="/" className="flex items-center gap-3">
           <img src="/studybrew-logo.svg" alt="Study Brew logo" width={26} height={26} />
-          <span className="text-xl font-bold">Study Brew</span>
+          <span className="whitespace-nowrap text-xl font-bold">Study Brew</span>
         </Link>
 
-        <div className="hidden items-center gap-5 font-mono text-[0.74rem] uppercase tracking-wide md:flex lg:gap-7">
+        <div className="hidden items-center gap-5 font-mono text-[0.74rem] uppercase tracking-wide lg:flex lg:gap-7">
           <Link href="/" className={linkClass(pathname === "/")}>
             Home
           </Link>
@@ -197,62 +330,38 @@ export default function Nav() {
           </Link>
         </div>
 
-        <div className="flex items-center gap-2 font-mono text-[0.74rem] text-text-muted">
+        <div className="hidden items-center gap-2 whitespace-nowrap font-mono text-[0.74rem] text-text-muted xl:flex">
           <span className="h-1.5 w-1.5 rounded-full bg-coral" />
           App in development
         </div>
+
+        <button
+          type="button"
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+          className="relative -my-1.5 -mr-2 h-10 w-10 shrink-0 text-text-primary lg:hidden"
+        >
+          <span
+            className={`absolute left-1/2 top-1/2 h-[1.5px] w-[18px] -translate-x-1/2 rounded-full bg-current transition-transform duration-200 ease-out motion-reduce:transition-none ${
+              menuOpen ? "-translate-y-1/2 rotate-45" : "-translate-y-[6px]"
+            }`}
+          />
+          <span
+            className={`absolute left-1/2 top-1/2 h-[1.5px] w-[18px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-current transition-opacity duration-200 ease-out motion-reduce:transition-none ${
+              menuOpen ? "opacity-0" : "opacity-100"
+            }`}
+          />
+          <span
+            className={`absolute left-1/2 top-1/2 h-[1.5px] w-[18px] -translate-x-1/2 rounded-full bg-current transition-transform duration-200 ease-out motion-reduce:transition-none ${
+              menuOpen ? "-translate-y-1/2 -rotate-45" : "translate-y-[4.5px]"
+            }`}
+          />
+        </button>
       </div>
 
-      {/* Mobile: no collapsed-menu system exists yet to host a dropdown
-          trigger, so show the dropdown options as plain stacked links
-          instead of a toggle. */}
-      <div className="flex flex-col gap-4 border-t border-line-soft px-6 py-3 md:hidden">
-        <div className="flex flex-col gap-2">
-          <span className="font-mono text-[0.66rem] uppercase tracking-wide text-text-muted-2">
-            Flashcards
-          </span>
-          <div className="flex flex-col gap-1.5">
-            {LANGUAGES.map((lang) => (
-              <Link
-                key={lang.label}
-                href={lang.href}
-                className="font-mono text-[0.78rem] text-text-muted"
-              >
-                {lang.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-2">
-          <span className="font-mono text-[0.66rem] uppercase tracking-wide text-text-muted-2">
-            Practice
-          </span>
-          <div className="flex flex-col gap-1.5">
-            {PRACTICE_ITEMS.map((item) =>
-              item.available && item.href ? (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="font-mono text-[0.78rem] text-text-muted"
-                >
-                  {item.label}
-                </Link>
-              ) : (
-                <span
-                  key={item.label}
-                  className="flex items-center gap-2 font-mono text-[0.78rem] text-text-muted-2"
-                >
-                  {item.label}
-                  <span className="rounded-full border border-line px-[0.4rem] py-[0.1rem] text-[0.56rem] uppercase tracking-wide">
-                    Soon
-                  </span>
-                </span>
-              )
-            )}
-          </div>
-        </div>
-      </div>
+      <MobileMenu open={menuOpen} pathname={pathname} onNavigate={() => setMenuOpen(false)} />
     </nav>
   );
 }

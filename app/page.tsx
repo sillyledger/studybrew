@@ -78,11 +78,11 @@ export default function Home() {
       <Nav />
 
       {/* Hero */}
-      <section className="mx-auto grid w-full max-w-[1120px] items-center gap-12 px-6 pb-14 pt-12 md:grid-cols-[1.05fr_0.95fr] md:px-14 md:pb-24 md:pt-20">
-        <div>
+      <section className="mx-auto grid w-full max-w-[1120px] grid-cols-1 items-center gap-12 px-6 pb-14 pt-12 md:grid-cols-[1.05fr_0.95fr] md:px-14 md:pb-24 md:pt-20">
+        <div className="min-w-0">
           <div className="mb-5 flex items-center gap-2.5 font-mono text-[0.72rem] uppercase tracking-[0.12em] text-teal">
-            <span className="h-px w-5 bg-teal-dim" />
-            Learn the language. Keep the words.
+            <span className="h-px w-5 shrink-0 bg-teal-dim" />
+            <span>Learn the language. Keep the words.</span>
           </div>
           <h1 className="text-[clamp(2.6rem,4.6vw,4.1rem)] font-black leading-[0.98] tracking-[-0.01em]">
             A notebook for <span className="text-teal">language learners.</span>
