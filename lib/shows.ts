@@ -24,7 +24,7 @@ export const shows: Show[] = [
     tagline: "Bedtime stories",
     description: "Bedtime stories. Slow, calm English to fall asleep to.",
     dot: "bg-teal",
-    spotifyUrl: "",
-    youtubeUrl: "",
+    spotifyUrl: "https://open.spotify.com/show/0GAoPPFz1IpP5FSIVO5Tkq",
+    youtubeUrl: "https://www.youtube.com/@storybrewcontent",
   },
 ];
