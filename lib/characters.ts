@@ -14,6 +14,8 @@ export interface Character {
   comingSoon?: boolean;
   // Overrides the polaroid card link on /stories, e.g. to point straight at a published story
   href?: string;
+  // Which audio show the character belongs to: Study Brew (everyday) or Story Brew (bedtime)
+  show: "study" | "story";
 }
 
 export const characters: Character[] = [
@@ -26,6 +28,7 @@ export const characters: Character[] = [
     tags: ["28 years old", "Freelance photographer", "Curious"],
     color: "#E8A45A",
     hasAvatar: true,
+    show: "study",
   },
   {
     slug: "daniel",
@@ -36,16 +39,31 @@ export const characters: Character[] = [
     tags: ["31 years old", "Developer", "Works from home"],
     color: "#7EB8C9",
     hasAvatar: true,
+    show: "study",
   },
   {
-    slug: "luna",
-    name: "Luna",
-    role: "The Wandering Cat",
-    description: "Travels with a worn notebook and favourite scarf.",
-    bio: "Luna is a cat who travels with a worn notebook and her favourite scarf. She turns up in the most unexpected places, and somehow always finds her way into someone else's story.",
-    tags: ["Wandering", "Notebook", "Favourite scarf"],
-    color: "#B8A9E8",
+    slug: "lisa",
+    name: "Lisa",
+    role: "The New Starter",
+    description: "26, marketing assistant. Just started a new job.",
+    bio: "Lisa is a 26-year-old marketing assistant who has just started at a small design studio. Before that, she worked in a bookshop for three years. She gets nervous before big moments, but she asks questions, learns fast and always finds her feet.",
+    tags: ["26 years old", "Marketing assistant", "New starter"],
+    color: "#9DB7E0",
     hasAvatar: true,
+    comingSoon: true,
+    show: "study",
+  },
+  {
+    slug: "mei",
+    name: "Mei",
+    role: "The Student Abroad",
+    description: "23, master's student. Just moved abroad from Taiwan.",
+    bio: "Mei is a 23-year-old student from Taiwan who has just moved abroad for her master's degree. Everything is new: the classes, the city, the food and the language. She misses home sometimes, but she is curious, brave and always happy to share a bubble tea.",
+    tags: ["23 years old", "Master's student", "From Taiwan"],
+    color: "#F2C46B",
+    hasAvatar: true,
+    comingSoon: true,
+    show: "study",
   },
   {
     slug: "marco",
@@ -56,6 +74,18 @@ export const characters: Character[] = [
     tags: ["28 years old", "Community worker", "Always cooking"],
     color: "#A8D5A2",
     hasAvatar: true,
+    show: "study",
+  },
+  {
+    slug: "luna",
+    name: "Luna",
+    role: "The Wandering Cat",
+    description: "Travels with a worn notebook and favourite scarf.",
+    bio: "Luna is a cat who travels with a worn notebook and her favourite scarf. She turns up in the most unexpected places, and somehow always finds her way into someone else's story.",
+    tags: ["Wandering", "Notebook", "Favourite scarf"],
+    color: "#B8A9E8",
+    hasAvatar: true,
+    show: "story",
   },
   {
     slug: "princess-maja",
@@ -66,6 +96,7 @@ export const characters: Character[] = [
     tags: ["Princess", "Bedtime Stories", "Hopeful"],
     color: "#E29B9B",
     hasAvatar: true,
+    show: "story",
   },
   {
     slug: "caspian",
@@ -77,6 +108,7 @@ export const characters: Character[] = [
     color: "#7CACDD",
     hasAvatar: true,
     href: "/stories/caspian-and-the-lost-magic",
+    show: "story",
   },
 ];
 

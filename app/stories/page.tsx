@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
+import CharacterCard from "@/components/CharacterCard";
 import { characters } from "../../lib/characters";
+import { shows } from "../../lib/shows";
 
 export const metadata: Metadata = {
   title: "Audio Stories for English Learners | Study Brew",
   description:
-    "Short, calm B1–B2 audio stories with real characters — browse bedtime, daily life, and fantasy stories.",
+    "Short, calm B1–B2 audio stories with real characters. Browse bedtime, daily life, and fantasy stories.",
 };
 
 const categories = [
@@ -22,8 +24,9 @@ const categories = [
 // get the dashed/unfilled tab regardless of position, so this scales past
 // six categories without hardcoding names.
 const TAB_COLORS = ["bg-teal", "bg-blue", "bg-coral"];
-const AVATAR_COLORS = ["bg-coral", "bg-teal", "bg-blue"];
-const ROTATIONS = ["-rotate-[3deg]", "rotate-[2.5deg]", "rotate-[2deg]", "-rotate-[2deg]"];
+
+const SHOW_LINK_CLASS =
+  "rounded-full border border-line px-3.5 py-2.5 font-mono text-[0.62rem] uppercase tracking-[0.1em] text-teal transition-colors hover:border-teal/60";
 
 export default function Stories() {
   let liveTabIndex = -1;
@@ -41,8 +44,8 @@ export default function Stories() {
           Find your story.
         </h1>
         <p className="mt-4 max-w-[54ch] text-[1.02rem] leading-[1.6] text-text-muted">
-          Short, calm audio stories with real characters and everyday
-          situations — written and recorded by a non-native speaker.
+          Short audio stories with real characters and everyday situations,
+          written and recorded by a non-native speaker.
         </p>
       </div>
 
@@ -108,48 +111,79 @@ export default function Stories() {
             </ul>
           </div>
 
-          {/* Cast of characters */}
-          <div className="bg-panel-2 py-12 pl-10 pr-12">
-            <div className="mb-7 font-mono text-[0.66rem] uppercase tracking-[0.1em] text-text-muted-2">
-              Cast of characters
+          {/* Two shows */}
+          <div className="flex flex-col bg-panel-2 py-12 pl-10 pr-12">
+            <div className="mb-6 font-mono text-[0.66rem] uppercase tracking-[0.1em] text-text-muted-2">
+              Two shows
             </div>
-            <div className="grid grid-cols-2 gap-x-5 gap-y-6">
-              {characters.map((char, i) => (
-                <Link
-                  key={char.slug}
-                  href={char.href ?? `/stories/characters/${char.slug}`}
-                  className={`relative block rounded-[4px] bg-text-primary p-[10px] pb-[18px] shadow-[0_14px_28px_-14px_rgba(0,0,0,0.5)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:rotate-0 ${ROTATIONS[i % ROTATIONS.length]}`}
+            <div className="flex flex-1 flex-col gap-5">
+              {shows.map((show) => (
+                <div
+                  key={show.id}
+                  className="flex flex-1 flex-col rounded-[14px] border border-line bg-panel p-6"
                 >
-                  <span className="absolute -top-2 left-1/2 h-4 w-11 -translate-x-1/2 -rotate-[4deg] border border-coral/70 bg-coral/[0.55]" />
-                  {char.comingSoon && (
-                    <span className="absolute -top-2 right-1 rounded-full border border-line bg-panel px-2 py-[0.2rem] font-mono text-[0.55rem] uppercase tracking-wide text-text-muted-2">
-                      Soon
-                    </span>
+                  <div className="flex items-center gap-3">
+                    <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${show.dot}`} />
+                    <h3 className="text-[1.6rem] font-black leading-none">{show.name}</h3>
+                  </div>
+                  <p className="mt-3 text-[0.92rem] leading-[1.55] text-text-muted">
+                    {show.description}
+                  </p>
+                  {(show.spotifyUrl || show.youtubeUrl) && (
+                    <div className="mt-auto flex flex-wrap gap-2.5 pt-5">
+                      {show.spotifyUrl && (
+                        <a href={show.spotifyUrl} target="_blank" rel="noopener noreferrer" className={SHOW_LINK_CLASS}>
+                          Spotify
+                        </a>
+                      )}
+                      {show.youtubeUrl && (
+                        <a href={show.youtubeUrl} target="_blank" rel="noopener noreferrer" className={SHOW_LINK_CLASS}>
+                          YouTube
+                        </a>
+                      )}
+                    </div>
                   )}
-                  <div className="mb-[0.6rem] flex aspect-square items-center justify-center rounded-[2px] bg-panel">
-                    {char.hasAvatar ? (
-                      <img
-                        src={`/characters/${char.slug}.svg`}
-                        alt={char.name}
-                        className="h-[88%] w-[88%]"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <div
-                        className={`h-[52%] w-[52%] rounded-full ${AVATAR_COLORS[i % AVATAR_COLORS.length]}`}
-                      />
-                    )}
-                  </div>
-                  <h3 className="text-center text-base font-extrabold text-ink">{char.name}</h3>
-                  <div className="mt-[0.1rem] text-center font-mono text-[0.6rem] text-text-muted-2">
-                    {char.role}
-                  </div>
-                </Link>
+                </div>
               ))}
             </div>
           </div>
         </div>
       </div>
+
+      {/* Characters, one shelf per show */}
+      <section className="mx-auto w-full max-w-[1180px] px-6 pb-24 md:px-14">
+        <div className="mb-[1.1rem] font-mono text-[0.72rem] uppercase tracking-[0.12em] text-teal">
+          Characters
+        </div>
+        <h2 className="text-[clamp(1.8rem,3vw,2.5rem)] font-black leading-[1.05]">
+          Who&apos;s in the stories
+        </h2>
+
+        <div className="mt-12 flex flex-col gap-[4.5rem]">
+          {shows.map((show) => {
+            const cast = characters.filter((c) => c.show === show.id);
+            if (cast.length === 0) return null;
+
+            return (
+              <div key={show.id}>
+                <div className="mb-10 flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-line pb-4">
+                  <span className={`h-2.5 w-2.5 shrink-0 self-center rounded-full ${show.dot}`} />
+                  <h3 className="text-[1.6rem] font-black leading-none">{show.name}</h3>
+                  <span className="text-[0.92rem] text-text-muted">{show.tagline}</span>
+                  <span className="ml-auto font-mono text-[0.72rem] text-text-muted">
+                    {cast.length} {cast.length === 1 ? "character" : "characters"}
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-x-5 gap-y-9 sm:grid-cols-[repeat(auto-fill,minmax(160px,1fr))] sm:gap-x-7">
+                  {cast.map((char, i) => (
+                    <CharacterCard key={char.slug} char={char} index={i} />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
     </main>
   );
 }
