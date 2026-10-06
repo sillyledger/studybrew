@@ -137,7 +137,7 @@ export default async function StoryValley({
         <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-4">
           <Link
             href={filterHref(null)}
-            className={`flex items-center gap-3.5 rounded-[14px] border p-4 transition-colors ${
+            className={`flex flex-col items-center gap-3.5 rounded-[14px] border p-4 text-center transition-colors sm:flex-row sm:text-left ${
               active ? "border-line bg-panel hover:border-coral/60" : "border-coral/60 bg-coral/[0.08]"
             }`}
           >
@@ -159,7 +159,7 @@ export default async function StoryValley({
               <Link
                 key={member.slug}
                 href={filterHref(member.name)}
-                className={`flex items-center gap-3.5 rounded-[14px] border p-4 transition-colors ${
+                className={`flex flex-col items-center gap-3.5 rounded-[14px] border p-4 text-center transition-colors sm:flex-row sm:text-left ${
                   isActive ? "border-coral/60 bg-coral/[0.08]" : "border-line bg-panel hover:border-coral/60"
                 }`}
               >
@@ -228,7 +228,7 @@ export default async function StoryValley({
         {lastPage > 1 && episodes.length > 0 && (
           <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
             <span className="font-mono text-[0.72rem] text-text-muted">
-              Showing {from + 1} to {from + episodes.length} of {episodeTotal}
+              Showing {from + 1} to {from + episodes.length} of {episodeCount(episodeTotal)}
             </span>
             <div className="flex gap-5">
               {page > 1 && (
