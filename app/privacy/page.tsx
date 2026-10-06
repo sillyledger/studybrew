@@ -7,7 +7,7 @@ const a = "text-teal underline decoration-teal-dim underline-offset-2 hover:text
 
 export default function PrivacyPolicyPage() {
   return (
-    <LegalLayout title="Privacy Policy" lastUpdated="August 20, 2026">
+    <LegalLayout title="Privacy Policy" lastUpdated="October 6, 2026">
       <p className={p}>
         Study Brew ("we", "us", or "our") operates the language-learning
         application available at <strong>app.studybrew.co</strong> and the
@@ -19,8 +19,23 @@ export default function PrivacyPolicyPage() {
       <p className={p}>
         We collect information you provide directly, including your email
         address and password when you create an account. We also collect
-        the content you create within the app — notebooks, docs, and saved
-        words — in order to provide the service.
+        the content you create within the app, such as notebooks, docs, and
+        saved words, in order to provide the service.
+      </p>
+      <p className={p}>
+        On studybrew.co, we also collect basic usage data through Google
+        Analytics, such as pages visited, device type and approximate
+        location. We use it only to understand which pages are useful.
+      </p>
+
+      <h2 className={h2}>Waitlist</h2>
+      <p className={p}>
+        When you join the waitlist, we collect only your email address. We
+        save it as a contact in Resend, our email provider, and not in
+        Supabase. It stays marked as unsubscribed until you confirm. Resend
+        sends you one email with a confirmation link that expires after 48
+        hours. When you click the link, your contact is marked as
+        subscribed.
       </p>
 
       <h2 className={h2}>How We Use Your Information</h2>
@@ -48,11 +63,23 @@ export default function PrivacyPolicyPage() {
         for how payment data is handled.
       </p>
 
+      <h2 className={h2}>Analytics</h2>
+      <p className={p}>
+        We use Google Analytics 4 on studybrew.co. Google processes this
+        data on our behalf under its own{" "}
+        <a className={a} href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
+          privacy policy
+        </a>
+        . Google's advertising features are turned off. The Story Valley
+        page does not use analytics.
+      </p>
+
       <h2 className={h2}>Cookies</h2>
       <p className={p}>
-        We use cookies solely for authentication purposes, to keep you
-        logged in. See our{" "}
-        <a className={a} href="/cookies">Cookie Policy</a> for details.
+        We use one essential cookie to keep you signed in, and Google
+        Analytics cookies on studybrew.co to measure page visits. See our{" "}
+        <a className={a} href="/cookies">Cookie Policy</a> for details and
+        how to opt out.
       </p>
 
       <h2 className={h2}>Your Rights</h2>
