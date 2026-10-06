@@ -45,6 +45,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   let storyRoutes: MetadataRoute.Sitemap = [];
+  let storyValleyRoutes: MetadataRoute.Sitemap = [];
   try {
     const supabase = createClient();
     const { data: stories } = await supabase
@@ -59,10 +60,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.6,
     }));
+
+    const { data: episodes } = await supabase
+      .from("posts")
+      .select("slug")
+      .eq("target_site", "storyvalley.co")
+      .eq("status", "published");
+
+    storyValleyRoutes = (episodes ?? []).map((episode) => ({
+      url: `${BASE_URL}/stories/story-valley/${episode.slug}`,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    }));
   } catch {
     // If Supabase is unreachable at build time, fall back to the static
     // routes above rather than failing the whole sitemap.
   }
 
-  return [...staticRoutes, ...deckRoutes, ...characterRoutes, ...storyRoutes];
+  return [...staticRoutes, ...deckRoutes, ...characterRoutes, ...storyRoutes, ...storyValleyRoutes];
 }
