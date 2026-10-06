@@ -4,6 +4,7 @@ import Nav from "@/components/Nav";
 import CharacterCard from "@/components/CharacterCard";
 import { characters } from "../../lib/characters";
 import { shows } from "../../lib/shows";
+import { storyValleyCast } from "../../lib/story-valley";
 
 export const metadata: Metadata = {
   title: "Audio Stories for English Learners | Study Brew",
@@ -24,6 +25,8 @@ const categories = [
 // get the dashed/unfilled tab regardless of position, so this scales past
 // six categories without hardcoding names.
 const TAB_COLORS = ["bg-teal", "bg-blue", "bg-coral"];
+
+const kidsShow = shows.find((s) => s.id === "kids");
 
 const SHOW_LINK_CLASS =
   "rounded-full border border-line px-3.5 py-2.5 font-mono text-[0.62rem] uppercase tracking-[0.1em] text-teal transition-colors hover:border-teal/60";
@@ -111,26 +114,34 @@ export default function Stories() {
             </ul>
           </div>
 
-          {/* Two shows */}
+          {/* Three shows */}
           <div className="flex flex-col bg-panel-2 py-12 pl-10 pr-12">
             <div className="mb-6 font-mono text-[0.66rem] uppercase tracking-[0.1em] text-text-muted-2">
-              Two shows
+              Three shows
             </div>
-            <div className="flex flex-1 flex-col gap-5">
+            <div className="flex flex-1 flex-col gap-4">
               {shows.map((show) => (
                 <div
                   key={show.id}
-                  className="flex flex-1 flex-col rounded-[14px] border border-line bg-panel p-6"
+                  className="flex flex-1 flex-col rounded-[14px] border border-line bg-panel p-5"
                 >
                   <div className="flex items-center gap-3">
                     <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${show.dot}`} />
-                    <h3 className="text-[1.6rem] font-black leading-none">{show.name}</h3>
+                    <h3 className="text-[1.45rem] font-black leading-none">{show.name}</h3>
+                    <span className="ml-auto shrink-0 rounded-full border border-line px-2 py-[0.2rem] font-mono text-[0.6rem] tracking-wide text-text-muted">
+                      {show.level}
+                    </span>
                   </div>
-                  <p className="mt-3 text-[0.92rem] leading-[1.55] text-text-muted">
+                  {show.audience && (
+                    <span className="mt-2.5 self-start rounded-full bg-coral-tint px-2.5 py-[0.25rem] font-mono text-[0.6rem] uppercase tracking-[0.1em] text-coral">
+                      {show.audience}
+                    </span>
+                  )}
+                  <p className="mt-2.5 text-[0.9rem] leading-[1.5] text-text-muted">
                     {show.description}
                   </p>
-                  {(show.spotifyUrl || show.youtubeUrl) && (
-                    <div className="mt-auto flex flex-wrap gap-2.5 pt-5">
+                  {(show.spotifyUrl || show.youtubeUrl || show.pageHref) && (
+                    <div className="mt-auto flex flex-wrap items-center gap-2.5 pt-4">
                       {show.spotifyUrl && (
                         <a href={show.spotifyUrl} target="_blank" rel="noopener noreferrer" className={SHOW_LINK_CLASS}>
                           Spotify
@@ -139,6 +150,16 @@ export default function Stories() {
                       {show.youtubeUrl && (
                         <a href={show.youtubeUrl} target="_blank" rel="noopener noreferrer" className={SHOW_LINK_CLASS}>
                           YouTube
+                        </a>
+                      )}
+                      {show.id === "kids" && show.pageHref && (
+                        // Plain <a> on purpose: a full page load means analytics
+                        // from the previous page never carries over.
+                        <a
+                          href={show.pageHref}
+                          className="ml-auto font-mono text-[0.62rem] uppercase tracking-[0.1em] text-coral transition-opacity hover:opacity-80"
+                        >
+                          Meet Story Valley →
                         </a>
                       )}
                     </div>
@@ -182,6 +203,42 @@ export default function Stories() {
               </div>
             );
           })}
+
+          {/* Story Valley strip. Text only, built from lib/story-valley.ts so
+              these characters never get detail pages. */}
+          {kidsShow && (
+            <div>
+              <div className="mb-10 flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-line pb-4">
+                <span className={`h-2.5 w-2.5 shrink-0 self-center rounded-full ${kidsShow.dot}`} />
+                <h3 className="text-[1.6rem] font-black leading-none">{kidsShow.name}</h3>
+                <span className="text-[0.92rem] text-text-muted">{kidsShow.tagline}</span>
+                <span className="ml-auto font-mono text-[0.72rem] text-text-muted">
+                  {storyValleyCast.length} characters
+                </span>
+              </div>
+              <div className="rounded-[14px] border border-line bg-panel p-7">
+                <div className="grid grid-cols-1 gap-7 sm:grid-cols-3">
+                  {storyValleyCast.map((char) => (
+                    <div key={char.name}>
+                      <h4 className="font-heading text-[1.3rem] font-black leading-none">{char.name}</h4>
+                      <div className="mt-2 font-mono text-[0.66rem] uppercase tracking-[0.1em] text-coral">
+                        {char.role}
+                      </div>
+                      <p className="mt-2 text-[0.9rem] leading-[1.5] text-text-muted">{char.line}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-7 flex justify-end">
+                  <a
+                    href="/stories/story-valley"
+                    className="font-mono text-[0.66rem] uppercase tracking-[0.1em] text-coral transition-opacity hover:opacity-80"
+                  >
+                    Meet the cast →
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </main>
