@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
+import StoryValleyCastCard from "@/components/StoryValleyCastCard";
 import { createClient } from "../../../lib/supabase";
 import { shows } from "../../../lib/shows";
 import { storyValleyCast } from "../../../lib/story-valley";
@@ -135,14 +136,11 @@ export default async function StoryValley() {
             {storyValleyCast.length} characters
           </span>
         </div>
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-          {storyValleyCast.map((char) => (
-            <div key={char.name} className="rounded-[14px] border border-line bg-panel p-7">
-              <h3 className="text-[1.45rem] font-black leading-none">{char.name}</h3>
-              <div className="mt-2.5 font-mono text-[0.66rem] uppercase tracking-[0.1em] text-coral">
-                {char.role}
-              </div>
-              <p className="mt-2.5 text-[0.92rem] leading-[1.55] text-text-muted">{char.line}</p>
+        <div className="grid grid-cols-2 gap-x-5 gap-y-9 sm:grid-cols-[repeat(auto-fill,minmax(160px,1fr))] sm:gap-x-7">
+          {storyValleyCast.map((member, i) => (
+            <div key={member.slug}>
+              <StoryValleyCastCard member={member} index={i} />
+              <p className="mt-4 text-center text-sm text-text-muted">{member.line}</p>
             </div>
           ))}
         </div>

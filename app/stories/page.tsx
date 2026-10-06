@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import CharacterCard from "@/components/CharacterCard";
+import StoryValleyCastCard from "@/components/StoryValleyCastCard";
 import { characters } from "../../lib/characters";
 import { shows } from "../../lib/shows";
 import { storyValleyCast } from "../../lib/story-valley";
@@ -204,8 +205,8 @@ export default function Stories() {
             );
           })}
 
-          {/* Story Valley strip. Text only, built from lib/story-valley.ts so
-              these characters never get detail pages. */}
+          {/* Story Valley shelf. Built from lib/story-valley.ts so these
+              characters never get detail pages. */}
           {kidsShow && (
             <div>
               <div className="mb-10 flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-line pb-4">
@@ -216,26 +217,15 @@ export default function Stories() {
                   {storyValleyCast.length} characters
                 </span>
               </div>
-              <div className="rounded-[14px] border border-line bg-panel p-7">
-                <div className="grid grid-cols-1 gap-7 sm:grid-cols-3">
-                  {storyValleyCast.map((char) => (
-                    <div key={char.name}>
-                      <h4 className="font-heading text-[1.3rem] font-black leading-none">{char.name}</h4>
-                      <div className="mt-2 font-mono text-[0.66rem] uppercase tracking-[0.1em] text-coral">
-                        {char.role}
-                      </div>
-                      <p className="mt-2 text-[0.9rem] leading-[1.5] text-text-muted">{char.line}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-7 flex justify-end">
-                  <a
+              <div className="grid grid-cols-2 gap-x-5 gap-y-9 sm:grid-cols-[repeat(auto-fill,minmax(160px,1fr))] sm:gap-x-7">
+                {storyValleyCast.map((member, i) => (
+                  <StoryValleyCastCard
+                    key={member.slug}
+                    member={member}
+                    index={i}
                     href="/stories/story-valley"
-                    className="font-mono text-[0.66rem] uppercase tracking-[0.1em] text-coral transition-opacity hover:opacity-80"
-                  >
-                    Meet the cast →
-                  </a>
-                </div>
+                  />
+                ))}
               </div>
             </div>
           )}
