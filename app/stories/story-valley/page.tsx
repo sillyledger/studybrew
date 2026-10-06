@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
-import StoryValleyCastCard from "@/components/StoryValleyCastCard";
 import { createClient } from "../../../lib/supabase";
 import { shows } from "../../../lib/shows";
 import { storyValleyCast } from "../../../lib/story-valley";
 
 // No embeds and no analytics (components/Analytics.tsx skips this path and
 // everything under it). Episodes come from posts with target_site
-// 'storyvalley.co', fetched on the server only.
-export const revalidate = 60;
+// 'storyvalley.co', fetched on the server only. Dynamic because the
+// character filter and paging come from searchParams.
 
 export const metadata: Metadata = {
   title: "Story Valley | Study Brew",
@@ -20,26 +19,74 @@ export const metadata: Metadata = {
 const LISTEN_LINK_CLASS =
   "rounded-full border border-line px-3.5 py-2.5 font-mono text-[0.62rem] uppercase tracking-[0.1em] text-coral transition-colors hover:border-coral/60";
 
+const PAGE_LINK_CLASS =
+  "font-mono text-[0.66rem] uppercase tracking-[0.1em] text-coral transition-opacity hover:opacity-80";
+
+const PAGE_SIZE = 12;
+
 interface Episode {
   id: string;
   title: string;
   slug: string;
   sub_category: string | null;
-  level: string | null;
   published_at: string | null;
 }
 
-export default async function StoryValley() {
+function episodeCount(n: number) {
+  return `${n} ${n === 1 ? "episode" : "episodes"}`;
+}
+
+function filterHref(character: string | null, page = 1) {
+  const params = new URLSearchParams();
+  if (character) params.set("character", character);
+  if (page > 1) params.set("page", String(page));
+  const query = params.toString();
+  return `/stories/story-valley${query ? `?${query}` : ""}#episodes`;
+}
+
+export default async function StoryValley({
+  searchParams,
+}: {
+  searchParams: Promise<{ character?: string; page?: string }>;
+}) {
+  const params = await searchParams;
   const show = shows.find((s) => s.id === "kids");
 
+  const active =
+    storyValleyCast.find(
+      (m) => m.name.toLowerCase() === params.character?.trim().toLowerCase(),
+    ) ?? null;
+
   const supabase = createClient();
-  const { data } = await supabase
+
+  // Every published episode's character, counted here for the filter cards.
+  const { data: allRows } = await supabase
     .from("posts")
-    .select("id, title, slug, sub_category, level, published_at")
+    .select("sub_category")
     .eq("target_site", "storyvalley.co")
-    .eq("status", "published")
-    .order("published_at", { ascending: false });
+    .eq("status", "published");
+  const rows = allRows ?? [];
+  const total = rows.length;
+  const countFor = (name: string) =>
+    rows.filter((r) => r.sub_category?.toLowerCase() === name.toLowerCase()).length;
+
+  const filteredTotal = active ? countFor(active.name) : total;
+  const lastPage = Math.max(1, Math.ceil(filteredTotal / PAGE_SIZE));
+  const requested = Number.parseInt(params.page ?? "", 10);
+  const page = Math.min(Math.max(Number.isNaN(requested) ? 1 : requested, 1), lastPage);
+  const from = (page - 1) * PAGE_SIZE;
+
+  let query = supabase
+    .from("posts")
+    .select("id, title, slug, sub_category, published_at", { count: "exact" })
+    .eq("target_site", "storyvalley.co")
+    .eq("status", "published");
+  if (active) query = query.ilike("sub_category", active.name);
+  const { data, count } = await query
+    .order("published_at", { ascending: false })
+    .range(from, from + PAGE_SIZE - 1);
   const episodes: Episode[] = data ?? [];
+  const episodeTotal = count ?? filteredTotal;
 
   return (
     <main className="flex flex-1 flex-col">
@@ -82,26 +129,84 @@ export default async function StoryValley() {
         )}
       </div>
 
-      {/* Episodes */}
+      {/* Cast, doubling as the episode filter */}
       <section className="mx-auto w-full max-w-[1180px] px-6 pb-16 md:px-14">
+        <div className="mb-4 font-mono text-[0.66rem] uppercase tracking-[0.1em] text-text-muted-2">
+          Meet the cast, or pick a character
+        </div>
+        <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-4">
+          <Link
+            href={filterHref(null)}
+            className={`flex items-center gap-3.5 rounded-[14px] border p-4 transition-colors ${
+              active ? "border-line bg-panel hover:border-coral/60" : "border-coral/60 bg-coral/[0.08]"
+            }`}
+          >
+            <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-coral/50 font-mono text-[0.72rem] tracking-[0.1em] text-coral">
+              ALL
+            </span>
+            <div className="min-w-0">
+              <h3 className="font-heading text-xl font-extrabold leading-none">Everyone</h3>
+              <div className="mt-1.5 font-mono text-[0.6rem] uppercase tracking-[0.1em] text-text-muted">
+                All characters
+              </div>
+              <div className="mt-1.5 font-mono text-[0.66rem] text-coral">{episodeCount(total)}</div>
+            </div>
+          </Link>
+          {storyValleyCast.map((member) => {
+            const n = countFor(member.name);
+            const isActive = active?.slug === member.slug;
+            return (
+              <Link
+                key={member.slug}
+                href={filterHref(member.name)}
+                className={`flex items-center gap-3.5 rounded-[14px] border p-4 transition-colors ${
+                  isActive ? "border-coral/60 bg-coral/[0.08]" : "border-line bg-panel hover:border-coral/60"
+                }`}
+              >
+                <img
+                  src={`/characters/${member.slug}.svg`}
+                  alt=""
+                  width={56}
+                  height={56}
+                  className="shrink-0"
+                />
+                <div className="min-w-0">
+                  <h3 className="font-heading text-xl font-extrabold leading-none">{member.name}</h3>
+                  <div className="mt-1.5 font-mono text-[0.6rem] uppercase tracking-[0.1em] text-text-muted">
+                    {member.role}
+                  </div>
+                  {n > 0 ? (
+                    <div className="mt-1.5 font-mono text-[0.66rem] text-coral">{episodeCount(n)}</div>
+                  ) : (
+                    <div className="mt-1.5 font-mono text-[0.66rem] text-text-muted-2">Coming soon</div>
+                  )}
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Episodes */}
+      <section id="episodes" className="mx-auto w-full max-w-[1180px] scroll-mt-6 px-6 pb-16 md:px-14">
         <div className="mb-6 flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-line pb-4">
           <span className="h-2.5 w-2.5 shrink-0 self-center rounded-full bg-coral" />
           <h2 className="text-[1.6rem] font-black leading-none">Episodes</h2>
-          {episodes.length > 0 && (
-            <span className="ml-auto font-mono text-[0.72rem] text-text-muted">
-              {episodes.length} {episodes.length === 1 ? "episode" : "episodes"}
-            </span>
-          )}
+          <span className="ml-auto font-mono text-[0.72rem] text-text-muted">
+            {episodeCount(episodeTotal)}
+          </span>
         </div>
         {episodes.length === 0 ? (
-          <p className="text-[0.92rem] text-text-muted">Episodes are on the way.</p>
+          <p className="text-[0.92rem] text-text-muted">
+            {active ? `No episodes for ${active.name} yet.` : "No episodes yet."}
+          </p>
         ) : (
-          <div className="flex flex-col gap-3">
+          <div className="grid grid-cols-1 gap-3.5 md:grid-cols-2">
             {episodes.map((ep) => (
               <Link
                 key={ep.id}
                 href={`/stories/story-valley/${ep.slug}`}
-                className="group flex items-center justify-between rounded-2xl border border-line bg-panel p-5 no-underline transition-colors hover:border-coral/60 md:p-6"
+                className="group flex items-center justify-between rounded-[14px] border border-line bg-panel px-[22px] py-5 no-underline transition-colors hover:border-coral/60"
               >
                 <div>
                   {ep.sub_category && (
@@ -109,14 +214,9 @@ export default async function StoryValley() {
                       {ep.sub_category}
                     </span>
                   )}
-                  <h3 className="text-[1.1rem] font-semibold leading-snug transition-colors group-hover:text-coral md:text-[1.2rem]">
+                  <h3 className="text-lg font-bold leading-snug transition-colors group-hover:text-coral">
                     {ep.title}
                   </h3>
-                  {ep.level && (
-                    <span className="mt-2 inline-block rounded-full border border-line px-2 py-0.5 text-xs text-text-muted">
-                      {ep.level}
-                    </span>
-                  )}
                 </div>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="ml-4 shrink-0 text-text-muted-2 transition-colors group-hover:text-coral">
                   <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
@@ -125,47 +225,49 @@ export default async function StoryValley() {
             ))}
           </div>
         )}
-      </section>
-
-      {/* Cast */}
-      <section className="mx-auto w-full max-w-[1180px] px-6 pb-16 md:px-14">
-        <div className="mb-6 flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-line pb-4">
-          <span className="h-2.5 w-2.5 shrink-0 self-center rounded-full bg-coral" />
-          <h2 className="text-[1.6rem] font-black leading-none">Meet the cast</h2>
-          <span className="ml-auto font-mono text-[0.72rem] text-text-muted">
-            {storyValleyCast.length} characters
-          </span>
-        </div>
-        <div className="grid grid-cols-2 gap-x-5 gap-y-9 sm:grid-cols-[repeat(auto-fill,minmax(160px,1fr))] sm:gap-x-7">
-          {storyValleyCast.map((member, i) => (
-            <div key={member.slug}>
-              <StoryValleyCastCard member={member} index={i} />
-              <p className="mt-4 text-center text-sm text-text-muted">{member.line}</p>
+        {lastPage > 1 && episodes.length > 0 && (
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+            <span className="font-mono text-[0.72rem] text-text-muted">
+              Showing {from + 1} to {from + episodes.length} of {episodeTotal}
+            </span>
+            <div className="flex gap-5">
+              {page > 1 && (
+                <Link href={filterHref(active?.name ?? null, page - 1)} className={PAGE_LINK_CLASS}>
+                  ← Previous
+                </Link>
+              )}
+              {page < lastPage && (
+                <Link href={filterHref(active?.name ?? null, page + 1)} className={PAGE_LINK_CLASS}>
+                  Next →
+                </Link>
+              )}
             </div>
-          ))}
-        </div>
+          </div>
+        )}
       </section>
 
       {/* Parents note */}
       <section className="mx-auto w-full max-w-[1180px] px-6 pb-24 md:px-14">
-        <div className="max-w-[640px] rounded-[14px] border border-line bg-panel-2 p-7">
-          <h2 className="text-[1.3rem] font-black leading-none">A note for parents</h2>
-          <p className="mt-3 text-[0.92rem] leading-[1.6] text-text-muted">
-            Story Valley is a Study Brew show. This page does not use analytics or
-            cookies, and there are no accounts here.
+        <div className="flex flex-wrap items-center justify-between gap-4 rounded-[14px] border border-line bg-panel px-[22px] py-5">
+          <div>
+            <h2 className="text-[1.1rem] font-black leading-none">A note for parents</h2>
+            <p className="mt-2 text-[0.88rem] leading-[1.6] text-text-muted">
+              Story Valley is a Study Brew show. This page does not use analytics or
+              cookies, and there are no accounts here.
+            </p>
+          </div>
+          <p className="text-[0.88rem] text-text-muted">
+            Like the stories?{" "}
+            <a
+              href="https://ko-fi.com/studybrew"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-coral underline-offset-4 hover:underline"
+            >
+              You can buy me a coffee on Ko-fi.
+            </a>
           </p>
         </div>
-        <p className="mt-6 text-[0.92rem] text-text-muted">
-          Like the stories?{" "}
-          <a
-            href="https://ko-fi.com/studybrew"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-coral underline-offset-4 hover:underline"
-          >
-            You can buy me a coffee on Ko-fi.
-          </a>
-        </p>
       </section>
     </main>
   );
