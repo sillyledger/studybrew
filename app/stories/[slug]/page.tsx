@@ -54,8 +54,14 @@ export default async function StoryPage({ params }: Props) {
 
   const embedUrl = story.spotify_url ? spotifyEmbedUrl(story.spotify_url) : null
 
-  const backHref = story.category
-    ? `/stories/${story.category.toLowerCase().replace(/ /g, '-')}`
+  const CATEGORY_SLUGS: Record<string, string> = {
+    'Bedtime Stories': 'bedtime',
+    'Daily Life': 'daily-life',
+    'Fantasy': 'fantasy',
+  }
+
+  const backHref = story.category && CATEGORY_SLUGS[story.category]
+    ? `/stories/${CATEGORY_SLUGS[story.category]}`
     : '/stories'
 
   const backLabel = story.category ? `← ${story.category}` : '← Stories'
