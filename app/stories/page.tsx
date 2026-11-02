@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 const categories = [
   { name: "Bedtime Stories", slug: "bedtime", description: "Wind down with calm, slow English.", available: true, emoji: "🌙" },
   { name: "Daily Life", slug: "daily-life", description: "Everyday situations, natural English.", available: true, emoji: "☀️" },
-  { name: "Travel", slug: "travel", description: "Stories from cities and quiet corners.", available: false, emoji: "✈️" },
-  { name: "Career", slug: "career", description: "Work, ambition, and small victories.", available: false, emoji: "💼" },
+  { name: "Travel", slug: "travel", description: "Stories from cities and quiet corners.", available: true, emoji: "✈️" },
+  { name: "Career", slug: "career", description: "Work, ambition, and small victories.", available: true, emoji: "💼" },
   { name: "Culture", slug: "culture", description: "Habits, traditions, and human moments.", available: false, emoji: "🌍" },
   { name: "Fantasy", slug: "fantasy", description: "Magical worlds and unexpected adventures.", available: true, emoji: "✨" },
 ];

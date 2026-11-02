@@ -20,6 +20,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/stories/daily-life`, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE_URL}/stories/bedtime`, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE_URL}/stories/fantasy`, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${BASE_URL}/stories/travel`, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${BASE_URL}/stories/career`, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE_URL}/stories/characters`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE_URL}/stories/story-valley`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE_URL}/practice`, changeFrequency: "weekly", priority: 0.8 },

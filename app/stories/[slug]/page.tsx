@@ -58,6 +58,8 @@ export default async function StoryPage({ params }: Props) {
     'Bedtime Stories': 'bedtime',
     'Daily Life': 'daily-life',
     'Fantasy': 'fantasy',
+    'Travel': 'travel',
+    'Career': 'career',
   }
 
   const backHref = story.category && CATEGORY_SLUGS[story.category]
