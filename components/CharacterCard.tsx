@@ -4,12 +4,22 @@ import type { Character } from "@/lib/characters";
 const AVATAR_COLORS = ["bg-coral", "bg-teal", "bg-blue"];
 const ROTATIONS = ["-rotate-[3deg]", "rotate-[2.5deg]", "rotate-[2deg]", "-rotate-[2deg]"];
 
-// Polaroid card used on /stories. `index` drives the rotation and the
-// fallback avatar colour so neighbouring cards never look identical.
-export default function CharacterCard({ char, index }: { char: Character; index: number }) {
+// Polaroid card used on /stories and /stories/characters. `index` drives the
+// rotation and the fallback avatar colour so neighbouring cards never look
+// identical. `href` overrides where the card links (default: char.href, then
+// the character's own page).
+export default function CharacterCard({
+  char,
+  index,
+  href,
+}: {
+  char: Character;
+  index: number;
+  href?: string;
+}) {
   return (
     <Link
-      href={char.href ?? `/stories/characters/${char.slug}`}
+      href={href ?? char.href ?? `/stories/characters/${char.slug}`}
       className={`relative block rounded-[4px] bg-text-primary p-[10px] pb-[18px] shadow-[0_14px_28px_-14px_rgba(0,0,0,0.5)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:rotate-0 ${ROTATIONS[index % ROTATIONS.length]}`}
     >
       <span className="absolute -top-2 left-1/2 h-4 w-11 -translate-x-1/2 -rotate-[4deg] border border-coral/70 bg-coral/[0.55]" />

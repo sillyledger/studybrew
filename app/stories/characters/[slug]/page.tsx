@@ -56,8 +56,10 @@ export default async function CharacterPage({ params }: Props) {
 
       <section className="px-6 max-w-5xl mx-auto w-full py-10 md:py-16">
 
-        <div className="mb-6 md:mb-8">
-          <a href="/stories" className="text-white/30 text-sm hover:text-white/50 transition-colors">← Stories</a>
+        <div className="mb-6 md:mb-8 flex items-center gap-2.5 text-sm">
+          <a href="/stories/characters" className="text-white/30 hover:text-white/50 transition-colors">← All characters</a>
+          <span className="text-white/20" aria-hidden="true">·</span>
+          <a href="/stories" className="text-white/30 hover:text-white/50 transition-colors">Stories</a>
         </div>
 
         {/* Profile header */}

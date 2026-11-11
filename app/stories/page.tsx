@@ -60,8 +60,10 @@ export default function Stories() {
           <div className="absolute inset-y-[6%] left-1/2 hidden w-px bg-line md:block" />
           <div className="absolute inset-y-[6%] left-1/2 hidden w-6 -translate-x-1/2 bg-gradient-to-r from-transparent via-black/25 to-transparent md:block" />
 
-          {/* Table of contents (categories) */}
-          <div className="py-12 pl-12 pr-10 md:pl-[4.5rem]">
+          {/* Table of contents (categories). Each row: tab, number, title and
+              description. Tab, number and "Soon" pill share the title's line
+              height so they all centre on the title line. */}
+          <div className="px-6 py-10 sm:px-10 md:py-12 md:pl-12 md:pr-10">
             <div className="mb-6 font-medium text-[0.74rem] text-text-muted-2">
               Contents
             </div>
@@ -70,28 +72,32 @@ export default function Stories() {
                 if (cat.available) liveTabIndex++;
                 const tabClass = cat.available
                   ? TAB_COLORS[liveTabIndex % TAB_COLORS.length]
-                  : "border border-dashed border-r-0 border-line";
+                  : "border-[1.5px] border-dashed border-line-strong";
                 const num = String(i + 1).padStart(2, "0");
+                const dim = cat.available ? "" : "opacity-50";
+                const rowClass = "flex w-full items-start gap-4";
 
                 const inner = (
                   <>
+                    <span className="flex h-7 shrink-0 items-center" aria-hidden="true">
+                      <span className={`block h-6 w-[18px] rounded-[5px] ${tabClass}`} />
+                    </span>
                     <span
-                      className={`absolute -left-[26px] top-1/2 h-8 w-[26px] -translate-y-1/2 rounded-l-[6px] ${tabClass}`}
-                    />
-                    <span
-                      className={`w-[1.6rem] shrink-0 font-medium text-[0.8rem] text-text-muted-2 ${cat.available ? "" : "opacity-50"}`}
+                      className={`flex h-7 w-[1.6rem] shrink-0 items-center text-[0.8rem] font-medium tabular-nums text-text-muted-2 ${dim}`}
                     >
                       {num}
                     </span>
-                    <div className={cat.available ? "" : "opacity-50"}>
-                      <h3 className="text-[1.2rem] font-bold">{cat.name}</h3>
-                      <p className="mt-[0.15rem] text-[0.85rem] text-text-muted">
+                    <div className={`min-w-0 flex-1 ${dim}`}>
+                      <h3 className="text-[1.2rem] font-bold leading-7">{cat.name}</h3>
+                      <p className="mt-[0.15rem] text-[0.85rem] leading-[1.5] text-text-muted">
                         {cat.description}
                       </p>
                     </div>
                     {!cat.available && (
-                      <span className="ml-auto shrink-0 self-center rounded-full border border-line px-2 py-[0.2rem] font-medium text-[0.68rem] text-text-muted-2">
-                        Soon
+                      <span className="flex h-7 shrink-0 items-center">
+                        <span className="rounded-full border border-line px-2 py-[0.2rem] text-[0.68rem] font-medium leading-none text-text-muted-2">
+                          Soon
+                        </span>
                       </span>
                     )}
                   </>
@@ -100,14 +106,14 @@ export default function Stories() {
                 return (
                   <li
                     key={cat.slug}
-                    className="relative flex items-baseline gap-4 border-b border-dashed border-line-soft py-4 last:border-none"
+                    className="border-b border-dashed border-line-soft py-4 last:border-none"
                   >
                     {cat.available ? (
-                      <Link href={`/stories/${cat.slug}`} className="flex w-full items-baseline gap-4">
+                      <Link href={`/stories/${cat.slug}`} className={`group ${rowClass}`}>
                         {inner}
                       </Link>
                     ) : (
-                      <div className="flex w-full cursor-not-allowed items-baseline gap-4">{inner}</div>
+                      <div className={`cursor-not-allowed ${rowClass}`}>{inner}</div>
                     )}
                   </li>
                 );
@@ -116,7 +122,7 @@ export default function Stories() {
           </div>
 
           {/* Three shows */}
-          <div className="flex flex-col bg-panel-2 py-12 pl-10 pr-12">
+          <div className="flex flex-col bg-panel-2 px-6 py-10 sm:px-10 md:py-12 md:pl-10 md:pr-12">
             <div className="mb-6 font-medium text-[0.74rem] text-text-muted-2">
               Three shows
             </div>
@@ -177,9 +183,17 @@ export default function Stories() {
         <div className="mb-[1.1rem] font-medium text-[0.8rem] text-teal">
           Characters
         </div>
-        <h2 className="text-[clamp(1.8rem,3vw,2.5rem)] font-bold leading-[1.05]">
-          Who&apos;s in the stories
-        </h2>
+        <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
+          <h2 className="text-[clamp(1.8rem,3vw,2.5rem)] font-bold leading-[1.05]">
+            Who&apos;s in the stories
+          </h2>
+          <Link
+            href="/stories/characters"
+            className="whitespace-nowrap border-b border-teal-dim pb-0.5 text-[0.82rem] font-medium text-teal transition-colors hover:border-teal"
+          >
+            Meet all characters →
+          </Link>
+        </div>
 
         <div className="mt-12 flex flex-col gap-[4.5rem]">
           {shows.map((show) => {
