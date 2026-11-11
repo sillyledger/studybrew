@@ -50,7 +50,6 @@ export const characters: Character[] = [
     tags: ["26 years old", "Marketing assistant", "New starter"],
     color: "#9DB7E0",
     hasAvatar: true,
-    comingSoon: true,
     show: "study",
   },
   {
