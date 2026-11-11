@@ -8,10 +8,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#10151b",
-        panel: "#161d25",
-        "panel-2": "#131920",
-        line: "#263140",
+        background: "rgb(var(--color-background-rgb) / <alpha-value>)",
+        panel: "var(--color-panel)",
+        "panel-2": "var(--color-panel-2)",
+        "panel-hover": "var(--color-panel-hover)",
+        line: "var(--color-border)",
+        "line-strong": "var(--color-border-strong)",
         teal: "#5DCAA5",
         "teal-dim": "#2f6b53",
         "teal-tint": "rgba(93,202,165,0.14)",
@@ -19,12 +21,12 @@ const config: Config = {
         blue: "#7CACDD",
         coral: "#F0997B",
         "coral-tint": "rgba(240,153,123,0.16)",
-        "line-soft": "rgba(38,49,64,0.6)",
+        "line-soft": "var(--color-border-soft)",
         ink: "#1b1f24",
         text: {
-          primary: "#F2F0E9",
-          muted: "#8b96a3",
-          "muted-2": "#5c6673",
+          primary: "var(--color-text-primary)",
+          muted: "var(--color-text-muted)",
+          "muted-2": "var(--color-text-muted-2)",
         },
       },
       fontFamily: {

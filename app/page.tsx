@@ -82,11 +82,11 @@ export default function Home() {
       {/* Hero */}
       <section className="mx-auto grid w-full max-w-[1120px] grid-cols-1 items-center gap-12 px-6 pb-14 pt-12 md:grid-cols-[1.05fr_0.95fr] md:px-14 md:pb-24 md:pt-20">
         <div className="min-w-0">
-          <div className="mb-5 flex items-center gap-2.5 font-mono text-[0.72rem] uppercase tracking-[0.12em] text-teal">
+          <div className="mb-5 flex items-center gap-2.5 font-medium text-[0.8rem] text-teal">
             <span className="h-px w-5 shrink-0 bg-teal-dim" />
             <span>Learn the language. Keep the words.</span>
           </div>
-          <h1 className="text-[clamp(2.6rem,4.6vw,4.1rem)] font-black leading-[0.98] tracking-[-0.01em]">
+          <h1 className="text-[clamp(2.6rem,4.6vw,4.1rem)] font-bold leading-[0.98]">
             A notebook for <span className="text-teal">language learners.</span>
           </h1>
           <p className="mt-5 max-w-[42ch] text-[1.06rem] leading-[1.65] text-text-muted">
@@ -104,10 +104,10 @@ export default function Home() {
       <section id="how" className="bg-background px-6 py-14 md:px-14 md:py-24">
         <div className="mx-auto max-w-[1120px]">
           <div className="max-w-[46ch]">
-            <div className="mb-3 font-mono text-[0.72rem] uppercase tracking-[0.12em] text-teal">
+            <div className="mb-3 font-medium text-[0.8rem] text-teal">
               How it works
             </div>
-            <h2 className="text-[clamp(1.8rem,3vw,2.4rem)] font-extrabold">
+            <h2 className="text-[clamp(1.8rem,3vw,2.4rem)] font-bold">
               Read it. Save it. <span className="text-teal">Keep it.</span>
             </h2>
             <p className="mt-3 text-text-muted">
@@ -125,7 +125,7 @@ export default function Home() {
                 className="relative rounded-2xl border border-line bg-panel pt-[2.4rem] transition-transform duration-300 ease-out hover:-translate-y-[5px]"
               >
                 <span
-                  className={`absolute -top-[14px] left-[1.6rem] z-[1] rounded-full px-[0.7rem] py-[0.35rem] font-mono text-[0.68rem] font-semibold ${step.tabBg} ${step.tabInk}`}
+                  className={`absolute -top-[14px] left-[1.6rem] z-[1] rounded-full px-[0.7rem] py-[0.35rem] text-[0.68rem] font-semibold ${step.tabBg} ${step.tabInk}`}
                 >
                   {step.tab}
                 </span>
@@ -144,7 +144,7 @@ export default function Home() {
 
                 {i === 1 && (
                   <div className="mx-[1.6rem] mb-[1.4rem] flex h-[120px] flex-col items-start justify-center overflow-hidden rounded-[10px] border border-teal-dim bg-teal-tint p-[0.8rem]">
-                    <div className="font-mono text-[0.58rem] uppercase tracking-wide text-text-muted-2">
+                    <div className="font-medium text-[0.66rem] text-text-muted-2">
                       New word
                     </div>
                     <div className="text-[1.15rem] font-bold">overwhelmed</div>
@@ -185,7 +185,7 @@ export default function Home() {
       <section className="mx-auto w-full max-w-[1120px] px-6 py-14 md:px-14 md:py-24">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
           <div>
-            <h2 className="max-w-[20ch] text-[clamp(1.8rem,3vw,2.4rem)] font-extrabold">
+            <h2 className="max-w-[20ch] text-[clamp(1.8rem,3vw,2.4rem)] font-bold">
               Public decks, free to browse.
             </h2>
             <p className="mt-2 max-w-[40ch] leading-[1.6] text-text-muted">
@@ -195,7 +195,7 @@ export default function Home() {
           </div>
           <Link
             href="/flashcards"
-            className="whitespace-nowrap border-b border-teal-dim pb-0.5 font-mono text-[0.78rem] text-teal"
+            className="whitespace-nowrap border-b border-teal-dim pb-0.5 font-medium text-[0.78rem] text-teal"
           >
             Browse all flashcards →
           </Link>
@@ -206,11 +206,11 @@ export default function Home() {
               key={card.word}
               className="flex flex-col gap-2 rounded-2xl border border-line bg-panel p-6 transition-[transform,border-color] duration-200 hover:-translate-y-1 hover:border-teal-dim"
             >
-              <div className="font-mono text-[0.64rem] uppercase tracking-wide text-text-muted-2">
+              <div className="font-medium text-[0.72rem] text-text-muted-2">
                 {card.kind}
               </div>
               <div className="text-[1.4rem] font-bold">{card.word}</div>
-              <div className="font-mono text-[0.72rem] text-blue">{card.pos}</div>
+              <div className="font-medium text-[0.72rem] text-blue">{card.pos}</div>
               <div className="mt-0.5 text-[0.86rem] leading-[1.55] text-text-muted">
                 {card.def}
               </div>
@@ -241,7 +241,7 @@ export default function Home() {
                 href={`/stories/characters/${avatar.slug}`}
                 title={avatar.name}
                 aria-label={avatar.name}
-                className={`relative h-[52px] w-[52px] overflow-hidden rounded-full border-2 border-background bg-[#0f1319] transition-transform duration-200 hover:z-10 hover:-translate-y-1 motion-reduce:transition-none ${
+                className={`relative h-[52px] w-[52px] overflow-hidden rounded-full border-2 border-background bg-panel-2 transition-transform duration-200 hover:z-10 hover:-translate-y-1 motion-reduce:transition-none ${
                   i === 0 ? "" : "-ml-3"
                 }`}
               >
@@ -255,7 +255,7 @@ export default function Home() {
           </div>
           <Link
             href="/stories"
-            className="shrink-0 rounded-full border border-line px-[1.1rem] py-[0.6rem] font-mono text-[0.78rem] text-text-muted"
+            className="shrink-0 rounded-full border border-line px-[1.1rem] py-[0.6rem] font-medium text-[0.78rem] text-text-muted"
           >
             Listen to stories
           </Link>
@@ -269,7 +269,7 @@ export default function Home() {
       >
         <div className="mx-auto grid max-w-[1120px] items-center gap-12 md:grid-cols-2">
           <div>
-            <h2 className="text-[clamp(1.8rem,3vw,2.4rem)] font-extrabold leading-[1.08]">
+            <h2 className="text-[clamp(1.8rem,3vw,2.4rem)] font-bold leading-[1.08]">
               The notes app is <span className="text-teal">in development.</span>
             </h2>
             <p className="mt-4 max-w-[38ch] leading-[1.65] text-text-muted">
@@ -300,7 +300,7 @@ export default function Home() {
                   {item.label}
                 </b>
                 <span
-                  className={`font-mono text-[0.74rem] ${
+                  className={`font-medium text-[0.74rem] ${
                     item.state === "active" ? "text-coral" : "text-text-muted"
                   }`}
                 >

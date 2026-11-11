@@ -33,7 +33,7 @@ export default function WaitlistForm() {
 
   if (status === "success") {
     return (
-      <p className="mt-8 font-mono text-[0.82rem] text-teal">
+      <p className="mt-8 font-medium text-[0.82rem] text-teal">
         Check your inbox to confirm your spot.
       </p>
     );
@@ -60,16 +60,16 @@ export default function WaitlistForm() {
         <button
           type="submit"
           disabled={status === "loading"}
-          className="whitespace-nowrap rounded-full bg-teal px-5 py-2.5 font-mono text-[0.8rem] font-bold text-teal-ink hover:opacity-90 disabled:opacity-60"
+          className="whitespace-nowrap rounded-full bg-teal px-5 py-2.5 text-[0.8rem] font-bold text-teal-ink hover:opacity-90 disabled:opacity-60"
         >
           {status === "loading" ? "Joining..." : "Join waitlist"}
         </button>
       </form>
-      <p className="mt-3 font-mono text-[0.72rem] text-text-muted-2">
+      <p className="mt-3 font-medium text-[0.72rem] text-text-muted-2">
         No spam. One email, when notes are ready.
       </p>
       {status === "error" && (
-        <p className="mt-2 font-mono text-[0.72rem] text-coral">{error}</p>
+        <p className="mt-2 font-medium text-[0.72rem] text-coral">{error}</p>
       )}
     </div>
   );

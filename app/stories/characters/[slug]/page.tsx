@@ -77,7 +77,7 @@ export default async function CharacterPage({ params }: Props) {
             </div>
           )}
           <div className="flex-1 min-w-[240px]">
-            <p className="text-white/40 text-xs tracking-widest uppercase mb-2">Character</p>
+            <p className="font-medium text-white/40 text-[0.82rem] mb-2">Character</p>
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-1">{character.name}</h1>
             <p className="text-white/50 text-sm md:text-base mb-4">{character.role}</p>
             <p className="text-white/70 text-sm md:text-base leading-relaxed max-w-xl mb-4">{character.bio}</p>
@@ -92,7 +92,7 @@ export default async function CharacterPage({ params }: Props) {
         </div>
 
         {/* Stories featuring this character */}
-        <p className="text-white/40 text-xs tracking-widest uppercase mb-4">
+        <p className="font-medium text-white/40 text-[0.82rem] mb-4">
           Stories featuring {character.name}
         </p>
 

@@ -58,10 +58,10 @@ export default function About() {
 
       {/* Page head */}
       <div className="mx-auto w-full max-w-[900px] px-6 pb-4 pt-10 md:px-14 md:pt-16">
-        <div className="mb-[1.1rem] font-mono text-[0.72rem] uppercase tracking-[0.12em] text-teal">
+        <div className="mb-[1.1rem] font-medium text-[0.8rem] text-teal">
           About
         </div>
-        <h1 className="max-w-[16ch] text-[clamp(2.2rem,4vw,3.1rem)] font-black leading-[1.02]">
+        <h1 className="max-w-[16ch] text-[clamp(2.2rem,4vw,3.1rem)] font-bold leading-[1.02]">
           I got tired of
           <br />
           switching apps.

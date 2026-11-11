@@ -57,7 +57,7 @@ export default async function FantasyStories() {
         <div className="mb-2">
           <a href="/stories" className="text-white/30 text-sm hover:text-white/50 transition-colors">← Stories</a>
         </div>
-        <p className="text-white/40 text-sm tracking-widest uppercase mb-4 mt-6">Fantasy</p>
+        <p className="font-medium text-white/40 text-sm mb-4 mt-6">Fantasy</p>
         <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-4">
           Magical worlds and unexpected adventures.
         </h1>

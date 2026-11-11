@@ -19,18 +19,18 @@ export default function EnglishFlashcardsPage() {
         <div className="inline-flex gap-1 rounded-full border border-line bg-panel p-1">
           <Link
             href="/flashcards/english"
-            className="rounded-full bg-teal px-[0.9rem] py-[0.45rem] font-mono text-[0.72rem] font-semibold text-teal-ink"
+            className="rounded-full bg-teal px-[0.9rem] py-[0.45rem] text-[0.72rem] font-semibold text-teal-ink"
           >
             English
           </Link>
           <Link
             href="/flashcards/chinese"
-            className="rounded-full px-[0.9rem] py-[0.45rem] font-mono text-[0.72rem] text-text-muted"
+            className="rounded-full px-[0.9rem] py-[0.45rem] font-medium text-[0.72rem] text-text-muted"
           >
             繁體中文
           </Link>
         </div>
-        <h1 className="mt-6 text-[clamp(2.2rem,4vw,3.1rem)] font-black leading-[1.02]">
+        <h1 className="mt-6 text-[clamp(2.2rem,4vw,3.1rem)] font-bold leading-[1.02]">
           English flashcards
         </h1>
         <p className="mt-4 max-w-[54ch] text-[1.02rem] leading-[1.6] text-text-muted">
@@ -63,7 +63,7 @@ export default function EnglishFlashcardsPage() {
                 <p className="mt-1 text-[0.9rem] leading-[1.5] text-text-muted">
                   {cat.description}
                 </p>
-                <div className="mt-[1.6rem] flex items-center justify-between border-t border-dashed border-line-soft pt-4 font-mono text-[0.76rem] text-text-muted-2">
+                <div className="mt-[1.6rem] flex items-center justify-between border-t border-dashed border-line-soft pt-4 font-medium text-[0.76rem] text-text-muted-2">
                   {cat.available ? (
                     <>
                       <span>
@@ -72,7 +72,7 @@ export default function EnglishFlashcardsPage() {
                       <span>→</span>
                     </>
                   ) : (
-                    <span className="rounded-full border border-line px-[0.55rem] py-[0.22rem] text-[0.62rem] uppercase tracking-wide">
+                    <span className="rounded-full border border-line px-[0.55rem] py-[0.22rem] font-medium text-[0.7rem]">
                       Soon
                     </span>
                   )}

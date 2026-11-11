@@ -58,7 +58,7 @@ function DropdownItemContent({ item }: { item: DropdownItem }) {
         <p className="mt-0.5 font-sans text-[0.78rem] text-text-muted">{item.sub}</p>
       </div>
       {!item.available && (
-        <span className="ml-auto shrink-0 self-center rounded-full border border-line px-[0.55rem] py-[0.22rem] font-mono text-[0.6rem] uppercase tracking-wide text-text-muted-2">
+        <span className="ml-auto shrink-0 self-center rounded-full border border-line px-[0.55rem] py-[0.22rem] font-medium text-[0.68rem] text-text-muted-2">
           Soon
         </span>
       )}
@@ -141,7 +141,7 @@ function NavDropdown({
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className={`flex items-center gap-1.5 bg-transparent font-mono text-[0.74rem] font-normal uppercase leading-[1.5] tracking-wide ${linkClass(
+        className={`flex items-center gap-1.5 bg-transparent text-[0.84rem] font-medium leading-[1.5] ${linkClass(
           active || open
         )}`}
       >
@@ -169,7 +169,7 @@ function MobileMenuSection({
 }) {
   return (
     <div className="border-b border-line-soft py-4">
-      <span className="font-mono text-[0.66rem] uppercase tracking-wide text-text-muted-2">
+      <span className="font-medium text-[0.74rem] text-text-muted-2">
         {label}
       </span>
       <div className="mt-2 flex flex-col">
@@ -235,11 +235,14 @@ function MobileMenu({
       <Link href="/about" onClick={onNavigate} className={linkClass(pathname === "/about")}>
         About
       </Link>
+      <Link href="/roadmap" onClick={onNavigate} className={linkClass(pathname === "/roadmap")}>
+        Roadmap
+      </Link>
       <Link href="/contact" onClick={onNavigate} className={linkClass(pathname === "/contact")}>
         Contact
       </Link>
 
-      <div className="mt-6 flex items-center gap-2 border-t border-line-soft pt-6 font-mono text-[0.74rem] text-text-muted">
+      <div className="mt-6 flex items-center gap-2 border-t border-line-soft pt-6 font-medium text-[0.74rem] text-text-muted">
         <span className="h-1.5 w-1.5 rounded-full bg-coral" />
         App in development
       </div>
@@ -308,7 +311,7 @@ export default function Nav() {
           <span className="whitespace-nowrap text-xl font-bold">Study Brew</span>
         </Link>
 
-        <div className="hidden items-center gap-5 font-mono text-[0.74rem] uppercase tracking-wide lg:flex lg:gap-7">
+        <div className="hidden items-center gap-5 font-medium text-[0.84rem] lg:flex lg:gap-7">
           <Link href="/" className={linkClass(pathname === "/")}>
             Home
           </Link>
@@ -325,12 +328,15 @@ export default function Nav() {
           <Link href="/about" className={linkClass(pathname === "/about")}>
             About
           </Link>
+          <Link href="/roadmap" className={linkClass(pathname === "/roadmap")}>
+            Roadmap
+          </Link>
           <Link href="/contact" className={linkClass(pathname === "/contact")}>
             Contact
           </Link>
         </div>
 
-        <div className="hidden items-center gap-2 whitespace-nowrap font-mono text-[0.74rem] text-text-muted xl:flex">
+        <div className="hidden items-center gap-2 whitespace-nowrap font-medium text-[0.74rem] text-text-muted xl:flex">
           <span className="h-1.5 w-1.5 rounded-full bg-coral" />
           App in development
         </div>

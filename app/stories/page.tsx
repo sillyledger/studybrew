@@ -30,7 +30,7 @@ const TAB_COLORS = ["bg-teal", "bg-blue", "bg-coral"];
 const kidsShow = shows.find((s) => s.id === "kids");
 
 const SHOW_LINK_CLASS =
-  "rounded-full border border-line px-3.5 py-2.5 font-mono text-[0.62rem] uppercase tracking-[0.1em] text-teal transition-colors hover:border-teal/60";
+  "rounded-full border border-line px-3.5 py-2.5 font-medium text-[0.7rem] text-teal transition-colors hover:border-teal/60";
 
 export default function Stories() {
   let liveTabIndex = -1;
@@ -41,10 +41,10 @@ export default function Stories() {
 
       {/* Page head */}
       <div className="mx-auto w-full max-w-[1180px] px-6 pb-10 pt-10 md:px-14 md:pt-16">
-        <div className="mb-[1.1rem] font-mono text-[0.72rem] uppercase tracking-[0.12em] text-teal">
+        <div className="mb-[1.1rem] font-medium text-[0.8rem] text-teal">
           Audio stories
         </div>
-        <h1 className="max-w-[16ch] text-[clamp(2.2rem,4vw,3.1rem)] font-black leading-[1.02]">
+        <h1 className="max-w-[16ch] text-[clamp(2.2rem,4vw,3.1rem)] font-bold leading-[1.02]">
           Find your story.
         </h1>
         <p className="mt-4 max-w-[54ch] text-[1.02rem] leading-[1.6] text-text-muted">
@@ -62,7 +62,7 @@ export default function Stories() {
 
           {/* Table of contents (categories) */}
           <div className="py-12 pl-12 pr-10 md:pl-[4.5rem]">
-            <div className="mb-6 font-mono text-[0.66rem] uppercase tracking-[0.1em] text-text-muted-2">
+            <div className="mb-6 font-medium text-[0.74rem] text-text-muted-2">
               Contents
             </div>
             <ul className="list-none">
@@ -79,7 +79,7 @@ export default function Stories() {
                       className={`absolute -left-[26px] top-1/2 h-8 w-[26px] -translate-y-1/2 rounded-l-[6px] ${tabClass}`}
                     />
                     <span
-                      className={`w-[1.6rem] shrink-0 font-mono text-[0.8rem] text-text-muted-2 ${cat.available ? "" : "opacity-50"}`}
+                      className={`w-[1.6rem] shrink-0 font-medium text-[0.8rem] text-text-muted-2 ${cat.available ? "" : "opacity-50"}`}
                     >
                       {num}
                     </span>
@@ -90,7 +90,7 @@ export default function Stories() {
                       </p>
                     </div>
                     {!cat.available && (
-                      <span className="ml-auto shrink-0 self-center rounded-full border border-line px-2 py-[0.2rem] font-mono text-[0.6rem] uppercase tracking-wide text-text-muted-2">
+                      <span className="ml-auto shrink-0 self-center rounded-full border border-line px-2 py-[0.2rem] font-medium text-[0.68rem] text-text-muted-2">
                         Soon
                       </span>
                     )}
@@ -117,7 +117,7 @@ export default function Stories() {
 
           {/* Three shows */}
           <div className="flex flex-col bg-panel-2 py-12 pl-10 pr-12">
-            <div className="mb-6 font-mono text-[0.66rem] uppercase tracking-[0.1em] text-text-muted-2">
+            <div className="mb-6 font-medium text-[0.74rem] text-text-muted-2">
               Three shows
             </div>
             <div className="flex flex-1 flex-col gap-4">
@@ -128,13 +128,13 @@ export default function Stories() {
                 >
                   <div className="flex items-center gap-3">
                     <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${show.dot}`} />
-                    <h3 className="text-[1.45rem] font-black leading-none">{show.name}</h3>
-                    <span className="ml-auto shrink-0 rounded-full border border-line px-2 py-[0.2rem] font-mono text-[0.6rem] tracking-wide text-text-muted">
+                    <h3 className="text-[1.45rem] font-bold leading-none">{show.name}</h3>
+                    <span className="ml-auto shrink-0 rounded-full border border-line px-2 py-[0.2rem] font-medium text-[0.6rem] text-text-muted">
                       {show.level}
                     </span>
                   </div>
                   {show.audience && (
-                    <span className="mt-2.5 self-start rounded-full bg-coral-tint px-2.5 py-[0.25rem] font-mono text-[0.6rem] uppercase tracking-[0.1em] text-coral">
+                    <span className="mt-2.5 self-start rounded-full bg-coral-tint px-2.5 py-[0.25rem] font-medium text-[0.68rem] text-coral">
                       {show.audience}
                     </span>
                   )}
@@ -158,7 +158,7 @@ export default function Stories() {
                         // from the previous page never carries over.
                         <a
                           href={show.pageHref}
-                          className="ml-auto font-mono text-[0.62rem] uppercase tracking-[0.1em] text-coral transition-opacity hover:opacity-80"
+                          className="ml-auto font-medium text-[0.7rem] text-coral transition-opacity hover:opacity-80"
                         >
                           Meet Story Valley →
                         </a>
@@ -174,10 +174,10 @@ export default function Stories() {
 
       {/* Characters, one shelf per show */}
       <section className="mx-auto w-full max-w-[1180px] px-6 pb-24 md:px-14">
-        <div className="mb-[1.1rem] font-mono text-[0.72rem] uppercase tracking-[0.12em] text-teal">
+        <div className="mb-[1.1rem] font-medium text-[0.8rem] text-teal">
           Characters
         </div>
-        <h2 className="text-[clamp(1.8rem,3vw,2.5rem)] font-black leading-[1.05]">
+        <h2 className="text-[clamp(1.8rem,3vw,2.5rem)] font-bold leading-[1.05]">
           Who&apos;s in the stories
         </h2>
 
@@ -190,9 +190,9 @@ export default function Stories() {
               <div key={show.id}>
                 <div className="mb-10 flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-line pb-4">
                   <span className={`h-2.5 w-2.5 shrink-0 self-center rounded-full ${show.dot}`} />
-                  <h3 className="text-[1.6rem] font-black leading-none">{show.name}</h3>
+                  <h3 className="text-[1.6rem] font-bold leading-none">{show.name}</h3>
                   <span className="text-[0.92rem] text-text-muted">{show.tagline}</span>
-                  <span className="ml-auto font-mono text-[0.72rem] text-text-muted">
+                  <span className="ml-auto font-medium text-[0.72rem] text-text-muted">
                     {cast.length} {cast.length === 1 ? "character" : "characters"}
                   </span>
                 </div>
@@ -211,9 +211,9 @@ export default function Stories() {
             <div>
               <div className="mb-10 flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-line pb-4">
                 <span className={`h-2.5 w-2.5 shrink-0 self-center rounded-full ${kidsShow.dot}`} />
-                <h3 className="text-[1.6rem] font-black leading-none">{kidsShow.name}</h3>
+                <h3 className="text-[1.6rem] font-bold leading-none">{kidsShow.name}</h3>
                 <span className="text-[0.92rem] text-text-muted">{kidsShow.tagline}</span>
-                <span className="ml-auto font-mono text-[0.72rem] text-text-muted">
+                <span className="ml-auto font-medium text-[0.72rem] text-text-muted">
                   {storyValleyCast.length} characters
                 </span>
               </div>

@@ -17,10 +17,10 @@ export const metadata: Metadata = {
 };
 
 const LISTEN_LINK_CLASS =
-  "rounded-full border border-line px-3.5 py-2.5 font-mono text-[0.62rem] uppercase tracking-[0.1em] text-coral transition-colors hover:border-coral/60";
+  "rounded-full border border-line px-3.5 py-2.5 font-medium text-[0.7rem] text-coral transition-colors hover:border-coral/60";
 
 const PAGE_LINK_CLASS =
-  "font-mono text-[0.66rem] uppercase tracking-[0.1em] text-coral transition-opacity hover:opacity-80";
+  "font-medium text-[0.74rem] text-coral transition-opacity hover:opacity-80";
 
 const PAGE_SIZE = 12;
 
@@ -96,14 +96,14 @@ export default async function StoryValley({
       <div className="mx-auto w-full max-w-[1180px] px-6 pb-10 pt-10 md:px-14 md:pt-16">
         <a
           href="/stories"
-          className="font-mono text-[0.72rem] uppercase tracking-[0.12em] text-text-muted transition-colors hover:text-text-primary"
+          className="font-medium text-[0.8rem] text-text-muted transition-colors hover:text-text-primary"
         >
           ← Stories
         </a>
-        <div className="mb-[1.1rem] mt-8 font-mono text-[0.72rem] uppercase tracking-[0.12em] text-coral">
+        <div className="mb-[1.1rem] mt-8 font-medium text-[0.8rem] text-coral">
           Story Valley
         </div>
-        <h1 className="max-w-[18ch] text-[clamp(2.2rem,4vw,3.1rem)] font-black leading-[1.02]">
+        <h1 className="max-w-[18ch] text-[clamp(2.2rem,4vw,3.1rem)] font-bold leading-[1.02]">
           English stories to share with your child.
         </h1>
         <p className="mt-4 max-w-[54ch] text-[1.02rem] leading-[1.6] text-text-muted">
@@ -131,7 +131,7 @@ export default async function StoryValley({
 
       {/* Cast, doubling as the episode filter */}
       <section className="mx-auto w-full max-w-[1180px] px-6 pb-16 md:px-14">
-        <div className="mb-4 font-mono text-[0.66rem] uppercase tracking-[0.1em] text-text-muted-2">
+        <div className="mb-4 font-medium text-[0.74rem] text-text-muted-2">
           Meet the cast, or pick a character
         </div>
         <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-4">
@@ -141,15 +141,15 @@ export default async function StoryValley({
               active ? "border-line bg-panel hover:border-coral/60" : "border-coral/60 bg-coral/[0.08]"
             }`}
           >
-            <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-coral/50 font-mono text-[0.72rem] tracking-[0.1em] text-coral">
-              ALL
+            <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-coral/50 font-medium text-[0.72rem] text-coral">
+              All
             </span>
             <div className="min-w-0">
-              <h3 className="font-heading text-xl font-extrabold leading-none">Everyone</h3>
-              <div className="mt-1.5 font-mono text-[0.6rem] uppercase tracking-[0.1em] text-text-muted">
+              <h3 className="font-heading text-xl font-bold leading-none">Everyone</h3>
+              <div className="mt-1.5 font-medium text-[0.68rem] text-text-muted">
                 All characters
               </div>
-              <div className="mt-1.5 font-mono text-[0.66rem] text-coral">{episodeCount(total)}</div>
+              <div className="mt-1.5 font-medium text-[0.66rem] text-coral">{episodeCount(total)}</div>
             </div>
           </Link>
           {storyValleyCast.map((member) => {
@@ -171,14 +171,14 @@ export default async function StoryValley({
                   className="shrink-0"
                 />
                 <div className="min-w-0">
-                  <h3 className="font-heading text-xl font-extrabold leading-none">{member.name}</h3>
-                  <div className="mt-1.5 font-mono text-[0.6rem] uppercase tracking-[0.1em] text-text-muted">
+                  <h3 className="font-heading text-xl font-bold leading-none">{member.name}</h3>
+                  <div className="mt-1.5 font-medium text-[0.68rem] text-text-muted">
                     {member.role}
                   </div>
                   {n > 0 ? (
-                    <div className="mt-1.5 font-mono text-[0.66rem] text-coral">{episodeCount(n)}</div>
+                    <div className="mt-1.5 font-medium text-[0.66rem] text-coral">{episodeCount(n)}</div>
                   ) : (
-                    <div className="mt-1.5 font-mono text-[0.66rem] text-text-muted-2">Coming soon</div>
+                    <div className="mt-1.5 font-medium text-[0.66rem] text-text-muted-2">Coming soon</div>
                   )}
                 </div>
               </Link>
@@ -191,8 +191,8 @@ export default async function StoryValley({
       <section id="episodes" className="mx-auto w-full max-w-[1180px] scroll-mt-6 px-6 pb-16 md:px-14">
         <div className="mb-6 flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-line pb-4">
           <span className="h-2.5 w-2.5 shrink-0 self-center rounded-full bg-coral" />
-          <h2 className="text-[1.6rem] font-black leading-none">Episodes</h2>
-          <span className="ml-auto font-mono text-[0.72rem] text-text-muted">
+          <h2 className="text-[1.6rem] font-bold leading-none">Episodes</h2>
+          <span className="ml-auto font-medium text-[0.72rem] text-text-muted">
             {episodeCount(episodeTotal)}
           </span>
         </div>
@@ -227,7 +227,7 @@ export default async function StoryValley({
         )}
         {lastPage > 1 && episodes.length > 0 && (
           <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-            <span className="font-mono text-[0.72rem] text-text-muted">
+            <span className="font-medium text-[0.72rem] text-text-muted">
               Showing {from + 1} to {from + episodes.length} of {episodeCount(episodeTotal)}
             </span>
             <div className="flex gap-5">
@@ -250,7 +250,7 @@ export default async function StoryValley({
       <section className="mx-auto w-full max-w-[1180px] px-6 pb-24 md:px-14">
         <div className="flex flex-wrap items-center justify-between gap-4 rounded-[14px] border border-line bg-panel px-[22px] py-5">
           <div>
-            <h2 className="text-[1.1rem] font-black leading-none">A note for parents</h2>
+            <h2 className="text-[1.1rem] font-bold leading-none">A note for parents</h2>
             <p className="mt-2 text-[0.88rem] leading-[1.6] text-text-muted">
               Story Valley is a Study Brew show. This page does not use analytics or
               cookies, and there are no accounts here.

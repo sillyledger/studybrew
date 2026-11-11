@@ -7,9 +7,11 @@ const PRODUCT_LINKS = [
   { href: "/app", label: "App" },
 ];
 
-const COMPANY_LINKS = [{ href: "/about", label: "About" }];
-const COMPANY_SOON = ["Blog"];
-const COMPANY_LINKS_2 = [{ href: "/contact", label: "Contact" }];
+const COMPANY_LINKS = [
+  { href: "/about", label: "About" },
+  { href: "/roadmap", label: "Roadmap" },
+  { href: "/contact", label: "Contact" },
+];
 
 const LEGAL_LINKS = [
   { href: "/privacy", label: "Privacy Policy" },
@@ -26,7 +28,7 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <div className="mb-[1.1rem] font-mono text-[0.68rem] uppercase tracking-wide text-text-muted-2">
+      <div className="mb-[1.1rem] font-medium text-[0.76rem] text-text-muted-2">
         {heading}
       </div>
       <ul className="flex flex-col gap-3">{children}</ul>
@@ -48,7 +50,7 @@ export default function Footer() {
               Made by a learner, for learners. Free vocabulary, stories, and
               practice for English learners.
             </p>
-            <span className="mt-[0.3rem] inline-flex items-center gap-[0.45rem] font-mono text-[0.7rem] text-text-muted-2">
+            <span className="mt-[0.3rem] inline-flex items-center gap-[0.45rem] font-medium text-[0.7rem] text-text-muted-2">
               <span className="h-1.5 w-1.5 rounded-full bg-coral" />
               App in development
             </span>
@@ -78,27 +80,6 @@ export default function Footer() {
                 </Link>
               </li>
             ))}
-            {COMPANY_SOON.map((label) => (
-              <li
-                key={label}
-                className="flex items-center gap-2 text-[0.88rem] text-text-muted-2"
-              >
-                {label}
-                <span className="rounded-full border border-line px-[0.45rem] py-[0.15rem] font-mono text-[0.58rem] uppercase tracking-wide">
-                  Soon
-                </span>
-              </li>
-            ))}
-            {COMPANY_LINKS_2.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="text-[0.88rem] text-text-muted transition-colors hover:text-text-primary"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
           </FooterColumn>
 
           <FooterColumn heading="Legal">
@@ -118,10 +99,10 @@ export default function Footer() {
 
       <div className="mx-auto w-full max-w-[1120px] px-6 md:px-14">
         <div className="flex flex-wrap items-center justify-between gap-4 border-t border-line-soft py-[1.6rem]">
-          <span className="font-mono text-[0.72rem] text-text-muted-2">
+          <span className="font-medium text-[0.72rem] text-text-muted-2">
             © 2026 Study Brew. All rights reserved.
           </span>
-          <span className="font-mono text-[0.72rem] text-text-muted-2">
+          <span className="font-medium text-[0.72rem] text-text-muted-2">
             Made by a learner, for learners.
           </span>
           <div className="flex gap-[0.9rem]">

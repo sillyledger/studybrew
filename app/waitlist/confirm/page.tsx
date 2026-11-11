@@ -33,10 +33,10 @@ export default async function WaitlistConfirm({
       <Nav />
 
       <div className="mx-auto w-full max-w-[640px] px-6 py-24 text-center">
-        <div className="inline-flex rounded-full bg-teal-tint px-3 py-1.5 font-mono text-[0.7rem] text-teal">
+        <div className="inline-flex rounded-full bg-teal-tint px-3 py-1.5 font-medium text-[0.7rem] text-teal">
           Waitlist
         </div>
-        <h1 className="mt-6 text-[clamp(2.2rem,4vw,3.1rem)] font-black leading-[1.02]">
+        <h1 className="mt-6 text-[clamp(2.2rem,4vw,3.1rem)] font-bold leading-[1.02]">
           {content.heading}
         </h1>
         <p className="mt-5 text-[1.06rem] leading-[1.65] text-text-muted">
@@ -44,7 +44,7 @@ export default async function WaitlistConfirm({
         </p>
         <Link
           href="/"
-          className="mt-8 inline-block font-mono text-[0.82rem] text-teal hover:underline"
+          className="mt-8 inline-block font-medium text-[0.82rem] text-teal hover:underline"
         >
           {content.link}
         </Link>

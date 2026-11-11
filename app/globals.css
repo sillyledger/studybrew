@@ -3,17 +3,26 @@
 @tailwind utilities;
 
 :root {
-  --color-background: #10151b;
-  --color-panel: #161d25;
-  --color-panel-2: #131920;
-  --color-panel-hover: #1c2530;
-  --color-border: #263140;
+  /* App palette */
+  --color-background: #161618;
+  --color-background-rgb: 22 22 24; /* same as --color-background, for Tailwind opacity modifiers (bg-background/90) */
+  --color-panel: #242426;
+  --color-panel-2: #1e1e21;
+  --color-panel-hover: #2e2e30;
+  --color-border: #2a2a2d;
+  --color-border-soft: rgba(42, 42, 45, 0.6);
+  --color-border-strong: #3d3d42;
   --color-teal: #5DCAA5;
   --color-blue: #7CACDD;
   --color-coral: #F0997B;
-  --color-text-primary: #F2F0E9;
-  --color-text-muted: #8b96a3;
-  --color-text-muted-2: #5c6673;
+  --color-text-primary: #e8e8e8;
+  --color-text-muted: #a0a0a0;
+  --color-text-muted-2: #8a8a92;
+
+  /* One typeface everywhere: DM Sans (loaded in app/layout.tsx). */
+  --font-sans: var(--font-dm-sans);
+  --font-heading: var(--font-dm-sans);
+  --font-mono: var(--font-dm-sans);
 }
 
 html {
@@ -24,17 +33,17 @@ body {
   background-color: var(--color-background);
   color: var(--color-text-primary);
   font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
+/* Headings: DM Sans 700 with tight tracking so they stay compact.
+   Tailwind utilities on an element (font-*, tracking-*) still win. */
+h1, h2, h3, h4, h5, h6,
+.font-heading {
   font-family: var(--font-heading), system-ui, sans-serif;
-}
-
-/* Small uppercase UI text (eyebrows/labels use Tailwind's `uppercase` utility)
-   and nav links get the mono UI font. */
-.uppercase,
-nav a {
-  font-family: var(--font-mono), monospace;
+  font-weight: 700;
+  letter-spacing: -0.03em;
 }
 
 /* ----------------------------------------------------------------------
@@ -52,9 +61,9 @@ nav a {
 
 /* Real body copy (paragraphs meant to be read) -> primary text, lightly dimmed.
    Never drops to the muted-tertiary tier, which is reserved for small UI labels. */
-.text-white\/80 { color: rgba(242, 240, 233, 0.92) !important; }
-.text-white\/70 { color: rgba(242, 240, 233, 0.85) !important; }
-.text-white\/60 { color: rgba(242, 240, 233, 0.78) !important; }
+.text-white\/80 { color: rgba(232, 232, 232, 0.92) !important; }
+.text-white\/70 { color: rgba(232, 232, 232, 0.85) !important; }
+.text-white\/60 { color: rgba(232, 232, 232, 0.78) !important; }
 
 /* Interactive / secondary UI text (nav links, etc.) -> muted-secondary */
 .text-white\/50,
@@ -70,8 +79,8 @@ nav a {
 .hover\:text-white\/40:hover {
   color: var(--color-text-muted-2) !important;
 }
-.text-white\/30 { color: rgba(92, 102, 115, 0.85) !important; }
-.text-white\/20 { color: rgba(92, 102, 115, 0.65) !important; }
+.text-white\/30 { color: rgba(138, 138, 146, 0.85) !important; }
+.text-white\/20 { color: rgba(138, 138, 146, 0.65) !important; }
 
 /* Panel / card surfaces */
 .bg-white\/5 {
@@ -90,5 +99,20 @@ nav a {
   border-color: var(--color-border) !important;
 }
 .border-white\/5 {
-  border-color: rgba(38, 49, 64, 0.6) !important;
+  border-color: var(--color-border-soft) !important;
+}
+
+/* Roadmap page: gently rising steam over the beta cup. */
+@keyframes roadmap-steam {
+  0%, 100% { opacity: 0.25; transform: translateY(2px); }
+  50% { opacity: 0.7; transform: translateY(-3px); }
+}
+.roadmap-steam {
+  animation: roadmap-steam 3.2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .roadmap-steam {
+    animation: none;
+    opacity: 0.5;
+  }
 }

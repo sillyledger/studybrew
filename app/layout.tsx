@@ -1,25 +1,16 @@
 import type { Metadata } from "next";
-import { Reddit_Sans, Reddit_Sans_Condensed, Reddit_Mono } from "next/font/google";
+import { DM_Sans } from "next/font/google";
 import Analytics from "@/components/Analytics";
 import Footer from "@/components/Footer";
 import "./globals.css";
 
-const redditSans = Reddit_Sans({
+// DM Sans (the app's typeface). Loaded as the variable font so the optical-
+// size axis is available; the site only uses weights 400, 500, 600 and 700.
+// --font-sans, --font-heading and --font-mono all point at it (globals.css).
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-sans",
-});
-
-const redditSansCondensed = Reddit_Sans_Condensed({
-  subsets: ["latin"],
-  weight: ["700", "800", "900"],
-  variable: "--font-heading",
-});
-
-const redditMono = Reddit_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-mono",
+  axes: ["opsz"],
+  variable: "--font-dm-sans",
 });
 
 export const metadata: Metadata = {
@@ -33,9 +24,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={dmSans.variable}>
       <body
-        className={`flex min-h-screen flex-col overflow-x-clip ${redditSans.variable} ${redditSansCondensed.variable} ${redditMono.variable}`}
+        className="flex min-h-screen flex-col overflow-x-clip"
       >
         <Analytics />
         {children}

@@ -114,7 +114,7 @@ export default async function StoryPage({ params }: Props) {
 
         {story.content && (
           <div>
-            <p className="text-white/40 text-xs tracking-widest uppercase mb-6">Transcript</p>
+            <p className="font-medium text-white/40 text-[0.82rem] mb-6">Transcript</p>
             <div
               className="prose-story"
               dangerouslySetInnerHTML={{ __html: story.content }}

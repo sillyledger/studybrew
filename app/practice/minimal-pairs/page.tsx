@@ -111,10 +111,10 @@ export default function MinimalPairsPage() {
 
       {/* Hero */}
       <div className="mx-auto w-full max-w-[1180px] px-6 pb-10 pt-10 text-center md:px-14 md:pt-16">
-        <div className="mb-[1.1rem] font-mono text-[0.72rem] uppercase tracking-[0.12em] text-blue">
+        <div className="mb-[1.1rem] font-medium text-[0.8rem] text-blue">
           Practice
         </div>
-        <h1 className="mx-auto max-w-[20ch] text-[clamp(2.2rem,4vw,3.1rem)] font-black leading-[1.02]">
+        <h1 className="mx-auto max-w-[20ch] text-[clamp(2.2rem,4vw,3.1rem)] font-bold leading-[1.02]">
           Hear the <span className="text-blue">difference.</span>
         </h1>
         <p className="mx-auto mt-4 max-w-[54ch] text-[1.02rem] leading-[1.6] text-text-muted">
@@ -134,7 +134,7 @@ export default function MinimalPairsPage() {
               <section key={group.title}>
                 <div className="mb-5 flex items-center gap-4">
                   <span
-                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg font-mono text-[0.8rem] font-bold ${chip}`}
+                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-[0.8rem] font-bold ${chip}`}
                   >
                     {String(gi + 1).padStart(2, "0")}
                   </span>
@@ -151,7 +151,7 @@ export default function MinimalPairsPage() {
                     >
                       <div className="flex items-center justify-between border-b border-dashed border-line-soft pb-4">
                         <span
-                          className={`rounded-full px-[0.6rem] py-[0.25rem] font-mono text-[0.66rem] uppercase tracking-wide ${chip}`}
+                          className={`rounded-full px-[0.6rem] py-[0.25rem] font-medium text-[0.74rem] ${chip}`}
                         >
                           {pair.sound}
                         </span>
@@ -164,7 +164,7 @@ export default function MinimalPairsPage() {
                             <div className="text-[1.05rem] font-bold text-text-primary">
                               {pair.word1}
                             </div>
-                            <div className="font-mono text-[0.8rem] tracking-wide text-text-muted">
+                            <div className="font-medium text-[0.8rem] text-text-muted">
                               <Respelling
                                 text={pair.respelling1}
                                 highlight={pair.highlight1}
@@ -180,7 +180,7 @@ export default function MinimalPairsPage() {
                             <div className="text-[1.05rem] font-bold text-text-primary">
                               {pair.word2}
                             </div>
-                            <div className="font-mono text-[0.8rem] tracking-wide text-text-muted">
+                            <div className="font-medium text-[0.8rem] text-text-muted">
                               <Respelling
                                 text={pair.respelling2}
                                 highlight={pair.highlight2}

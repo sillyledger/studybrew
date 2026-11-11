@@ -89,10 +89,10 @@ export default function TongueTwistersPage() {
 
       {/* Hero */}
       <div className="mx-auto w-full max-w-[1180px] px-6 pb-10 pt-10 text-center md:px-14 md:pt-16">
-        <div className="mb-[1.1rem] font-mono text-[0.72rem] uppercase tracking-[0.12em] text-teal">
+        <div className="mb-[1.1rem] font-medium text-[0.8rem] text-teal">
           Practice
         </div>
-        <h1 className="mx-auto max-w-[20ch] text-[clamp(2.2rem,4vw,3.1rem)] font-black leading-[1.02]">
+        <h1 className="mx-auto max-w-[20ch] text-[clamp(2.2rem,4vw,3.1rem)] font-bold leading-[1.02]">
           Twist your <span className="text-teal">tongue.</span>
         </h1>
         <p className="mx-auto mt-4 max-w-[54ch] text-[1.02rem] leading-[1.6] text-text-muted">
@@ -117,7 +117,7 @@ export default function TongueTwistersPage() {
               >
                 <div className="flex items-center gap-4">
                   <span
-                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg font-mono text-[0.8rem] font-bold ${chipClass}`}
+                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-[0.8rem] font-bold ${chipClass}`}
                   >
                     {num}
                   </span>
@@ -128,11 +128,11 @@ export default function TongueTwistersPage() {
 
                 <div className="mt-4 flex items-center justify-between border-t border-dashed border-line-soft pt-4">
                   <span
-                    className={`rounded-full px-[0.6rem] py-[0.25rem] font-mono text-[0.66rem] uppercase tracking-wide ${DIFFICULTY_CLASSES[twister.difficulty]}`}
+                    className={`rounded-full px-[0.6rem] py-[0.25rem] font-medium text-[0.74rem] ${DIFFICULTY_CLASSES[twister.difficulty]}`}
                   >
                     {twister.difficulty}
                   </span>
-                  <span className="font-mono text-[0.7rem] uppercase tracking-wide text-text-muted-2">
+                  <span className="font-medium text-[0.78rem] text-text-muted-2">
                     Focus:{" "}
                     <span className="text-text-muted">{twister.focus}</span>
                   </span>

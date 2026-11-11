@@ -42,10 +42,10 @@ export default function FlashcardDeck({ cards, tab }: Props) {
         <span
           className={`absolute -left-px top-[2.2rem] h-[34px] w-2 rounded-r-[6px] ${tab}`}
         />
-        <div className="font-mono text-[0.72rem] uppercase tracking-wide text-text-muted-2">
+        <div className="font-medium text-[0.8rem] text-text-muted-2">
           {card.pos}
         </div>
-        <div className="mt-2 text-[2rem] font-black leading-[1.05]">
+        <div className="mt-2 text-[2rem] font-bold leading-[1.05]">
           {card.word}
         </div>
         <p className="mt-3 text-[1rem] leading-[1.6] text-text-muted">
@@ -60,21 +60,21 @@ export default function FlashcardDeck({ cards, tab }: Props) {
             href="https://app.studybrew.co"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex flex-1 items-center justify-center rounded-xl border border-coral/35 bg-coral-tint py-3 font-mono text-[0.78rem] font-semibold text-coral transition-colors hover:bg-coral/20"
+            className="flex flex-1 items-center justify-center rounded-xl border border-coral/35 bg-coral-tint py-3 text-[0.78rem] font-semibold text-coral transition-colors hover:bg-coral/20"
           >
             Save to Notebook
           </a>
           <button
             type="button"
             onClick={() => goTo(index + 1)}
-            className="flex-1 rounded-xl bg-teal py-3 font-mono text-[0.78rem] font-semibold text-teal-ink transition-opacity hover:opacity-90"
+            className="flex-1 rounded-xl bg-teal py-3 text-[0.78rem] font-semibold text-teal-ink transition-opacity hover:opacity-90"
           >
             Got it
           </button>
         </div>
       </div>
 
-      <div className="mt-5 flex items-center justify-between font-mono text-[0.76rem] text-text-muted-2">
+      <div className="mt-5 flex items-center justify-between font-medium text-[0.76rem] text-text-muted-2">
         <button
           type="button"
           onClick={() => goTo(index - 1)}

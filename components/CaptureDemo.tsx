@@ -37,7 +37,7 @@ export default function CaptureDemo() {
     <div className="relative h-[480px] min-[360px]:h-[450px] md:h-[420px]">
       <div className="absolute inset-0">
         <div className="absolute inset-0 flex flex-col rounded-2xl border border-line bg-panel p-7">
-          <div className="mb-4 font-mono text-[0.66rem] uppercase tracking-wide text-text-muted-2">
+          <div className="mb-4 font-medium text-[0.74rem] text-text-muted-2">
             From &quot;Daniel&apos;s first day&quot;
           </div>
           <div className="text-[1.15rem] leading-[1.7] text-text-muted md:text-[1.28rem]">
@@ -55,7 +55,7 @@ export default function CaptureDemo() {
           </div>
 
           <div
-            className={`mt-auto flex items-center gap-2 pt-4 font-mono text-[0.7rem] text-text-muted-2 transition-opacity duration-300 motion-reduce:transition-none ${
+            className={`mt-auto flex items-center gap-2 pt-4 font-medium text-[0.7rem] text-text-muted-2 transition-opacity duration-300 motion-reduce:transition-none ${
               flashVisible ? "opacity-0" : "opacity-100"
             }`}
           >
@@ -70,7 +70,7 @@ export default function CaptureDemo() {
               return (
                 <span
                   key={step.key}
-                  className={`flex items-center gap-1.5 font-mono text-[0.62rem] uppercase tracking-wide transition-colors ${
+                  className={`flex items-center gap-1.5 font-medium text-[0.7rem] transition-colors ${
                     isCurrent ? "text-teal" : "text-text-muted-2"
                   }`}
                 >
@@ -99,14 +99,14 @@ export default function CaptureDemo() {
             }`}
           >
             <div className="absolute inset-0 flex flex-col rounded-[14px] border border-line bg-panel-2 p-[1.1rem] [backface-visibility:hidden]">
-              <div className="font-mono text-[0.6rem] uppercase tracking-wide text-text-muted-2">
+              <div className="font-medium text-[0.68rem] text-text-muted-2">
                 New word
               </div>
               <div className="mt-2 text-[1.15rem] font-bold">overwhelmed</div>
             </div>
             <div className="absolute inset-0 flex flex-col rounded-[14px] overflow-hidden border border-teal-dim bg-panel-2 p-[1.1rem] [backface-visibility:hidden] [transform:rotateY(180deg)]">
               <div className="pointer-events-none absolute inset-0 bg-teal-tint" />
-              <div className="relative font-mono text-[0.6rem] uppercase tracking-wide text-text-muted-2">
+              <div className="relative font-medium text-[0.68rem] text-text-muted-2">
                 Saved to your notes
               </div>
               <div className="relative mt-2 text-[0.82rem] leading-[1.5] text-text-muted">

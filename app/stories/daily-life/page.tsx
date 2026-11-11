@@ -57,7 +57,7 @@ export default async function DailyLifeStories() {
         <div className="mb-2">
           <a href="/stories" className="text-white/30 text-sm hover:text-white/50 transition-colors">← Stories</a>
         </div>
-        <p className="text-white/40 text-sm tracking-widest uppercase mb-4 mt-6">Daily Life</p>
+        <p className="font-medium text-white/40 text-sm mb-4 mt-6">Daily life</p>
         <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-4">
           Everyday situations, natural English.
         </h1>

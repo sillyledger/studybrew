@@ -33,7 +33,7 @@ export default function PracticePage() {
       <Nav />
 
       <div className="mx-auto w-full max-w-[1120px] px-6 pb-10 pt-10 md:px-14 md:pt-16">
-        <h1 className="text-[clamp(2.2rem,4vw,3.1rem)] font-black leading-[1.02]">
+        <h1 className="text-[clamp(2.2rem,4vw,3.1rem)] font-bold leading-[1.02]">
           Practice
         </h1>
         <p className="mt-4 max-w-[54ch] text-[1.02rem] leading-[1.6] text-text-muted">
@@ -57,7 +57,7 @@ export default function PracticePage() {
               <p className="mt-1 text-[0.9rem] leading-[1.5] text-text-muted">
                 {drill.description}
               </p>
-              <div className="mt-[1.6rem] flex items-center justify-between border-t border-dashed border-line-soft pt-4 font-mono text-[0.76rem] text-text-muted-2">
+              <div className="mt-[1.6rem] flex items-center justify-between border-t border-dashed border-line-soft pt-4 font-medium text-[0.76rem] text-text-muted-2">
                 <span>{drill.count}</span>
                 <span>→</span>
               </div>

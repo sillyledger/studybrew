@@ -30,8 +30,8 @@ export default function StoryValleyCastCard({
           loading="lazy"
         />
       </div>
-      <h3 className="text-center text-base font-extrabold text-ink">{member.name}</h3>
-      <div className="mt-[0.1rem] text-center font-mono text-[0.6rem] text-text-muted-2">
+      <h3 className="text-center text-base font-bold text-ink">{member.name}</h3>
+      <div className="mt-[0.1rem] text-center font-medium text-[0.6rem] text-text-muted-2">
         {member.role}
       </div>
     </>

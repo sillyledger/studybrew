@@ -14,7 +14,7 @@ export default function CharacterCard({ char, index }: { char: Character; index:
     >
       <span className="absolute -top-2 left-1/2 h-4 w-11 -translate-x-1/2 -rotate-[4deg] border border-coral/70 bg-coral/[0.55]" />
       {char.comingSoon && (
-        <span className="absolute -top-2 right-1 rounded-full border border-line bg-panel px-2 py-[0.2rem] font-mono text-[0.55rem] uppercase tracking-wide text-text-muted-2">
+        <span className="absolute -top-2 right-1 rounded-full border border-line bg-panel px-2 py-[0.2rem] font-medium text-[0.64rem] text-text-muted-2">
           Soon
         </span>
       )}
@@ -32,8 +32,8 @@ export default function CharacterCard({ char, index }: { char: Character; index:
           />
         )}
       </div>
-      <h3 className="text-center text-base font-extrabold text-ink">{char.name}</h3>
-      <div className="mt-[0.1rem] text-center font-mono text-[0.6rem] text-text-muted-2">
+      <h3 className="text-center text-base font-bold text-ink">{char.name}</h3>
+      <div className="mt-[0.1rem] text-center font-medium text-[0.6rem] text-text-muted-2">
         {char.role}
       </div>
     </Link>

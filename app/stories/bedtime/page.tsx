@@ -57,7 +57,7 @@ export default async function BedtimeStories() {
         <div className="mb-2">
           <a href="/stories" className="text-white/30 text-sm hover:text-white/50 transition-colors">← Stories</a>
         </div>
-        <p className="text-white/40 text-sm tracking-widest uppercase mb-4 mt-6">Bedtime Stories</p>
+        <p className="font-medium text-white/40 text-sm mb-4 mt-6">Bedtime stories</p>
         <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-4">
           Wind down with calm, slow English.
         </h1>

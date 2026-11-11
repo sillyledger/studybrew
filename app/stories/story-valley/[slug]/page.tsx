@@ -14,7 +14,7 @@ interface Props {
 const DEFAULT_DESCRIPTION = "A simple A1-A2 English story for kids, read aloud by a real person.";
 
 const LISTEN_LINK_CLASS =
-  "inline-block rounded-full border border-line px-3.5 py-2.5 font-mono text-[0.62rem] uppercase tracking-[0.1em] text-coral transition-colors hover:border-coral/60";
+  "inline-block rounded-full border border-line px-3.5 py-2.5 font-medium text-[0.7rem] text-coral transition-colors hover:border-coral/60";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -60,7 +60,7 @@ export default async function StoryValleyEpisode({ params }: Props) {
         <div className="mb-6 md:mb-8">
           <a
             href="/stories/story-valley"
-            className="font-mono text-[0.72rem] uppercase tracking-[0.12em] text-text-muted transition-colors hover:text-text-primary"
+            className="font-medium text-[0.8rem] text-text-muted transition-colors hover:text-text-primary"
           >
             ← Story Valley
           </a>
@@ -93,7 +93,7 @@ export default async function StoryValleyEpisode({ params }: Props) {
 
         {episode.content && (
           <div>
-            <p className="mb-6 text-xs uppercase tracking-widest text-white/40">Transcript</p>
+            <p className="mb-6 text-[0.82rem] font-medium text-white/40">Transcript</p>
             <div className="prose-story" dangerouslySetInnerHTML={{ __html: episode.content }} />
           </div>
         )}
