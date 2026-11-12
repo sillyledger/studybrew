@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import { createClient } from "../../../lib/supabase";
-import { shows } from "../../../lib/shows";
+import { shows, showLinks } from "../../../lib/shows";
 import { storyValleyCast } from "../../../lib/story-valley";
 
 // No embeds and no analytics (components/Analytics.tsx skips this path and
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 const LISTEN_LINK_CLASS =
-  "rounded-full border border-line px-3.5 py-2.5 font-medium text-[0.7rem] text-coral transition-colors hover:border-coral/60";
+  "whitespace-nowrap rounded-full border border-line px-3.5 py-2.5 font-medium text-[0.7rem] text-coral transition-colors hover:border-coral/60";
 
 const PAGE_LINK_CLASS =
   "font-medium text-[0.74rem] text-coral transition-opacity hover:opacity-80";
@@ -51,6 +51,7 @@ export default async function StoryValley({
 }) {
   const params = await searchParams;
   const show = shows.find((s) => s.id === "kids");
+  const listenLinks = show ? showLinks(show) : [];
 
   const active =
     storyValleyCast.find(
@@ -113,18 +114,13 @@ export default async function StoryValley({
         <p className="mt-3 max-w-[54ch] text-[0.9rem] leading-[1.6] text-text-muted-2">
           The narrator is a non-native English speaker, so the pace is clear and patient.
         </p>
-        {show && (show.youtubeUrl || show.spotifyUrl) && (
+        {listenLinks.length > 0 && (
           <div className="mt-7 flex flex-wrap gap-2.5">
-            {show.youtubeUrl && (
-              <a href={show.youtubeUrl} target="_blank" rel="noopener noreferrer" className={LISTEN_LINK_CLASS}>
-                YouTube
+            {listenLinks.map(({ href, label }) => (
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer" className={LISTEN_LINK_CLASS}>
+                {label}
               </a>
-            )}
-            {show.spotifyUrl && (
-              <a href={show.spotifyUrl} target="_blank" rel="noopener noreferrer" className={LISTEN_LINK_CLASS}>
-                Spotify
-              </a>
-            )}
+            ))}
           </div>
         )}
       </div>

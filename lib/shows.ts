@@ -22,8 +22,10 @@ export const shows: Show[] = [
     description: "Short everyday stories, about 5 minutes each. Daily life, travel and work.",
     dot: "bg-blue",
     level: "B1-B2",
-    spotifyUrl: "",
+    spotifyUrl: "https://open.spotify.com/show/6YwUpruVGDrJRQE0B0xc1f",
+    appleUrl: "https://podcasts.apple.com/podcast/study-brew-english-stories-for-learners-b1-b2/id6820542456",
     youtubeUrl: "https://www.youtube.com/@studybrewcontent",
+    castboxUrl: "https://castbox.fm/vh/7445980",
   },
   {
     id: "story",
@@ -33,7 +35,9 @@ export const shows: Show[] = [
     dot: "bg-teal",
     level: "B1-B2",
     spotifyUrl: "https://open.spotify.com/show/0GAoPPFz1IpP5FSIVO5Tkq",
+    appleUrl: "https://podcasts.apple.com/podcast/story-brew-b1-b2-english-bedtime-stories-for-learners/id1893692455",
     youtubeUrl: "https://www.youtube.com/@storybrewcontent",
+    castboxUrl: "https://castbox.fm/vh/7168522",
   },
   {
     id: "kids",
@@ -45,7 +49,9 @@ export const shows: Show[] = [
     audience: "For parents and kids",
     pageHref: "/stories/story-valley",
     spotifyUrl: "https://open.spotify.com/show/27Wog0yJmW32FzZ9UozwXs",
+    appleUrl: "https://podcasts.apple.com/podcast/story-valley-a1-a2-english-stories-for-kids/id6818182854",
     youtubeUrl: "https://www.youtube.com/@StoryValleyKids",
+    castboxUrl: "https://castbox.fm/vh/7436136",
   },
   {
     id: "why",
@@ -58,3 +64,19 @@ export const shows: Show[] = [
     comingSoon: "Coming 2027",
   },
 ];
+
+// Listening platforms in the order every page shows them.
+const PLATFORMS = [
+  { key: "spotifyUrl", label: "Spotify" },
+  { key: "appleUrl", label: "Apple Podcasts" },
+  { key: "youtubeUrl", label: "YouTube" },
+  { key: "castboxUrl", label: "Castbox" },
+] as const satisfies readonly { key: keyof Show; label: string }[];
+
+/** The show's listening links that have a URL, in platform order. */
+export function showLinks(show: Show): { href: string; label: string }[] {
+  return PLATFORMS.flatMap(({ key, label }) => {
+    const href = show[key];
+    return href ? [{ href, label }] : [];
+  });
+}

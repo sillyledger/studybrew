@@ -4,7 +4,7 @@ import Nav from "@/components/Nav";
 import CharacterCard from "@/components/CharacterCard";
 import StoryValleyCastCard from "@/components/StoryValleyCastCard";
 import { characters } from "../../lib/characters";
-import { shows, type Show } from "../../lib/shows";
+import { shows, showLinks, type Show } from "../../lib/shows";
 import { storyValleyCast } from "../../lib/story-valley";
 
 export const metadata: Metadata = {
@@ -51,19 +51,11 @@ const TAB_COLORS = ["bg-teal", "bg-blue", "bg-coral"];
 const kidsShow = shows.find((s) => s.id === "kids");
 
 const SHOW_LINK_CLASS =
-  "rounded-full border border-line px-3.5 py-2.5 font-medium text-[0.7rem] text-teal transition-colors hover:border-teal/60";
+  "whitespace-nowrap rounded-full border border-line px-3.5 py-2.5 font-medium text-[0.7rem] text-teal transition-colors hover:border-teal/60";
 
 // Greyed, non-clickable version of SHOW_LINK_CLASS for shows that aren't out yet.
 const SHOW_LINK_DISABLED_CLASS =
-  "pointer-events-none rounded-full border border-line px-3.5 py-2.5 font-medium text-[0.7rem] text-text-muted-2";
-
-// Every listening link a show can have, in display order.
-const SHOW_LINKS = [
-  { key: "spotifyUrl", label: "Spotify" },
-  { key: "youtubeUrl", label: "YouTube" },
-  { key: "appleUrl", label: "Apple Podcasts" },
-  { key: "castboxUrl", label: "Castbox" },
-] as const satisfies readonly { key: keyof Show; label: string }[];
+  "pointer-events-none whitespace-nowrap rounded-full border border-line px-3.5 py-2.5 font-medium text-[0.7rem] text-text-muted-2";
 
 // Platforms a coming-soon show will be on, shown as greyed pills.
 const COMING_SOON_PLATFORMS = ["Spotify", "Apple Podcasts", "Castbox"];
@@ -198,11 +190,9 @@ export default function Stories() {
                     </div>
                     <div className="flex flex-col gap-3">
                       {groupShows.map((show) => {
-                        const links = SHOW_LINKS.flatMap(({ key, label }) => {
-                          const href = show[key];
-                          return href ? [{ href, label }] : [];
-                        });
-                        const hasFooter = links.length > 0 || !!show.pageHref || !!show.comingSoon;
+                        const links = showLinks(show);
+                        const hasPills = links.length > 0 || !!show.comingSoon;
+                        const meetHref = show.id === "kids" ? show.pageHref : undefined;
 
                         return (
                           <div
@@ -230,42 +220,46 @@ export default function Stories() {
                             <p className="mt-2.5 text-[0.9rem] leading-[1.5] text-text-muted">
                               {show.description}
                             </p>
-                            {hasFooter && (
-                              <div className="mt-auto flex flex-wrap items-center gap-2.5 pt-4">
-                                {links.map(({ href, label }) => (
-                                  <a
-                                    key={label}
-                                    href={href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={SHOW_LINK_CLASS}
-                                  >
-                                    {label}
-                                  </a>
-                                ))}
-                                {show.comingSoon && (
-                                  <>
-                                    {COMING_SOON_PLATFORMS.map((label) => (
+                            {/* Same gap both ways, so wrapped rows stay evenly spaced. */}
+                            {hasPills && (
+                              <div className="flex flex-wrap items-center gap-2.5 pt-4">
+                                {show.comingSoon
+                                  ? COMING_SOON_PLATFORMS.map((label) => (
                                       <span key={label} aria-disabled="true" className={SHOW_LINK_DISABLED_CLASS}>
                                         {label}
                                       </span>
+                                    ))
+                                  : links.map(({ href, label }) => (
+                                      <a
+                                        key={label}
+                                        href={href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={SHOW_LINK_CLASS}
+                                      >
+                                        {label}
+                                      </a>
                                     ))}
-                                    <span className="ml-auto font-medium text-[0.7rem] text-text-muted-2">
-                                      {show.comingSoon}
-                                    </span>
-                                  </>
-                                )}
-                                {show.id === "kids" && show.pageHref && (
-                                  // Plain <a> on purpose: a full page load means analytics
-                                  // from the previous page never carries over.
+                              </div>
+                            )}
+                            {/* Status or page link on its own line under the pills, aligned right. */}
+                            {show.comingSoon ? (
+                              <div className="mt-3 text-right font-medium text-[0.7rem] text-text-muted-2">
+                                {show.comingSoon}
+                              </div>
+                            ) : (
+                              meetHref && (
+                                <div className="mt-3 text-right">
+                                  {/* Plain <a> on purpose: a full page load means analytics
+                                      from the previous page never carries over. */}
                                   <a
-                                    href={show.pageHref}
-                                    className="ml-auto font-medium text-[0.7rem] text-coral transition-opacity hover:opacity-80"
+                                    href={meetHref}
+                                    className="font-medium text-[0.7rem] text-coral transition-opacity hover:opacity-80"
                                   >
                                     Meet Story Valley →
                                   </a>
-                                )}
-                              </div>
+                                </div>
+                              )
                             )}
                           </div>
                         );
