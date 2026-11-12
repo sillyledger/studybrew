@@ -1,5 +1,5 @@
 export interface Show {
-  id: "study" | "story" | "kids";
+  id: "study" | "story" | "kids" | "why";
   name: string;
   tagline: string;
   description: string;
@@ -7,8 +7,11 @@ export interface Show {
   level: string;
   audience?: string;
   pageHref?: string;
-  spotifyUrl: string;
-  youtubeUrl: string;
+  spotifyUrl?: string;
+  youtubeUrl?: string;
+  appleUrl?: string;
+  castboxUrl?: string;
+  comingSoon?: string; // e.g. "Coming 2027"; shows the card as not yet live
 }
 
 export const shows: Show[] = [
@@ -43,5 +46,15 @@ export const shows: Show[] = [
     pageHref: "/stories/story-valley",
     spotifyUrl: "https://open.spotify.com/show/27Wog0yJmW32FzZ9UozwXs",
     youtubeUrl: "https://www.youtube.com/@StoryValleyKids",
+  },
+  {
+    id: "why",
+    name: "Simply Why",
+    tagline: "Everyday why questions",
+    description: "One everyday “why” question in very easy English. About 3 minutes, with a cup of coffee.",
+    dot: "bg-yellow",
+    level: "A1-A2",
+    audience: "For curious adults",
+    comingSoon: "Coming 2027",
   },
 ];

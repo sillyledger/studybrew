@@ -21,6 +21,7 @@ const config: Config = {
         blue: "#7CACDD",
         coral: "#F0997B",
         "coral-tint": "rgba(240,153,123,0.16)",
+        yellow: "#F2C46B",
         "line-soft": "var(--color-border-soft)",
         ink: "#1b1f24",
         text: {

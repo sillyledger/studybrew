@@ -4,7 +4,7 @@ import Nav from "@/components/Nav";
 import CharacterCard from "@/components/CharacterCard";
 import StoryValleyCastCard from "@/components/StoryValleyCastCard";
 import { characters } from "../../lib/characters";
-import { shows } from "../../lib/shows";
+import { shows, type Show } from "../../lib/shows";
 import { storyValleyCast } from "../../lib/story-valley";
 
 export const metadata: Metadata = {
@@ -13,12 +13,33 @@ export const metadata: Metadata = {
     "Short, calm B1–B2 audio stories with real characters. Browse bedtime, daily life, and fantasy stories.",
 };
 
-const categories = [
+interface Category {
+  name: string;
+  slug: string;
+  description: string;
+  available: boolean;
+  emoji: string;
+  /** Pill text for unavailable categories. Defaults to "Soon". */
+  soonLabel?: string;
+  /** Name of the show this category comes from. Shown in yellow under the
+      description, and the row's dashed tab turns yellow to match. */
+  fromShow?: string;
+}
+
+const categories: Category[] = [
   { name: "Bedtime Stories", slug: "bedtime", description: "Wind down with calm, slow English.", available: true, emoji: "🌙" },
   { name: "Daily Life", slug: "daily-life", description: "Everyday situations, natural English.", available: true, emoji: "☀️" },
   { name: "Travel", slug: "travel", description: "Stories from cities and quiet corners.", available: true, emoji: "✈️" },
   { name: "Career", slug: "career", description: "Work, ambition, and small victories.", available: true, emoji: "💼" },
-  { name: "Culture", slug: "culture", description: "Habits, traditions, and human moments.", available: false, emoji: "🌍" },
+  {
+    name: "Curious Questions",
+    slug: "curious-questions",
+    description: "Why we do the things we do, in very easy English.",
+    available: false,
+    emoji: "🤔",
+    soonLabel: "2027",
+    fromShow: "Simply Why",
+  },
   { name: "Fantasy", slug: "fantasy", description: "Magical worlds and unexpected adventures.", available: true, emoji: "✨" },
 ];
 
@@ -31,6 +52,33 @@ const kidsShow = shows.find((s) => s.id === "kids");
 
 const SHOW_LINK_CLASS =
   "rounded-full border border-line px-3.5 py-2.5 font-medium text-[0.7rem] text-teal transition-colors hover:border-teal/60";
+
+// Greyed, non-clickable version of SHOW_LINK_CLASS for shows that aren't out yet.
+const SHOW_LINK_DISABLED_CLASS =
+  "pointer-events-none rounded-full border border-line px-3.5 py-2.5 font-medium text-[0.7rem] text-text-muted-2";
+
+// Every listening link a show can have, in display order.
+const SHOW_LINKS = [
+  { key: "spotifyUrl", label: "Spotify" },
+  { key: "youtubeUrl", label: "YouTube" },
+  { key: "appleUrl", label: "Apple Podcasts" },
+  { key: "castboxUrl", label: "Castbox" },
+] as const satisfies readonly { key: keyof Show; label: string }[];
+
+// Platforms a coming-soon show will be on, shown as greyed pills.
+const COMING_SOON_PLATFORMS = ["Spotify", "Apple Podcasts", "Castbox"];
+
+// Audience tag tint per show. Falls back to coral.
+const AUDIENCE_TAG_CLASS: Partial<Record<Show["id"], string>> = {
+  kids: "bg-coral-tint text-coral",
+  why: "bg-yellow/10 text-yellow",
+};
+
+// Shows grouped by level, in display order.
+const SHOW_GROUPS: { level: string; note: string; ids: Show["id"][] }[] = [
+  { level: "A1–A2", note: "Just starting out", ids: ["kids", "why"] },
+  { level: "B1–B2", note: "Ready for more", ids: ["study", "story"] },
+];
 
 export default function Stories() {
   let liveTabIndex = -1;
@@ -72,7 +120,7 @@ export default function Stories() {
                 if (cat.available) liveTabIndex++;
                 const tabClass = cat.available
                   ? TAB_COLORS[liveTabIndex % TAB_COLORS.length]
-                  : "border-[1.5px] border-dashed border-line-strong";
+                  : `border-[1.5px] border-dashed ${cat.fromShow ? "border-yellow" : "border-line-strong"}`;
                 const num = String(i + 1).padStart(2, "0");
                 const dim = cat.available ? "" : "opacity-50";
                 const rowClass = "flex w-full items-start gap-4";
@@ -87,16 +135,25 @@ export default function Stories() {
                     >
                       {num}
                     </span>
-                    <div className={`min-w-0 flex-1 ${dim}`}>
-                      <h3 className="text-[1.2rem] font-bold leading-7">{cat.name}</h3>
-                      <p className="mt-[0.15rem] text-[0.85rem] leading-[1.5] text-text-muted">
-                        {cat.description}
-                      </p>
+                    <div className="min-w-0 flex-1">
+                      <div className={dim}>
+                        <h3 className="text-[1.2rem] font-bold leading-7">{cat.name}</h3>
+                        <p className="mt-[0.15rem] text-[0.85rem] leading-[1.5] text-text-muted">
+                          {cat.description}
+                        </p>
+                      </div>
+                      {/* Outside the dimmed wrapper so the yellow stays at full strength. */}
+                      {cat.fromShow && (
+                        <div className="mt-1.5 flex items-center gap-1.5 text-[0.72rem] font-medium text-yellow">
+                          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-yellow" aria-hidden="true" />
+                          From {cat.fromShow}
+                        </div>
+                      )}
                     </div>
                     {!cat.available && (
                       <span className="flex h-7 shrink-0 items-center">
                         <span className="rounded-full border border-line px-2 py-[0.2rem] text-[0.68rem] font-medium leading-none text-text-muted-2">
-                          Soon
+                          {cat.soonLabel ?? "Soon"}
                         </span>
                       </span>
                     )}
@@ -121,58 +178,102 @@ export default function Stories() {
             </ul>
           </div>
 
-          {/* Three shows */}
+          {/* Four shows, grouped by level */}
           <div className="flex flex-col bg-panel-2 px-6 py-10 sm:px-10 md:py-12 md:pl-10 md:pr-12">
             <div className="mb-6 font-medium text-[0.74rem] text-text-muted-2">
-              Three shows
+              Four shows
             </div>
-            <div className="flex flex-1 flex-col gap-4">
-              {shows.map((show) => (
-                <div
-                  key={show.id}
-                  className="flex flex-1 flex-col rounded-[14px] border border-line bg-panel p-5"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${show.dot}`} />
-                    <h3 className="text-[1.45rem] font-bold leading-none">{show.name}</h3>
-                    <span className="ml-auto shrink-0 rounded-full border border-line px-2 py-[0.2rem] font-medium text-[0.6rem] text-text-muted">
-                      {show.level}
-                    </span>
-                  </div>
-                  {show.audience && (
-                    <span className="mt-2.5 self-start rounded-full bg-coral-tint px-2.5 py-[0.25rem] font-medium text-[0.68rem] text-coral">
-                      {show.audience}
-                    </span>
-                  )}
-                  <p className="mt-2.5 text-[0.9rem] leading-[1.5] text-text-muted">
-                    {show.description}
-                  </p>
-                  {(show.spotifyUrl || show.youtubeUrl || show.pageHref) && (
-                    <div className="mt-auto flex flex-wrap items-center gap-2.5 pt-4">
-                      {show.spotifyUrl && (
-                        <a href={show.spotifyUrl} target="_blank" rel="noopener noreferrer" className={SHOW_LINK_CLASS}>
-                          Spotify
-                        </a>
-                      )}
-                      {show.youtubeUrl && (
-                        <a href={show.youtubeUrl} target="_blank" rel="noopener noreferrer" className={SHOW_LINK_CLASS}>
-                          YouTube
-                        </a>
-                      )}
-                      {show.id === "kids" && show.pageHref && (
-                        // Plain <a> on purpose: a full page load means analytics
-                        // from the previous page never carries over.
-                        <a
-                          href={show.pageHref}
-                          className="ml-auto font-medium text-[0.7rem] text-coral transition-opacity hover:opacity-80"
-                        >
-                          Meet Story Valley →
-                        </a>
-                      )}
+            <div className="flex flex-col gap-[1.75rem]">
+              {SHOW_GROUPS.map((group) => {
+                const groupShows = group.ids
+                  .map((id) => shows.find((s) => s.id === id))
+                  .filter((s): s is Show => s !== undefined);
+                if (groupShows.length === 0) return null;
+
+                return (
+                  <div key={group.level}>
+                    <div className="mb-3 flex items-baseline gap-2">
+                      <span className="text-[0.82rem] font-bold">{group.level}</span>
+                      <span className="text-[0.78rem] text-text-muted-2">{group.note}</span>
                     </div>
-                  )}
-                </div>
-              ))}
+                    <div className="flex flex-col gap-3">
+                      {groupShows.map((show) => {
+                        const links = SHOW_LINKS.flatMap(({ key, label }) => {
+                          const href = show[key];
+                          return href ? [{ href, label }] : [];
+                        });
+                        const hasFooter = links.length > 0 || !!show.pageHref || !!show.comingSoon;
+
+                        return (
+                          <div
+                            key={show.id}
+                            className={`flex flex-col rounded-[14px] border px-[1.15rem] py-4 ${
+                              show.comingSoon
+                                ? "border-dashed border-line-strong bg-transparent"
+                                : "border-line bg-panel"
+                            }`}
+                          >
+                            <div className="flex items-center gap-3">
+                              <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${show.dot}`} />
+                              <h3 className="text-[1.2rem] font-bold leading-none">{show.name}</h3>
+                              {/* The group heading already shows the level, so only the audience tag goes here. */}
+                              {show.audience && (
+                                <span
+                                  className={`ml-auto shrink-0 rounded-full px-2.5 py-[0.25rem] font-medium text-[0.68rem] ${
+                                    AUDIENCE_TAG_CLASS[show.id] ?? "bg-coral-tint text-coral"
+                                  }`}
+                                >
+                                  {show.audience}
+                                </span>
+                              )}
+                            </div>
+                            <p className="mt-2.5 text-[0.9rem] leading-[1.5] text-text-muted">
+                              {show.description}
+                            </p>
+                            {hasFooter && (
+                              <div className="mt-auto flex flex-wrap items-center gap-2.5 pt-4">
+                                {links.map(({ href, label }) => (
+                                  <a
+                                    key={label}
+                                    href={href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={SHOW_LINK_CLASS}
+                                  >
+                                    {label}
+                                  </a>
+                                ))}
+                                {show.comingSoon && (
+                                  <>
+                                    {COMING_SOON_PLATFORMS.map((label) => (
+                                      <span key={label} aria-disabled="true" className={SHOW_LINK_DISABLED_CLASS}>
+                                        {label}
+                                      </span>
+                                    ))}
+                                    <span className="ml-auto font-medium text-[0.7rem] text-text-muted-2">
+                                      {show.comingSoon}
+                                    </span>
+                                  </>
+                                )}
+                                {show.id === "kids" && show.pageHref && (
+                                  // Plain <a> on purpose: a full page load means analytics
+                                  // from the previous page never carries over.
+                                  <a
+                                    href={show.pageHref}
+                                    className="ml-auto font-medium text-[0.7rem] text-coral transition-opacity hover:opacity-80"
+                                  >
+                                    Meet Story Valley →
+                                  </a>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
