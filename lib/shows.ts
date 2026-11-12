@@ -65,18 +65,25 @@ export const shows: Show[] = [
   },
 ];
 
-// Listening platforms in the order every page shows them.
-const PLATFORMS = [
-  { key: "spotifyUrl", label: "Spotify" },
-  { key: "appleUrl", label: "Apple Podcasts" },
-  { key: "youtubeUrl", label: "YouTube" },
-  { key: "castboxUrl", label: "Castbox" },
-] as const satisfies readonly { key: keyof Show; label: string }[];
+// Listening platforms in the order every page shows them. `label` is the
+// short pill text; `name` is the full platform name for screen readers.
+export const PLATFORMS = [
+  { key: "spotifyUrl", label: "Spotify", name: "Spotify", ariaLabel: "Listen on Spotify" },
+  { key: "appleUrl", label: "Apple", name: "Apple Podcasts", ariaLabel: "Listen on Apple Podcasts" },
+  { key: "youtubeUrl", label: "YouTube", name: "YouTube", ariaLabel: "Watch on YouTube" },
+  { key: "castboxUrl", label: "Castbox", name: "Castbox", ariaLabel: "Listen on Castbox" },
+] as const satisfies readonly { key: keyof Show; label: string; name: string; ariaLabel: string }[];
+
+export interface ShowLink {
+  href: string;
+  label: string;
+  ariaLabel: string;
+}
 
 /** The show's listening links that have a URL, in platform order. */
-export function showLinks(show: Show): { href: string; label: string }[] {
-  return PLATFORMS.flatMap(({ key, label }) => {
+export function showLinks(show: Show): ShowLink[] {
+  return PLATFORMS.flatMap(({ key, label, ariaLabel }) => {
     const href = show[key];
-    return href ? [{ href, label }] : [];
+    return href ? [{ href, label, ariaLabel }] : [];
   });
 }

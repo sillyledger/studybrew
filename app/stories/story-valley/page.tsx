@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 const LISTEN_LINK_CLASS =
-  "whitespace-nowrap rounded-full border border-line px-3.5 py-2.5 font-medium text-[0.7rem] text-coral transition-colors hover:border-coral/60";
+  "whitespace-nowrap rounded-full border border-line px-3 py-1.5 font-medium text-[0.7rem] text-coral transition-colors hover:border-coral/60";
 
 const PAGE_LINK_CLASS =
   "font-medium text-[0.74rem] text-coral transition-opacity hover:opacity-80";
@@ -116,8 +116,15 @@ export default async function StoryValley({
         </p>
         {listenLinks.length > 0 && (
           <div className="mt-7 flex flex-wrap gap-2.5">
-            {listenLinks.map(({ href, label }) => (
-              <a key={label} href={href} target="_blank" rel="noopener noreferrer" className={LISTEN_LINK_CLASS}>
+            {listenLinks.map(({ href, label, ariaLabel }) => (
+              <a
+                key={label}
+                href={href}
+                aria-label={ariaLabel}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={LISTEN_LINK_CLASS}
+              >
                 {label}
               </a>
             ))}

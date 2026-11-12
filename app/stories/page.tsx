@@ -4,7 +4,7 @@ import Nav from "@/components/Nav";
 import CharacterCard from "@/components/CharacterCard";
 import StoryValleyCastCard from "@/components/StoryValleyCastCard";
 import { characters } from "../../lib/characters";
-import { shows, showLinks, type Show } from "../../lib/shows";
+import { PLATFORMS, shows, showLinks, type Show } from "../../lib/shows";
 import { storyValleyCast } from "../../lib/story-valley";
 
 export const metadata: Metadata = {
@@ -51,14 +51,14 @@ const TAB_COLORS = ["bg-teal", "bg-blue", "bg-coral"];
 const kidsShow = shows.find((s) => s.id === "kids");
 
 const SHOW_LINK_CLASS =
-  "whitespace-nowrap rounded-full border border-line px-3.5 py-2.5 font-medium text-[0.7rem] text-teal transition-colors hover:border-teal/60";
+  "whitespace-nowrap rounded-full border border-line px-3 py-1.5 font-medium text-[0.7rem] text-teal transition-colors hover:border-teal/60";
 
 // Greyed, non-clickable version of SHOW_LINK_CLASS for shows that aren't out yet.
 const SHOW_LINK_DISABLED_CLASS =
-  "pointer-events-none whitespace-nowrap rounded-full border border-line px-3.5 py-2.5 font-medium text-[0.7rem] text-text-muted-2";
+  "pointer-events-none whitespace-nowrap rounded-full border border-line px-3 py-1.5 font-medium text-[0.7rem] text-text-muted-2";
 
-// Platforms a coming-soon show will be on, shown as greyed pills.
-const COMING_SOON_PLATFORMS = ["Spotify", "Apple Podcasts", "Castbox"];
+// Platforms a coming-soon show will be on (audio only, so no YouTube), shown as greyed pills.
+const COMING_SOON_PLATFORMS = PLATFORMS.filter((p) => p.key !== "youtubeUrl");
 
 // Audience tag tint per show. Falls back to coral.
 const AUDIENCE_TAG_CLASS: Partial<Record<Show["id"], string>> = {
@@ -224,15 +224,19 @@ export default function Stories() {
                             {hasPills && (
                               <div className="flex flex-wrap items-center gap-2.5 pt-4">
                                 {show.comingSoon
-                                  ? COMING_SOON_PLATFORMS.map((label) => (
+                                  ? COMING_SOON_PLATFORMS.map(({ label, name }) => (
+                                      // A plain span can't carry an aria-label, so the
+                                      // full name goes in screen-reader-only text instead.
                                       <span key={label} aria-disabled="true" className={SHOW_LINK_DISABLED_CLASS}>
-                                        {label}
+                                        <span aria-hidden="true">{label}</span>
+                                        <span className="sr-only">{name}, coming soon</span>
                                       </span>
                                     ))
-                                  : links.map(({ href, label }) => (
+                                  : links.map(({ href, label, ariaLabel }) => (
                                       <a
                                         key={label}
                                         href={href}
+                                        aria-label={ariaLabel}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className={SHOW_LINK_CLASS}
