@@ -75,15 +75,15 @@ export const ROADMAP_ITEMS: RoadmapItem[] = [
     stage: "brewing",
     title: "A library to read from",
     description:
-      "Stories with your favourite characters, and short reads by level and topic, made to read and save words from.",
-    progress: { done: 1, total: 3 },
+      "Stories with your favourite characters, and short reads by level and topic. The first real reads are live.",
+    progress: { done: 2, total: 3 },
     date: "Started Nov 13",
   },
   {
     stage: "brewing",
     title: "Save words while you read",
-    description: "Every word you tap in a story or read goes straight into your words and reviews.",
-    progress: { done: 0, total: 2 },
+    description: "Every word you tap in a read goes straight into your words and reviews. Stories come next.",
+    progress: { done: 1, total: 2 },
     date: "Started Nov 13",
   },
 
