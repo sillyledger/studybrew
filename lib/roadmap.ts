@@ -22,18 +22,18 @@ export type BetaMilestone = {
 };
 
 /** Shown in the page header: "Public roadmap, updated …". */
-export const ROADMAP_UPDATED = "Nov 11, 2026";
+export const ROADMAP_UPDATED = "Nov 13, 2026";
 
 /** Milestones on the road to beta. The cup fills by done / total. */
 export const BETA_MILESTONES: BetaMilestone[] = [
-  { title: "New design and sidebar", done: true },
-  { title: "Account and settings", done: true },
-  { title: "Notes replace Paste", done: true },
-  { title: "Notebooks and notes", done: false },
-  { title: "Words in one place", done: false },
-  { title: "Review sessions", done: false },
-  { title: "Real streaks", done: false },
-  { title: "Testing and beta", done: false },
+  { title: "Notes and notebooks", done: true },
+  { title: "Tap a word and save it", done: true },
+  { title: "New design", done: true },
+  { title: "One home for your words", done: true },
+  { title: "Review that sticks", done: true },
+  { title: "A library to read from", done: false },
+  { title: "Listen while you read", done: false },
+  { title: "Works from anywhere", done: false },
 ];
 
 /** Section copy for each stage, in the order the sections appear on the page. */
@@ -73,45 +73,27 @@ export const ROADMAP_ITEMS: RoadmapItem[] = [
   // Brewing now
   {
     stage: "brewing",
-    title: "One home for your words",
+    title: "A library to read from",
     description:
-      "Every saved word lives in one place, wherever you saved it: a note, a story or a deck.",
-    progress: { done: 2, total: 4 },
-    date: "Started Nov 11",
-  },
-  {
-    stage: "brewing",
-    title: "Review that sticks",
-    description: "Short daily sessions that bring words back right before you forget them.",
+      "Stories with your favourite characters, and short reads by level and topic, made to read and save words from.",
     progress: { done: 1, total: 3 },
-    date: "Started Nov 11",
+    date: "Started Nov 13",
   },
   {
     stage: "brewing",
-    title: "Stories reader",
-    description: "Read the Study Brew stories chapter by chapter and save words as you go.",
-    progress: { done: 2, total: 3 },
-    date: "Started Nov 10",
+    title: "Save words while you read",
+    description: "Every word you tap in a story or read goes straight into your words and reviews.",
+    progress: { done: 0, total: 2 },
+    date: "Started Nov 13",
   },
 
   // Next pour
   {
     stage: "next",
     title: "Listen while you read",
-    description: "Every story episode with its audio, played right next to the text.",
+    description:
+      "Every story episode with its audio, played right next to the text, wherever you are.",
     date: "Up next",
-  },
-  {
-    stage: "next",
-    title: "Real streaks",
-    description: "Your daily streak and goal, based on what you actually read and review.",
-    date: "Planned",
-  },
-  {
-    stage: "next",
-    title: "Learning settings",
-    description: "Pick a daily goal and choose how definitions show up.",
-    date: "Planned",
   },
   {
     stage: "next",
@@ -119,8 +101,60 @@ export const ROADMAP_ITEMS: RoadmapItem[] = [
     description: "Tested and fast for learners in mainland China and beyond.",
     date: "Planned",
   },
+  {
+    stage: "next",
+    title: "Your first five minutes",
+    description: "Pick your level and save your first word in under a minute.",
+    date: "Planned",
+  },
+  {
+    stage: "next",
+    title: "Reads picked for you",
+    description: "See how much of a text you already know, and get the right next read.",
+    date: "Planned",
+  },
+  {
+    stage: "next",
+    title: "Made for your phone",
+    description: "A layout built for learning on the go.",
+    date: "Planned",
+  },
 
-  // Served
+  // Served, newest first
+  {
+    stage: "served",
+    title: "One home for your words",
+    description:
+      "Every word and phrase in one place, with its status, next review, filters and export to CSV or Excel.",
+    date: "Nov 13",
+  },
+  {
+    stage: "served",
+    title: "Review that sticks",
+    description:
+      "Daily reviews around a cup that fills as words wait for you, with real streaks and weekly progress.",
+    date: "Nov 12",
+  },
+  {
+    stage: "served",
+    title: "Simple definitions",
+    description:
+      "Easy definitions written for learners, for 52,000 words. Switch to advanced any time.",
+    date: "Nov 12",
+  },
+  {
+    stage: "served",
+    title: "Search everything",
+    description: "Find any note or notebook in a second, with ⌘K from anywhere.",
+    date: "Nov 12",
+  },
+  {
+    stage: "served",
+    title: "A safer Trash",
+    description:
+      "Deleted notes and notebooks wait 30 days, and notes move between notebooks with their words.",
+    date: "Nov 12",
+  },
   {
     stage: "served",
     title: "Notes replace Paste",
@@ -167,6 +201,16 @@ export const ROADMAP_ITEMS: RoadmapItem[] = [
     stage: "someday",
     title: "Profile photos",
     description: "Make your account yours.",
+  },
+  {
+    stage: "someday",
+    title: "Chinese translations",
+    description: "See words in Traditional or Simplified Chinese.",
+  },
+  {
+    stage: "someday",
+    title: "Apps for iPad, iPhone and Mac",
+    description: "Study Brew on every device, even offline.",
   },
 ];
 
