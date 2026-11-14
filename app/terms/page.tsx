@@ -54,7 +54,7 @@ export default function TermsOfServicePage() {
         Once paid plans are live, payments will be processed by Paddle. If
         you're charged and have a valid reason to request a refund —
         for example, a billing error or a service issue — contact us at{" "}
-        <a className={a} href="mailto:legal@onpointvc.com">legal@onpointvc.com</a>{" "}
+        <a className={a} href="mailto:p@ryoka.xyz">p@ryoka.xyz</a>{" "}
         within 14 days of the charge, and we'll review your request.
       </p>
       <p className={p}>
@@ -65,7 +65,7 @@ export default function TermsOfServicePage() {
       <h2 className={h2}>Contact</h2>
       <p className={p}>
         Questions? Email us at{" "}
-        <a className={a} href="mailto:legal@onpointvc.com">legal@onpointvc.com</a>.
+        <a className={a} href="mailto:p@ryoka.xyz">p@ryoka.xyz</a>.
       </p>
     </LegalLayout>
   );

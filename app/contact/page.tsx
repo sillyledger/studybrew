@@ -33,10 +33,10 @@ export default function ContactPage() {
             Email
           </div>
           <a
-            href="mailto:jm@onpointvc.com"
+            href="mailto:p@ryoka.xyz"
             className="break-words text-[1.35rem] font-bold text-text-primary transition-colors hover:text-teal sm:text-[1.6rem]"
           >
-            jm@onpointvc.com
+            p@ryoka.xyz
           </a>
           <p className="mt-4 max-w-[40ch] text-[0.9rem] leading-[1.6] text-text-muted">
             Questions, feedback, or just want to say hi — this inbox is
