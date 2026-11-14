@@ -22,7 +22,7 @@ export type BetaMilestone = {
 };
 
 /** Shown in the page header: "Public roadmap, updated …". */
-export const ROADMAP_UPDATED = "Nov 13, 2026";
+export const ROADMAP_UPDATED = "Nov 14, 2026";
 
 /** Milestones on the road to beta. The cup fills by done / total. */
 export const BETA_MILESTONES: BetaMilestone[] = [
@@ -79,13 +79,6 @@ export const ROADMAP_ITEMS: RoadmapItem[] = [
     progress: { done: 2, total: 3 },
     date: "Started Nov 13",
   },
-  {
-    stage: "brewing",
-    title: "Save words while you read",
-    description: "Every word you tap in a read goes straight into your words and reviews. Stories come next.",
-    progress: { done: 1, total: 2 },
-    date: "Started Nov 13",
-  },
 
   // Next pour
   {
@@ -103,12 +96,6 @@ export const ROADMAP_ITEMS: RoadmapItem[] = [
   },
   {
     stage: "next",
-    title: "Your first five minutes",
-    description: "Pick your level and save your first word in under a minute.",
-    date: "Planned",
-  },
-  {
-    stage: "next",
     title: "Reads picked for you",
     description: "See how much of a text you already know, and get the right next read.",
     date: "Planned",
@@ -121,6 +108,33 @@ export const ROADMAP_ITEMS: RoadmapItem[] = [
   },
 
   // Served, newest first
+  {
+    stage: "served",
+    title: "Save words while you read",
+    description:
+      "Words you tap in a read go into your words, and come back in Review the next day.",
+    date: "Nov 14",
+  },
+  {
+    stage: "served",
+    title: "Your first five minutes",
+    description:
+      "Start without an account, read a short story and save your first word in a minute.",
+    date: "Nov 14",
+  },
+  {
+    stage: "served",
+    title: "Import into notes",
+    description: "Bring in a web page, a Word or text file, or pasted text as a note.",
+    date: "Nov 14",
+  },
+  {
+    stage: "served",
+    title: "Your account",
+    description:
+      "Make an account, reset your password, or delete your account and all your data.",
+    date: "Nov 14",
+  },
   {
     stage: "served",
     title: "One home for your words",
