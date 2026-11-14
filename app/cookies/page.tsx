@@ -7,27 +7,29 @@ const a = "text-teal underline decoration-teal-dim underline-offset-2 hover:text
 
 export default function CookiePolicyPage() {
   return (
-    <LegalLayout title="Cookie Policy" lastUpdated="October 6, 2026">
+    <LegalLayout title="Cookie Policy" lastUpdated="November 14, 2026">
       <p className={p}>
         This Cookie Policy explains how Study Brew uses cookies on{" "}
         <strong>app.studybrew.co</strong> and <strong>studybrew.co</strong>.
       </p>
 
-      <h2 className={h2}>Essential cookie</h2>
+      <h2 className={h2}>The app (app.studybrew.co)</h2>
       <p className={p}>
-        When you sign in, our authentication provider (Supabase) sets one
-        essential cookie to keep you signed in between visits. Without it,
-        you would need to log in again on every page load.
+        The app has no tracking or analytics. It only uses the cookies you
+        need to stay signed in. When you sign in, our sign-in provider
+        (Supabase) sets them so you stay signed in between visits. Without
+        them, you would need to sign in again on every page load.
       </p>
 
-      <h2 className={h2}>Analytics cookies</h2>
+      <h2 className={h2}>The website (studybrew.co)</h2>
       <p className={p}>
-        On studybrew.co, we use Google Analytics 4 to see which pages people
+        On our website, we use Google Analytics 4 to see which pages people
         visit and how they find us. It sets cookies named _ga and _ga_
         followed by an ID, and sends usage data to Google, such as pages
         viewed, device type and approximate location. We turn off Google's
         advertising features, including Google signals and ad
-        personalization.
+        personalization. The website has no sign-in, so it sets no sign-in
+        cookies.
       </p>
 
       <h2 className={h2}>Pages without analytics</h2>
@@ -46,7 +48,7 @@ export default function CookiePolicyPage() {
       <h2 className={h2}>Managing Cookies</h2>
       <p className={p}>
         You can block or clear cookies at any time in your browser settings.
-        Blocking the essential cookie signs you out. Blocking the analytics
+        Blocking the sign-in cookies signs you out of the app. Blocking the analytics
         cookies does not change how Study Brew works. To opt out of Google
         Analytics on all websites, you can install the{" "}
         <a className={a} href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">
@@ -58,7 +60,7 @@ export default function CookiePolicyPage() {
       <h2 className={h2}>Contact</h2>
       <p className={p}>
         Questions about this policy? Email us at{" "}
-        <a className={a} href="mailto:legal@onpointvc.com">legal@onpointvc.com</a>.
+        <a className={a} href="mailto:p@ryoka.xyz">p@ryoka.xyz</a>.
       </p>
     </LegalLayout>
   );
