@@ -5,6 +5,7 @@ import StoryValleyCastCard from "@/components/StoryValleyCastCard";
 import { characters } from "@/lib/characters";
 import { shows, type Show } from "@/lib/shows";
 import { storyValleyCast } from "@/lib/story-valley";
+import { STORY_SHOWS } from "@/lib/stories-list";
 
 export const metadata: Metadata = {
   title: "Characters | Study Brew",
@@ -15,11 +16,45 @@ export const metadata: Metadata = {
 const GRID_CLASS =
   "grid grid-cols-2 gap-x-5 gap-y-9 sm:grid-cols-[repeat(auto-fill,minmax(160px,1fr))] sm:gap-x-7";
 
+// Same show colours as /stories.
+const SHOW_COLOR: Partial<Record<Show["id"], string>> = {
+  study: STORY_SHOWS["study-brew"].color,
+  story: STORY_SHOWS["story-brew"].color,
+  kids: STORY_SHOWS["story-valley"].color,
+};
+
+const LEVEL_PILL: Partial<Record<Show["id"], { label: string; className: string }>> = {
+  study: { label: "B1–B2", className: "border-teal/40 text-teal" },
+  story: { label: "B1–B2", className: "border-teal/40 text-teal" },
+  kids: { label: "A1–A2", className: "border-[#8FCB6E]/50 text-[#8FCB6E]" },
+};
+
+const HEADER_CAST = [
+  { slug: "anna", name: "Anna" },
+  { slug: "luna", name: "Luna" },
+  { slug: "sara", name: "Sara" },
+  { slug: "lisa", name: "Lisa" },
+  { slug: "caspian", name: "Caspian" },
+  { slug: "tom", name: "Tom" },
+];
+
 function ShowHeading({ show, count }: { show: Show; count: number }) {
+  const pill = LEVEL_PILL[show.id];
   return (
-    <div className="mb-10 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-line pb-3.5">
-      <span className={`h-2 w-2 shrink-0 self-center rounded-full ${show.dot}`} />
-      <h2 className="text-[1.15rem] font-bold leading-none">{show.name}</h2>
+    <div className="mb-10 flex flex-wrap items-center gap-x-3 gap-y-1.5 border-b border-line pb-3.5">
+      <span
+        aria-hidden="true"
+        className="h-2.5 w-2.5 shrink-0 rounded-full"
+        style={{ background: SHOW_COLOR[show.id] }}
+      />
+      <h2 className="text-[1.25rem] font-bold leading-none">{show.name}</h2>
+      {pill && (
+        <span
+          className={`rounded-full border px-2 py-0.5 text-[0.7rem] font-medium leading-none ${pill.className}`}
+        >
+          {pill.label}
+        </span>
+      )}
       <span className="text-[0.86rem] text-text-muted">{show.tagline}</span>
       <span className="ml-auto text-[0.72rem] font-medium text-text-muted">
         {count} {count === 1 ? "character" : "characters"}
@@ -29,7 +64,9 @@ function ShowHeading({ show, count }: { show: Show; count: number }) {
 }
 
 // Story Valley characters have no pages of their own, so their cards open the
-// Story Valley episode list filtered to that character.
+// Story Valley episode list filtered to that character. StoryValleyCastCard
+// renders these as a plain <a> (full page load), so the analytics loaded on
+// this page never carries into Story Valley.
 function storyValleyHref(name: string) {
   return `/stories/story-valley?character=${encodeURIComponent(name)}#episodes`;
 }
@@ -49,13 +86,40 @@ export default function CharactersPage() {
         >
           ← Stories
         </a>
-        <div className="mb-[1.1rem] mt-8 text-[0.8rem] font-medium text-teal">Characters</div>
-        <h1 className="max-w-[18ch] text-[clamp(2.2rem,4vw,3.1rem)] font-bold leading-[1.02]">
-          Meet the characters.
-        </h1>
-        <p className="mt-4 max-w-[54ch] text-[1.02rem] leading-[1.6] text-text-muted">
-          The people you&apos;ll follow through every Study Brew story.
-        </p>
+        <div className="mt-8 grid items-center gap-10 md:grid-cols-[1.4fr_1fr]">
+          <div>
+            <div className="mb-5 flex items-center gap-2.5 text-[0.8rem] font-medium text-teal">
+              <span className="h-px w-5 shrink-0 bg-teal-dim" />
+              <span>Characters</span>
+            </div>
+            <h1 className="text-[clamp(2.6rem,5.4vw,4.3rem)] font-bold leading-[0.95] tracking-[-0.035em]">
+              Meet the
+              <br />
+              <span className="text-teal">characters.</span>
+            </h1>
+            <p className="mt-6 max-w-[52ch] text-[1.05rem] leading-[1.65] text-text-muted">
+              The people you&apos;ll follow through every story, from Anna&apos;s travels and
+              Luna&apos;s bedtime trips to Sara&apos;s garden.
+            </p>
+          </div>
+          <div className="hidden justify-end md:flex">
+            <div className="flex">
+              {HEADER_CAST.map((c, i) => (
+                <img
+                  key={c.slug}
+                  src={`/characters/${c.slug}.svg`}
+                  alt={c.name}
+                  title={c.name}
+                  width={76}
+                  height={76}
+                  className={`h-[64px] w-[64px] rounded-full bg-panel-2 ring-4 ring-background lg:h-[76px] lg:w-[76px] ${
+                    i ? "-ml-3 lg:-ml-4" : ""
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
       <section className="mx-auto w-full max-w-[1180px] px-6 pb-24 pt-10 md:px-14">
