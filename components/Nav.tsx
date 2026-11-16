@@ -16,7 +16,7 @@ const PRACTICE_ITEMS = [
   {
     href: "/practice/tongue-twisters",
     label: "Tongue twisters",
-    sub: "6 classic drills",
+    sub: "30 classic drills",
     tab: "bg-teal",
     available: true,
   },

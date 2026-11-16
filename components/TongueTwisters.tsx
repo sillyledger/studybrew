@@ -34,6 +34,37 @@ const TIPS: Record<string, string> = {
   SL: "Say the S first, then let your tongue tip move up for the L. Keep the S short.",
   "R / L":
     "For L, your tongue tip touches just behind your top teeth. For R, your tongue doesn't touch anything: curl it back a little.",
+  "SH / S / CH":
+    "For S, smile a little and keep your tongue behind your teeth. For SH, round your lips. For CH, start like a T, then slide into SH.",
+  "SH / EE": "Round your lips for SH, then pull them into a wide smile for the long EE.",
+  "S / CR":
+    "Keep the S short. For CR, start with K at the back of your mouth, then curl your tongue back for the R.",
+  "F / T / D":
+    "For F, your top teeth touch your bottom lip. T and D tap the same spot behind your top teeth; D just uses your voice.",
+  F: "Top teeth gently on your bottom lip, then blow. If your lips close, it becomes a P.",
+  K: "Lift the back of your tongue to the roof of your mouth, then let a small puff of air out.",
+  T: "Tap your tongue tip just behind your top teeth, quick and light.",
+  B: "Close your lips and use your voice. B is like P, but softer.",
+  "N / Y":
+    'For N, your tongue tip touches behind your top teeth. "Unique" and "you" start with a Y sound, like a quick EE.',
+  "B / T":
+    "Close your lips for B. In the middle of a word, keep the T light: butter, better, bitter.",
+  "P / K":
+    "P is made with your lips, K at the back of your mouth. Switch cleanly between front and back.",
+  "F / SH":
+    "For F, your top teeth touch your bottom lip. For SH, round your lips and pull your tongue back.",
+  L: "Touch your tongue tip just behind your top teeth for every L, also at the end of a word.",
+  "CL / CR":
+    "Both start with K at the back of your mouth. For L, touch behind your teeth. For R, don't touch anything.",
+  "T / B":
+    "Switch between your tongue (T) and your lips (B). Keep the OY sound round and clear.",
+  "R / W / ST":
+    'For W, round your lips. For R, curl your tongue back without touching. In "wristwatch", don\'t skip the ST.',
+  "L / W / TH":
+    "L: tongue tip behind your top teeth. W: round your lips. TH: tongue tip between your teeth.",
+  TH: "Put your tongue tip lightly between your teeth and blow. It shouldn't sound like S, F or T.",
+  "R / L / W":
+    "Three shapes: L touches behind your teeth, R curls back without touching, W rounds your lips.",
 };
 
 // Number tiles rotate through these.
@@ -70,9 +101,19 @@ function focusSounds(focus: string) {
 }
 
 /** Wraps every focus sound in the line (longest first, so SH wins over S). */
+// Sounds that are often spelled with other letters. K is also a hard C
+// (copper, coffee, caught) and CK. Every other sound matches its own letters.
+const SOUND_SPELLINGS: Record<string, string> = {
+  K: "ck|k|c(?=[aou])",
+};
+
 function Highlighted({ line, focus }: { line: string; focus: string }) {
+  // Longest sounds first, so SH wins over S, TH over T, CR over R, and so on.
   const sounds = focusSounds(focus).sort((a, b) => b.length - a.length);
-  const re = new RegExp(`(${sounds.map((s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`, "gi");
+  const pattern = sounds
+    .map((s) => SOUND_SPELLINGS[s.toUpperCase()] ?? s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .join("|");
+  const re = new RegExp(`(${pattern})`, "gi");
   const parts = line.split(re);
   return (
     <>
@@ -155,15 +196,24 @@ export default function TongueTwisters({ twisters }: { twisters: Twister[] }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // On phones the list scrolls sideways: keep the selected twister in view
-  // (horizontally only, so the page itself never jumps).
+  // Keep the selected twister in view inside the list: sideways on phones,
+  // up/down on desktop. Only the list scrolls, so the page never jumps.
   useEffect(() => {
     const list = listRef.current;
     const item = list?.querySelector<HTMLElement>("[aria-current='true']");
-    if (!list || !item || list.scrollWidth <= list.clientWidth) return;
-    const left = item.offsetLeft - list.offsetLeft - 24;
+    if (!list || !item) return;
+    const l = list.getBoundingClientRect();
+    const r = item.getBoundingClientRect();
+    // Smooth for short moves; jump straight there for long ones (or reduced motion).
+    const far = Math.abs(r.top - l.top) > list.clientHeight || Math.abs(r.left - l.left) > list.clientWidth;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    list.scrollTo({ left, behavior: reduce ? "auto" : "smooth" });
+    const behavior: ScrollBehavior = reduce || far ? "auto" : "smooth";
+    if (list.scrollWidth > list.clientWidth) {
+      list.scrollBy({ left: r.left - l.left - 24, behavior });
+    } else if (list.scrollHeight > list.clientHeight) {
+      if (r.top < l.top) list.scrollBy({ top: r.top - l.top - 8, behavior });
+      else if (r.bottom > l.bottom) list.scrollBy({ top: r.bottom - l.bottom + 8, behavior });
+    }
   }, [selected, filter]);
 
   function select(i: number) {
@@ -243,7 +293,7 @@ export default function TongueTwisters({ twisters }: { twisters: Twister[] }) {
             <span className="text-teal">tongue.</span>
           </h1>
           <p className="mt-6 max-w-[50ch] text-[1.05rem] leading-[1.65] text-text-muted">
-            Classic English tongue twisters, the ones native speakers grew up tripping over.
+            30 classic English tongue twisters, the ones native speakers grew up tripping over.
             Start slow, read it three times, then speed up.
           </p>
         </div>
@@ -259,10 +309,12 @@ export default function TongueTwisters({ twisters }: { twisters: Twister[] }) {
 
       <div className="grid grid-cols-1 gap-6 pb-20 lg:grid-cols-[340px_minmax(0,1fr)] lg:gap-8 md:pb-24">
         {/* List */}
+        {/* On desktop the list fills the row (as tall as the stage + tip) and scrolls inside it. */}
+        <div className="min-w-0 lg:relative lg:min-h-[520px]">
         <ul
           ref={listRef}
           aria-label="Tongue twisters"
-          className="-mx-6 flex snap-x scroll-px-6 gap-2.5 overflow-x-auto px-6 pb-1 [scrollbar-width:none] lg:mx-0 lg:flex-col lg:self-start lg:overflow-visible lg:px-0 lg:pb-0"
+          className="-mx-6 flex snap-x scroll-px-6 gap-2.5 overflow-x-auto px-6 pb-1 [scrollbar-width:none] lg:absolute lg:inset-0 lg:mx-0 lg:snap-none lg:flex-col lg:overflow-y-auto lg:overflow-x-hidden lg:overscroll-contain lg:px-0 lg:pb-0 lg:pr-2 lg:[scrollbar-color:var(--color-border-strong)_transparent] lg:[scrollbar-width:thin]"
         >
           {visible.map(({ t, i }) => {
             const active = i === selected;
@@ -299,6 +351,7 @@ export default function TongueTwisters({ twisters }: { twisters: Twister[] }) {
             );
           })}
         </ul>
+        </div>
 
         {/* Stage */}
         <div className="min-w-0">
