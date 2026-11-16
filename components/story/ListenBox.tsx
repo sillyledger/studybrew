@@ -116,6 +116,10 @@ export default function ListenBox({
   );
 }
 
+// No playable data this long after pressing play (or mid-story): give up and
+// say so, instead of "Loading audio…" forever.
+const STALL_MS = 15000;
+
 const roundButton =
   "grid h-9 w-9 shrink-0 place-items-center rounded-full text-[0.72rem] sm:h-10 sm:w-10 font-semibold text-text-muted hover:bg-panel-hover hover:text-text-primary";
 
@@ -135,16 +139,33 @@ function Player({ src, title }: { src: string; title: string }) {
     audio.playbackRate = speed;
   }, [speed]);
 
+  function fail() {
+    const audio = audioRef.current;
+    audio?.pause();
+    setLoading(false);
+    setPlaying(false);
+    setFailed(true);
+  }
+
+  // Watchdog: still loading after STALL_MS → fail.
+  useEffect(() => {
+    if (!loading) return;
+    const timer = window.setTimeout(fail, STALL_MS);
+    return () => window.clearTimeout(timer);
+  }, [loading]);
+
   function toggle() {
     const audio = audioRef.current;
     if (!audio) return;
     if (audio.paused) {
+      // After a failure, start over with a fresh request.
+      if (failed) audio.load();
       setFailed(false);
-      if (audio.readyState < 2) setLoading(true);
+      if (audio.readyState < 3) setLoading(true);
       audio.play().catch((error: unknown) => {
-        setLoading(false);
         const name = error instanceof DOMException ? error.name : "";
-        if (name !== "NotAllowedError" && name !== "AbortError") setFailed(true);
+        if (name === "NotAllowedError" || name === "AbortError") setLoading(false);
+        else fail();
       });
     } else {
       audio.pause();
@@ -157,7 +178,7 @@ function Player({ src, title }: { src: string; title: string }) {
     audio.currentTime = Math.max(0, Math.min(audio.duration || 0, audio.currentTime + seconds));
   }
 
-  const status = failed ? "This audio can't play right now." : loading ? "Loading audio…" : title;
+  const status = failed ? "Couldn't load the audio. Press play to try again." : loading ? "Loading audio…" : title;
 
   return (
     <div role="region" aria-label="Story player" className="rounded-[14px] border border-line bg-panel-2 px-3 py-2.5">
@@ -167,8 +188,12 @@ function Player({ src, title }: { src: string; title: string }) {
         preload="none"
         onPlay={() => setPlaying(true)}
         onPlaying={() => setLoading(false)}
+        onCanPlay={(e) => !e.currentTarget.paused && setLoading(false)}
         onWaiting={() => setLoading(true)}
-        onPause={() => setPlaying(false)}
+        onPause={() => {
+          setPlaying(false);
+          setLoading(false);
+        }}
         onEnded={() => setPlaying(false)}
         onTimeUpdate={(e) => setCurrent(e.currentTarget.currentTime)}
         onLoadedMetadata={(e) => {
@@ -176,10 +201,7 @@ function Player({ src, title }: { src: string; title: string }) {
           e.currentTarget.playbackRate = speed;
         }}
         onDurationChange={(e) => setDuration(e.currentTarget.duration)}
-        onError={() => {
-          setLoading(false);
-          setFailed(true);
-        }}
+        onError={fail}
       />
       <div className="flex flex-wrap items-center gap-x-1.5 gap-y-2 sm:flex-nowrap sm:gap-x-2.5">
         <button type="button" onClick={() => skip(-10)} aria-label="Back 10 seconds" className={roundButton}>
@@ -188,20 +210,27 @@ function Player({ src, title }: { src: string; title: string }) {
         <button
           type="button"
           onClick={toggle}
-          aria-label={playing ? "Pause" : "Play"}
+          aria-label={loading ? "Loading audio" : playing ? "Pause" : "Play"}
           aria-busy={loading}
           className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-accent text-teal-ink hover:opacity-90"
         >
-          <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="currentColor" aria-hidden="true">
-            {playing ? <path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" /> : <path d="M8 4.8v14.4L19.5 12z" />}
-          </svg>
+          {loading ? (
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-[18px] w-[18px] animate-spin">
+              <circle cx="12" cy="12" r="9" stroke="currentColor" strokeOpacity={0.3} strokeWidth={2.5} />
+              <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" />
+            </svg>
+          ) : (
+            <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="currentColor" aria-hidden="true">
+              {playing ? <path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" /> : <path d="M8 4.8v14.4L19.5 12z" />}
+            </svg>
+          )}
         </button>
         <button type="button" onClick={() => skip(10)} aria-label="Forward 10 seconds" className={roundButton}>
           +10
         </button>
 
         <div className="order-last flex min-w-0 basis-full flex-col gap-0.5 sm:order-none sm:basis-auto sm:flex-1">
-          <span className="truncate text-[0.8rem] font-semibold">{status}</span>
+          <span role="status" className={`truncate text-[0.8rem] font-semibold ${failed ? "text-coral" : ""}`}>{status}</span>
           <div className="flex items-center gap-2 text-[0.72rem] tabular-nums text-text-muted">
             <span>{time(current)}</span>
             <input
