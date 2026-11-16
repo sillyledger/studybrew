@@ -6,3 +6,9 @@ export const SIGNUPS_OPEN = false;
 
 export const APP_WELCOME_URL = "https://app.studybrew.co/welcome";
 export const APP_LOGIN_URL = "https://app.studybrew.co/login";
+
+/** Sign-up buttons on the story pages: "Sign up free" once sign-ups open,
+    otherwise "Sign-ups open soon" → /roadmap (and no "Log in"). */
+export const SIGNUP = SIGNUPS_OPEN
+  ? { open: true, label: "Sign up free", href: APP_WELCOME_URL, loginHref: APP_LOGIN_URL as string | null }
+  : { open: false, label: "Sign-ups open soon", href: "/roadmap", loginHref: null as string | null };
