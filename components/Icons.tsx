@@ -115,6 +115,27 @@ export const RestartIcon = (p: IconProps) => (
   </Svg>
 );
 
+export const HeartIcon = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" />
+  </Svg>
+);
+
+export const SproutIcon = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M12 21v-9" />
+    <path d="M12 12c0-4 3-6 7-6 0 4-3 6-7 6z" />
+    <path d="M12 14c0-3-2.5-5-6-5 0 3 2.5 5 6 5z" />
+  </Svg>
+);
+
+export const ShieldIcon = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6z" />
+    <path d="M9 12l2 2 4-4" />
+  </Svg>
+);
+
 /** Coloured square tile that holds an icon. */
 export const ICON_TILE = {
   teal: "bg-teal/15 text-teal",

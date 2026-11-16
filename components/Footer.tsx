@@ -1,4 +1,4 @@
-import Link from "next/link";
+import SiteLink from "@/components/SiteLink";
 
 const PRODUCT_LINKS = [
   { href: "/flashcards", label: "Flashcards" },
@@ -56,12 +56,12 @@ export default function Footer() {
           <FooterColumn heading="Product">
             {PRODUCT_LINKS.map((link) => (
               <li key={link.href}>
-                <Link
+                <SiteLink
                   href={link.href}
                   className="text-[0.88rem] text-text-muted transition-colors hover:text-text-primary"
                 >
                   {link.label}
-                </Link>
+                </SiteLink>
               </li>
             ))}
           </FooterColumn>
@@ -69,12 +69,12 @@ export default function Footer() {
           <FooterColumn heading="Company">
             {COMPANY_LINKS.map((link) => (
               <li key={link.href}>
-                <Link
+                <SiteLink
                   href={link.href}
                   className="text-[0.88rem] text-text-muted transition-colors hover:text-text-primary"
                 >
                   {link.label}
-                </Link>
+                </SiteLink>
               </li>
             ))}
           </FooterColumn>
@@ -82,12 +82,12 @@ export default function Footer() {
           <FooterColumn heading="Legal">
             {LEGAL_LINKS.map((link) => (
               <li key={link.href}>
-                <Link
+                <SiteLink
                   href={link.href}
                   className="text-[0.88rem] text-text-muted transition-colors hover:text-text-primary"
                 >
                   {link.label}
-                </Link>
+                </SiteLink>
               </li>
             ))}
           </FooterColumn>

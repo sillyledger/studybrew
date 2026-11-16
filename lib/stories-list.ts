@@ -73,7 +73,11 @@ function pickStories(stories: StoryListItem[]): StoryListItem[] {
 
 /* ---------- Mapping a post ---------- */
 
-interface PostRow {
+/** Columns toStoryItem() needs. */
+export const STORY_COLUMNS =
+  "id, title, slug, content, seo_description, category, target_site, published_at, sub_category, spotify_url";
+
+export interface PostRow {
   id: string;
   title: string;
   slug: string;
@@ -173,7 +177,8 @@ function characterOf(post: PostRow, show: ShowKey): StoryListItem["character"] {
     : { key: first, name: raw, avatar: null, pageHref: null };
 }
 
-function toItem(post: PostRow): StoryListItem {
+/** Turns a `posts` row into a StoryListItem (also used by the Story Valley page). */
+export function toStoryItem(post: PostRow): StoryListItem {
   const show = showOf(post);
   const isStoryValley = show === "story-valley";
   const slug = categorySlug(post.category);
@@ -207,13 +212,11 @@ export async function getStoryList(): Promise<StoryListItem[]> {
     const supabase = createClient();
     const { data } = await supabase
       .from("posts")
-      .select(
-        "id, title, slug, content, seo_description, category, target_site, published_at, sub_category, spotify_url"
-      )
+      .select(STORY_COLUMNS)
       .in("target_site", ["studybrew.co", "storyvalley.co"])
       .eq("status", "published")
       .order("published_at", { ascending: false });
-    return pickStories(((data ?? []) as PostRow[]).map(toItem));
+    return pickStories(((data ?? []) as PostRow[]).map(toStoryItem));
   } catch {
     return [];
   }

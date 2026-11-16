@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import SiteLink from "@/components/SiteLink";
 import { usePathname } from "next/navigation";
 import { APP_LOGIN_URL, APP_WELCOME_URL, SIGNUPS_OPEN } from "@/lib/site";
 
@@ -56,9 +56,9 @@ function NavActions({
   }
   return (
     <div className={`flex items-center ${className}`}>
-      <Link href="/roadmap" onClick={onNavigate} className={BTN_OUTLINE}>
+      <SiteLink href="/roadmap" onClick={onNavigate} className={BTN_OUTLINE}>
         Roadmap
-      </Link>
+      </SiteLink>
     </div>
   );
 }
@@ -107,14 +107,14 @@ function DropdownPanel({
         const inner = <DropdownItemContent item={item} />;
 
         return item.available && item.href ? (
-          <Link
+          <SiteLink
             key={item.label}
             href={item.href}
             onClick={onNavigate}
             className="flex items-center gap-[0.85rem] rounded-[10px] p-[0.8rem] normal-case tracking-normal transition-colors hover:bg-panel-hover"
           >
             {inner}
-          </Link>
+          </SiteLink>
         ) : (
           <div
             key={item.label}
@@ -197,14 +197,14 @@ function MobileMenuSection({
       <div className="mt-2 flex flex-col">
         {items.map((item) =>
           item.available && item.href ? (
-            <Link
+            <SiteLink
               key={item.label}
               href={item.href}
               onClick={onNavigate}
               className="flex items-center gap-[0.85rem] py-[0.6rem]"
             >
               <DropdownItemContent item={item} />
-            </Link>
+            </SiteLink>
           ) : (
             <div key={item.label} className="flex items-center gap-[0.85rem] py-[0.6rem]">
               <DropdownItemContent item={item} />
@@ -237,31 +237,31 @@ function MobileMenu({
         open ? "visible translate-y-0 opacity-100" : "invisible -translate-y-2 opacity-0"
       }`}
     >
-      <Link href="/" onClick={onNavigate} className={linkClass(pathname === "/")}>
+      <SiteLink href="/" onClick={onNavigate} className={linkClass(pathname === "/")}>
         Home
-      </Link>
-      <Link
+      </SiteLink>
+      <SiteLink
         href="/stories"
         onClick={onNavigate}
         className={linkClass(pathname.startsWith("/stories"))}
       >
         Stories
-      </Link>
+      </SiteLink>
 
       <MobileMenuSection label="Practice" items={PRACTICE_ITEMS} onNavigate={onNavigate} />
 
-      <Link href="/pricing" onClick={onNavigate} className={linkClass(pathname === "/pricing")}>
+      <SiteLink href="/pricing" onClick={onNavigate} className={linkClass(pathname === "/pricing")}>
         Pricing
-      </Link>
-      <Link href="/roadmap" onClick={onNavigate} className={linkClass(pathname === "/roadmap")}>
+      </SiteLink>
+      <SiteLink href="/roadmap" onClick={onNavigate} className={linkClass(pathname === "/roadmap")}>
         Roadmap
-      </Link>
-      <Link href="/about" onClick={onNavigate} className={linkClass(pathname === "/about")}>
+      </SiteLink>
+      <SiteLink href="/about" onClick={onNavigate} className={linkClass(pathname === "/about")}>
         About
-      </Link>
-      <Link href="/contact" onClick={onNavigate} className={linkClass(pathname === "/contact")}>
+      </SiteLink>
+      <SiteLink href="/contact" onClick={onNavigate} className={linkClass(pathname === "/contact")}>
         Contact
-      </Link>
+      </SiteLink>
 
       <NavActions
         onNavigate={onNavigate}
@@ -326,30 +326,30 @@ export default function Nav() {
       className="sticky top-0 z-20 bg-background/90 backdrop-blur-md"
     >
       <div className="flex items-center justify-between px-6 py-5 md:px-14">
-        <Link href="/" className="flex items-center gap-3">
+        <SiteLink href="/" className="flex items-center gap-3">
           <img src="/studybrew-logo.svg" alt="Study Brew logo" width={26} height={26} />
           <span className="whitespace-nowrap text-xl font-bold">Study Brew</span>
-        </Link>
+        </SiteLink>
 
         <div className="hidden items-center gap-5 font-medium text-[0.84rem] lg:flex lg:gap-7">
-          <Link href="/" className={linkClass(pathname === "/")}>
+          <SiteLink href="/" className={linkClass(pathname === "/")}>
             Home
-          </Link>
-          <Link href="/stories" className={linkClass(pathname.startsWith("/stories"))}>
+          </SiteLink>
+          <SiteLink href="/stories" className={linkClass(pathname.startsWith("/stories"))}>
             Stories
-          </Link>
+          </SiteLink>
 
           <NavDropdown label="Practice" active={isPractice} items={PRACTICE_ITEMS} />
 
-          <Link href="/pricing" className={linkClass(pathname === "/pricing")}>
+          <SiteLink href="/pricing" className={linkClass(pathname === "/pricing")}>
             Pricing
-          </Link>
-          <Link href="/roadmap" className={linkClass(pathname === "/roadmap")}>
+          </SiteLink>
+          <SiteLink href="/roadmap" className={linkClass(pathname === "/roadmap")}>
             Roadmap
-          </Link>
-          <Link href="/about" className={linkClass(pathname === "/about")}>
+          </SiteLink>
+          <SiteLink href="/about" className={linkClass(pathname === "/about")}>
             About
-          </Link>
+          </SiteLink>
         </div>
 
         <NavActions className="hidden lg:flex" />

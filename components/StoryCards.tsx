@@ -75,22 +75,29 @@ export function Cover({ story, height, avatar }: { story: StoryListItem; height:
   );
 }
 
+// A1–A2 (Story Valley) in its green, B1–B2 in teal.
 export function LevelPill({ level }: { level: LevelKey }) {
+  const tone =
+    level === "a1-a2"
+      ? "border-[#8FCB6E]/35 bg-[#8FCB6E]/10 text-[#8FCB6E]"
+      : "border-teal/30 bg-teal/10 text-teal";
   return (
-    <span className="rounded-full border border-teal/30 bg-teal/10 px-2 py-0.5 text-[0.7rem] font-medium text-teal">
+    <span className={`rounded-full border px-2 py-0.5 text-[0.7rem] font-medium ${tone}`}>
       {levelLabel(level)}
     </span>
   );
 }
 
-/** Story card used on /stories and the character pages. The "character"
-    variant drops the character row and show name, and adds the teaser. */
+/** Story card used on /stories, the character pages and Story Valley.
+    "browse": character row, show name, title.
+    "character": title and teaser (no character row or show name).
+    "full": character row, show name, title and teaser. */
 export function StoryCard({
   story,
   variant = "browse",
 }: {
   story: StoryListItem;
-  variant?: "browse" | "character";
+  variant?: "browse" | "character" | "full";
 }) {
   const show = STORY_SHOWS[story.show];
   return (
@@ -101,7 +108,7 @@ export function StoryCard({
       >
         <Cover story={story} height="h-[132px]" avatar={84} />
         <div className="flex flex-1 flex-col p-4">
-          {variant === "browse" && (
+          {variant !== "character" && (
             <>
               <div className="mb-2 flex min-w-0 items-center gap-2 text-[0.8rem] text-text-muted">
                 <Avatar story={story} size={20} />
@@ -113,7 +120,7 @@ export function StoryCard({
             </>
           )}
           <h3 className="text-[1.02rem] font-bold leading-snug">{story.title}</h3>
-          {variant === "character" && (
+          {variant !== "browse" && (
             <p className="mt-1.5 line-clamp-3 text-[0.84rem] leading-[1.55] text-text-muted">
               {story.teaser}
             </p>
