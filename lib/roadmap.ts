@@ -22,7 +22,7 @@ export type BetaMilestone = {
 };
 
 /** Shown in the page header: "Public roadmap, updated …". */
-export const ROADMAP_UPDATED = "Nov 14, 2026";
+export const ROADMAP_UPDATED = "Nov 16, 2026";
 
 /** Milestones on the road to beta. The cup fills by done / total. */
 export const BETA_MILESTONES: BetaMilestone[] = [
@@ -31,8 +31,8 @@ export const BETA_MILESTONES: BetaMilestone[] = [
   { title: "New design", done: true },
   { title: "One home for your words", done: true },
   { title: "Review that sticks", done: true },
-  { title: "A library to read from", done: false },
-  { title: "Listen while you read", done: false },
+  { title: "A library to read from", done: true },
+  { title: "Listen while you read", done: true },
   { title: "Works from anywhere", done: false },
 ];
 
@@ -73,25 +73,36 @@ export const ROADMAP_ITEMS: RoadmapItem[] = [
   // Brewing now
   {
     stage: "brewing",
-    title: "A library to read from",
+    title: "Stories you can try",
     description:
-      "Stories with your favourite characters, and short reads by level and topic. The first real reads are live.",
-    progress: { done: 2, total: 3 },
-    date: "Started Nov 13",
+      "Read any public story, tap a word to see what it means, and save it with a free account.",
+    progress: { done: 0, total: 3 },
+    date: "Started Nov 16",
   },
 
   // Next pour
   {
     stage: "next",
-    title: "Listen while you read",
-    description:
-      "Every story episode with its audio, played right next to the text, wherever you are.",
+    title: "Plans and pricing",
+    description: "One simple free plan, and a paid plan for the full library.",
     date: "Up next",
   },
   {
     stage: "next",
     title: "Works from anywhere",
-    description: "Tested and fast for learners in mainland China and beyond.",
+    description: "Built and being tested for learners in mainland China.",
+    date: "Testing",
+  },
+  {
+    stage: "next",
+    title: "Flashcards, made over",
+    description: "Fresh flashcard decks that look and feel like the rest of Study Brew.",
+    date: "Planned",
+  },
+  {
+    stage: "next",
+    title: "A daily word game",
+    description: "One short word puzzle a day. Play, share, and save the words you learn.",
     date: "Planned",
   },
   {
@@ -108,6 +119,38 @@ export const ROADMAP_ITEMS: RoadmapItem[] = [
   },
 
   // Served, newest first
+  {
+    stage: "served",
+    title: "Settings that fit you",
+    description:
+      "Pick a daily goal, choose how saved words are underlined, and show definitions under words.",
+    date: "Nov 16",
+  },
+  {
+    stage: "served",
+    title: "Story Valley for kids",
+    description: "Easy A1–A2 stories with Sara, Lucy and Tom, made to share with your child.",
+    date: "Nov 15",
+  },
+  {
+    stage: "served",
+    title: "Ready for China",
+    description:
+      "Stories, words and sign-in all load from Study Brew itself, so nothing is blocked.",
+    date: "Nov 15",
+  },
+  {
+    stage: "served",
+    title: "Listen while you read",
+    description: "Play every story right next to the text, with speed control. No Spotify needed.",
+    date: "Nov 15",
+  },
+  {
+    stage: "served",
+    title: "A library to read from",
+    description: "Stories with your favourite characters, and short reads by level and topic.",
+    date: "Nov 15",
+  },
   {
     stage: "served",
     title: "Save words while you read",
@@ -208,11 +251,6 @@ export const ROADMAP_ITEMS: RoadmapItem[] = [
   },
   {
     stage: "someday",
-    title: "Story Valley",
-    description: "Simple stories for young learners.",
-  },
-  {
-    stage: "someday",
     title: "Profile photos",
     description: "Make your account yours.",
   },
@@ -225,6 +263,16 @@ export const ROADMAP_ITEMS: RoadmapItem[] = [
     stage: "someday",
     title: "Apps for iPad, iPhone and Mac",
     description: "Study Brew on every device, even offline.",
+  },
+  {
+    stage: "someday",
+    title: "Sign in with WeChat",
+    description: "One tap to sign in for learners in China.",
+  },
+  {
+    stage: "someday",
+    title: "Useful phrases",
+    description: "Practise the everyday expressions from each story.",
   },
 ];
 
