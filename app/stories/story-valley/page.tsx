@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Fragment } from "react";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import { StoryCard } from "@/components/StoryCards";
@@ -287,27 +286,21 @@ export default async function StoryValley({
                 </a>
               </div>
               {links.length > 0 && (
-                <p className="mt-4 text-[0.78rem] leading-[1.8] text-text-muted-2">
-                  Also on{" "}
-                  {links.map((l, i) => (
-                    <Fragment key={l.href}>
-                      {/* A plain space between platforms is where the line can wrap. */}
-                      {i > 0 && " "}
-                      <span className="whitespace-nowrap">
-                        {i > 0 && "· "}
-                        <a
-                          href={l.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={l.ariaLabel}
-                          className="underline-offset-2 transition-colors hover:text-text-primary hover:underline"
-                        >
-                          {l.label}
-                        </a>
-                      </span>
-                    </Fragment>
+                <div className="mt-5 flex flex-wrap items-center gap-2">
+                  <span className="mr-1 text-[0.78rem] text-text-muted-2">Also on</span>
+                  {links.map((l) => (
+                    <a
+                      key={l.href}
+                      href={l.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={l.ariaLabel}
+                      className="inline-flex items-center whitespace-nowrap rounded-full border border-white/[0.18] bg-transparent px-3 py-[5px] text-[13px] font-semibold leading-none text-[#F2EBDD]/85 transition-colors hover:border-[#8FCB6E] hover:bg-[#8FCB6E]/[0.08] hover:text-[#8FCB6E] focus-visible:border-[#8FCB6E] focus-visible:bg-[#8FCB6E]/[0.08] focus-visible:text-[#8FCB6E] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8FCB6E]"
+                    >
+                      {l.label}
+                    </a>
                   ))}
-                </p>
+                </div>
               )}
             </div>
           </div>
