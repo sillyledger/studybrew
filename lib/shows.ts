@@ -11,6 +11,8 @@ export interface Show {
   youtubeUrl?: string;
   appleUrl?: string;
   castboxUrl?: string;
+  kkboxUrl?: string;
+  xiaoyuzhouUrl?: string;
   comingSoon?: string; // e.g. "Coming 2027"; shows the card as not yet live
 }
 
@@ -52,6 +54,8 @@ export const shows: Show[] = [
     appleUrl: "https://podcasts.apple.com/podcast/story-valley-a1-a2-english-stories-for-kids/id6818182854",
     youtubeUrl: "https://www.youtube.com/@StoryValleyKids",
     castboxUrl: "https://castbox.fm/vh/7436136",
+    kkboxUrl: "https://podcast.kkbox.com/sg/channel/XaMsi5utgfA-Sd14GR",
+    xiaoyuzhouUrl: "https://www.xiaoyuzhoufm.com/podcast/6afa6ef3eb0ec5ac6d196818",
   },
   {
     id: "why",
@@ -72,6 +76,8 @@ export const PLATFORMS = [
   { key: "appleUrl", label: "Apple", name: "Apple Podcasts", ariaLabel: "Listen on Apple Podcasts" },
   { key: "youtubeUrl", label: "YouTube", name: "YouTube", ariaLabel: "Watch on YouTube" },
   { key: "castboxUrl", label: "Castbox", name: "Castbox", ariaLabel: "Listen on Castbox" },
+  { key: "kkboxUrl", label: "KKBOX", name: "KKBOX", ariaLabel: "Listen on KKBOX" },
+  { key: "xiaoyuzhouUrl", label: "小宇宙", name: "小宇宙", ariaLabel: "在小宇宙收听" },
 ] as const satisfies readonly { key: keyof Show; label: string; name: string; ariaLabel: string }[];
 
 export interface ShowLink {

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import { Fragment } from "react";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import { StoryCard } from "@/components/StoryCards";
 import { BookIcon, HeartIcon, ShieldIcon, SproutIcon } from "@/components/Icons";
 import { createClient } from "../../../lib/supabase";
-import { PLATFORMS, shows } from "../../../lib/shows";
+import { shows, showLinks } from "../../../lib/shows";
 import { storyValleyCast } from "../../../lib/story-valley";
 import { STORY_COLUMNS, toStoryItem, type PostRow } from "../../../lib/stories-list";
 
@@ -78,14 +79,10 @@ function filterHref(character: string | null, page = 1) {
   return `/stories/story-valley${query ? `?${query}` : ""}#episodes`;
 }
 
-/** Spotify and YouTube for Story Valley: plain links, no embeds. */
+/** Every Story Valley platform in PLATFORMS order: plain links, no embeds. */
 function alsoOn() {
   const show = shows.find((s) => s.id === "kids");
-  if (!show) return [];
-  return PLATFORMS.filter((p) => p.key === "spotifyUrl" || p.key === "youtubeUrl").flatMap((p) => {
-    const href = show[p.key];
-    return href ? [{ href, label: p.label, ariaLabel: p.ariaLabel }] : [];
-  });
+  return show ? showLinks(show) : [];
 }
 
 /* ---------- Hero valley ---------- */
@@ -290,21 +287,25 @@ export default async function StoryValley({
                 </a>
               </div>
               {links.length > 0 && (
-                <p className="mt-4 text-[0.78rem] text-text-muted-2">
+                <p className="mt-4 text-[0.78rem] leading-[1.8] text-text-muted-2">
                   Also on{" "}
                   {links.map((l, i) => (
-                    <span key={l.href}>
-                      {i > 0 && " · "}
-                      <a
-                        href={l.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={l.ariaLabel}
-                        className="underline-offset-2 transition-colors hover:text-text-primary hover:underline"
-                      >
-                        {l.label}
-                      </a>
-                    </span>
+                    <Fragment key={l.href}>
+                      {/* A plain space between platforms is where the line can wrap. */}
+                      {i > 0 && " "}
+                      <span className="whitespace-nowrap">
+                        {i > 0 && "· "}
+                        <a
+                          href={l.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={l.ariaLabel}
+                          className="underline-offset-2 transition-colors hover:text-text-primary hover:underline"
+                        >
+                          {l.label}
+                        </a>
+                      </span>
+                    </Fragment>
                   ))}
                 </p>
               )}
