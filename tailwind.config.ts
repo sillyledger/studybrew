@@ -22,6 +22,11 @@ const config: Config = {
         coral: "#F0997B",
         "coral-tint": "rgba(240,153,123,0.16)",
         yellow: "#F2C46B",
+        cream: {
+          DEFAULT: "#F2EBDD",
+          ink: "#2a241c",
+          muted: "#6b604f",
+        },
         "line-soft": "var(--color-border-soft)",
         ink: "#1b1f24",
         text: {

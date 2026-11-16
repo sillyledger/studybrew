@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
 import FlashcardDeck from "@/components/FlashcardDeck";
@@ -35,20 +34,8 @@ export default async function DeckPage({ params }: Props) {
     <main className="flex flex-1 flex-col">
       <Nav />
 
-      <div className="mx-auto w-full max-w-[1120px] px-6 pb-20 pt-10 md:px-14 md:pt-16">
-        <Link
-          href="/flashcards/english"
-          className="font-medium text-[0.78rem] text-text-muted transition-colors hover:text-text-primary"
-        >
-          ← English flashcards
-        </Link>
-        <h1 className="mt-4 text-[clamp(1.8rem,3.2vw,2.4rem)] font-bold leading-[1.05]">
-          {category.name}
-        </h1>
-
-        <div className="mt-10">
-          <FlashcardDeck cards={category.cards} tab={category.tab} />
-        </div>
+      <div className="mx-auto w-full max-w-[1180px] px-6 pb-20 pt-8 md:px-14 md:pb-24 md:pt-12">
+        <FlashcardDeck name={category.name} cards={category.cards} />
       </div>
     </main>
   );

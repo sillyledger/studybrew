@@ -7,16 +7,23 @@ import { APP_LOGIN_URL, APP_WELCOME_URL, SIGNUPS_OPEN } from "@/lib/site";
 
 const PRACTICE_ITEMS = [
   {
+    href: "/flashcards",
+    label: "Flashcards",
+    sub: "Free decks to warm up",
+    tab: "bg-yellow",
+    available: true,
+  },
+  {
     href: "/practice/tongue-twisters",
-    label: "Tongue Twisters",
+    label: "Tongue twisters",
     sub: "6 classic drills",
     tab: "bg-teal",
     available: true,
   },
   {
     href: "/practice/minimal-pairs",
-    label: "Minimal Pairs",
-    sub: "Sound-pair practice",
+    label: "Minimal pairs",
+    sub: "Hear the difference",
     tab: "bg-blue",
     available: true,
   },
@@ -67,7 +74,7 @@ type DropdownItem = {
 function DropdownItemContent({ item }: { item: DropdownItem }) {
   return (
     <>
-      <span className={`h-8 w-[6px] shrink-0 rounded-[3px] ${item.tab}`} />
+      <span className={`h-8 w-1 shrink-0 rounded-full ${item.tab}`} />
       <div className={item.available ? "" : "opacity-50"}>
         <h3 className="text-[0.98rem] font-bold text-text-primary">{item.label}</h3>
         <p className="mt-0.5 font-sans text-[0.78rem] text-text-muted">{item.sub}</p>
@@ -92,7 +99,7 @@ function DropdownPanel({
 }) {
   return (
     <div
-      className={`absolute left-1/2 top-[calc(100%+14px)] w-[300px] -translate-x-1/2 rounded-2xl border border-line bg-panel p-[0.6rem] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.6)] transition-opacity duration-150 ease-out ${
+      className={`absolute left-1/2 top-[calc(100%+14px)] w-[300px] -translate-x-1/2 rounded-2xl border border-line-strong bg-panel p-[0.6rem] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.6)] transition-opacity duration-150 ease-out ${
         open ? "opacity-100" : "pointer-events-none opacity-0"
       }`}
     >
@@ -104,7 +111,7 @@ function DropdownPanel({
             key={item.label}
             href={item.href}
             onClick={onNavigate}
-            className="flex items-center gap-[0.85rem] rounded-[10px] p-[0.8rem] normal-case tracking-normal hover:bg-panel-2"
+            className="flex items-center gap-[0.85rem] rounded-[10px] p-[0.8rem] normal-case tracking-normal transition-colors hover:bg-panel-hover"
           >
             {inner}
           </Link>
@@ -270,7 +277,7 @@ export default function Nav() {
   const [navHeight, setNavHeight] = useState(68);
   const navRef = useRef<HTMLElement>(null);
 
-  const isPractice = pathname.startsWith("/practice");
+  const isPractice = pathname.startsWith("/practice") || pathname.startsWith("/flashcards");
 
   // Close the menu whenever the route changes.
   useEffect(() => {

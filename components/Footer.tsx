@@ -51,10 +51,6 @@ export default function Footer() {
               Made by a learner, for learners. Free vocabulary, stories, and
               practice for English learners.
             </p>
-            <span className="mt-[0.3rem] inline-flex items-center gap-[0.45rem] font-medium text-[0.7rem] text-text-muted-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-coral" />
-              App in development
-            </span>
           </div>
 
           <FooterColumn heading="Product">

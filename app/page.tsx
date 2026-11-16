@@ -19,9 +19,9 @@ import {
 import { APP_WELCOME_URL, SIGNUPS_OPEN } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Study Brew | Note-Taking App for Language Learners",
+  title: "Study Brew | Note-Taking App for English Learners",
   description:
-    "A notebook for language learners: short B1–B2 audio stories, free flashcards, and pronunciation practice.",
+    "A note-taking app for English learners: import any text, save the words you don't know, and review them daily. With graded stories and reads.",
 };
 
 const FLASHCARDS = [

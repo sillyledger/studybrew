@@ -98,6 +98,23 @@ export const CheckIcon = (p: IconProps) => (
   </Svg>
 );
 
+export const ShuffleIcon = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M16 3h5v5" />
+    <path d="M4 20L21 3" />
+    <path d="M21 16v5h-5" />
+    <path d="M15 15l6 6" />
+    <path d="M4 4l5 5" />
+  </Svg>
+);
+
+export const RestartIcon = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M3 12a9 9 0 1 0 3-6.7" />
+    <path d="M3 4v5h5" />
+  </Svg>
+);
+
 /** Coloured square tile that holds an icon. */
 export const ICON_TILE = {
   teal: "bg-teal/15 text-teal",
