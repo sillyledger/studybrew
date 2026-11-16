@@ -16,6 +16,8 @@ export interface Character {
   href?: string;
   // Which audio show the character belongs to: Study Brew (everyday) or Story Brew (bedtime)
   show: "study" | "story";
+  // Possessive pronoun, as the bio uses it ("Start with her first story")
+  possessive: "her" | "his" | "their";
 }
 
 export const characters: Character[] = [
@@ -29,6 +31,7 @@ export const characters: Character[] = [
     color: "#E8A45A",
     hasAvatar: true,
     show: "study",
+    possessive: "her",
   },
   {
     slug: "daniel",
@@ -40,6 +43,7 @@ export const characters: Character[] = [
     color: "#7EB8C9",
     hasAvatar: true,
     show: "study",
+    possessive: "his",
   },
   {
     slug: "lisa",
@@ -51,6 +55,7 @@ export const characters: Character[] = [
     color: "#9DB7E0",
     hasAvatar: true,
     show: "study",
+    possessive: "her",
   },
   {
     slug: "mei",
@@ -63,6 +68,7 @@ export const characters: Character[] = [
     hasAvatar: true,
     comingSoon: true,
     show: "study",
+    possessive: "her",
   },
   {
     slug: "marco",
@@ -74,6 +80,7 @@ export const characters: Character[] = [
     color: "#A8D5A2",
     hasAvatar: true,
     show: "study",
+    possessive: "his",
   },
   {
     slug: "luna",
@@ -85,6 +92,7 @@ export const characters: Character[] = [
     color: "#B8A9E8",
     hasAvatar: true,
     show: "story",
+    possessive: "her",
   },
   {
     slug: "princess-maja",
@@ -96,6 +104,7 @@ export const characters: Character[] = [
     color: "#E29B9B",
     hasAvatar: true,
     show: "story",
+    possessive: "her",
   },
   {
     slug: "caspian",
@@ -108,6 +117,7 @@ export const characters: Character[] = [
     hasAvatar: true,
     href: "/stories/caspian-and-the-lost-magic",
     show: "story",
+    possessive: "his",
   },
 ];
 
