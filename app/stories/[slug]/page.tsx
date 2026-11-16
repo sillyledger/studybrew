@@ -12,6 +12,7 @@ import { SIGNUP } from '@/lib/site'
 import {
   appleEmbedUrl,
   categoryHref,
+  findPublicStory,
   getPublicStory,
   keyPhrases,
   mainCharacter,
@@ -59,13 +60,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function StoryPage({ params }: Props) {
   const { slug } = await params
-  const story = await getPublicStory(slug)
+  // By slug; if the app uses a different slug, by the site post's title.
+  const story = await findPublicStory(slug, () => postTitle(slug))
   if (!story) return <LegacyStory slug={slug} />
 
   // Spotify and Apple can't be reached from mainland China: only Play here.
   const inChina = (await headers()).get('x-vercel-ip-country') === 'CN'
   const character = mainCharacter(story)
-  const more = await moreStories(story, character?.slug ?? null)
+  const more = await moreStories(story, slug, character?.slug ?? null)
   const phrases = keyPhrases(story.key_words)
 
   return (
@@ -285,10 +287,22 @@ function MaybeLink({
 }
 
 /** Three more stories: with the same character, or from the same show for One-off stories. */
-async function moreStories(story: PublicStory, characterSlug: string | null): Promise<StoryListItem[]> {
+async function moreStories(story: PublicStory, pageSlug: string, characterSlug: string | null): Promise<StoryListItem[]> {
   const list = await getStoryList()
   return list
-    .filter((s) => !s.isStoryValley && s.slug !== story.slug)
+    .filter((s) => !s.isStoryValley && s.slug !== story.slug && s.slug !== pageSlug)
     .filter((s) => (characterSlug ? s.characterKeys.includes(characterSlug) : s.show === story.show.slug))
     .slice(0, 3)
+}
+
+/** The site post's title, for matching the app's story by title. */
+async function postTitle(slug: string): Promise<string | null> {
+  const { data } = await createClient()
+    .from('posts')
+    .select('title')
+    .eq('slug', slug)
+    .eq('target_site', 'studybrew.co')
+    .eq('status', 'published')
+    .maybeSingle()
+  return data?.title ?? null
 }

@@ -29,22 +29,55 @@ export interface PublicStory {
   apple_url: string | null;
 }
 
-/** The story, or null when the API doesn't have it (404) or can't be reached. */
+/** The story by its app slug, or null when the API doesn't have it (404) or
+    can't be reached. Anything other than 200/404 is logged (Vercel logs). */
 export async function getPublicStory(slug: string): Promise<PublicStory | null> {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return null;
+  const url = `${API}/stories/${slug}`;
   try {
-    const res = await fetch(`${API}/stories/${slug}`, { next: { revalidate: 300 } });
-    if (!res.ok) return null;
+    const res = await fetch(url, { next: { revalidate: 300 } });
+    if (!res.ok) {
+      if (res.status !== 404) console.warn(`[public-story] ${url} → ${res.status}`);
+      return null;
+    }
     const data = (await res.json()) as PublicStory;
-    if (!data?.title || !Array.isArray(data.body)) return null;
+    if (!data?.title || !Array.isArray(data.body)) {
+      console.warn(`[public-story] ${url} → 200 but no title/body`);
+      return null;
+    }
     return {
       ...data,
       characters: Array.isArray(data.characters) ? data.characters : [],
       key_words: Array.isArray(data.key_words) ? data.key_words : [],
     };
-  } catch {
+  } catch (error) {
+    console.warn(`[public-story] ${url} failed:`, error);
     return null;
   }
+}
+
+/** App slugs to try for a site title when the site slug isn't in the app:
+    "Daniel's Neighbour Is Too Loud" → daniels-neighbour-is-too-loud and
+    daniel-s-neighbour-is-too-loud. */
+export function titleSlugs(title: string): string[] {
+  const t = title.normalize("NFKD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[‘’ʼ]/g, "'");
+  const slug = (s: string) => s.replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  return Array.from(new Set([slug(t.replace(/'/g, "")), slug(t)])).filter(Boolean);
+}
+
+/** The app's story for a site page: by slug first; if the slugs differ, by
+    the site post's title (siteTitle) turned into a slug. */
+export async function findPublicStory(slug: string, siteTitle: () => Promise<string | null>): Promise<PublicStory | null> {
+  const direct = await getPublicStory(slug);
+  if (direct) return direct;
+  const title = await siteTitle();
+  if (!title) return null;
+  for (const candidate of titleSlugs(title)) {
+    if (candidate === slug) continue;
+    const story = await getPublicStory(candidate);
+    if (story) return story;
+  }
+  return null;
 }
 
 /** The story's character, or null for One-off stories. */
