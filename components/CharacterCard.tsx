@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { Character } from "@/lib/characters";
+import { comingSoonPill, type Character } from "@/lib/characters";
 
 const AVATAR_COLORS = ["bg-coral", "bg-teal", "bg-blue"];
 const ROTATIONS = ["-rotate-[3deg]", "rotate-[2.5deg]", "rotate-[2deg]", "-rotate-[2deg]"];
@@ -25,7 +25,7 @@ export default function CharacterCard({
       <span className="absolute -top-2 left-1/2 h-4 w-11 -translate-x-1/2 -rotate-[4deg] border border-coral/70 bg-coral/[0.55]" />
       {char.comingSoon && (
         <span className="absolute -top-2 right-1 rounded-full border border-line bg-panel px-2 py-[0.2rem] font-medium text-[0.64rem] text-text-muted-2">
-          Soon
+          {comingSoonPill(char)}
         </span>
       )}
       <div className="mb-[0.6rem] flex aspect-square items-center justify-center rounded-[2px] bg-panel">

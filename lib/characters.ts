@@ -12,6 +12,9 @@ export interface Character {
   hasAvatar: boolean;
   // Set to true while the character has no published stories yet
   comingSoon?: boolean;
+  // Optional text for a coming-soon character, e.g. "Joins in season 2, January 2027".
+  // Without it, the generic "coming soon" text and "Soon" pill are used.
+  comingSoonLabel?: string;
   // Overrides the polaroid card link on /stories, e.g. to point straight at a published story
   href?: string;
   // Which audio show the character belongs to: Study Brew (everyday) or Story Brew (bedtime)
@@ -79,6 +82,8 @@ export const characters: Character[] = [
     tags: ["28 years old", "Community worker", "Always cooking"],
     color: "#A8D5A2",
     hasAvatar: true,
+    comingSoon: true,
+    comingSoonLabel: "Joins in season 2, January 2027",
     show: "study",
     possessive: "his",
   },
@@ -115,11 +120,23 @@ export const characters: Character[] = [
     tags: ["Wonder", "Solitude", "Small discoveries", "The cost of habit", "Learning to look again"],
     color: "#7CACDD",
     hasAvatar: true,
-    href: "/stories/caspian-and-the-lost-magic",
     show: "story",
     possessive: "his",
   },
 ];
+
+/** Pill on polaroid/character cards: "Season 2" when the label names a season, else "Soon". */
+export function comingSoonPill(char: Character): string {
+  const season = char.comingSoonLabel?.match(/season\s+(\d+)/i);
+  return season ? `Season ${season[1]}` : "Soon";
+}
+
+/** Sentence for the character page, e.g. "Marco joins in season 2, January 2027." */
+export function comingSoonSentence(char: Character): string {
+  const label = char.comingSoonLabel?.trim().replace(/\.$/, "");
+  if (!label) return `${char.name}'s first stories are coming soon.`;
+  return `${char.name} ${label.charAt(0).toLowerCase()}${label.slice(1)}.`;
+}
 
 export function getCharacter(slug: string): Character | undefined {
   return characters.find((c) => c.slug === slug);

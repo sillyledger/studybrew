@@ -66,7 +66,7 @@ function matches(s: StoryListItem, f: Filters) {
   if (f.show && s.show !== f.show) return false;
   if (f.level && s.level !== f.level) return false;
   if (f.category && s.categorySlug !== f.category) return false;
-  if (f.character && s.character?.key !== f.character) return false;
+  if (f.character && !s.characterKeys.includes(f.character)) return false;
   const q = f.q.trim().toLowerCase();
   if (q) {
     const hay = `${s.title} ${s.character?.name ?? ""} ${s.teaser}`.toLowerCase();
@@ -299,7 +299,7 @@ export default function StoriesBrowser({
   const filtered = useMemo(() => stories.filter((s) => matches(s, f)), [stories, f]);
   const [featured, ...rest] = filtered;
   const characterName = f.character
-    ? stories.find((s) => s.character?.key === f.character)?.character?.name.split(",")[0] ?? f.character
+    ? stories.find((s) => s.characterKeys.includes(f.character!))?.characterNames[f.character] ?? f.character
     : null;
 
   return (

@@ -43,6 +43,12 @@ export interface StoryListItem {
   categorySlug: string | null;
   /** Cover colour (category colour, or the show colour). */
   color: string;
+  /** Keys of every character in the story ("Anna, Daniel" → anna, daniel).
+      Used by the ?character= filter and the character pages. */
+  characterKeys: string[];
+  /** Name for each key, for filter labels. */
+  characterNames: Record<string, string>;
+  /** The first character: shown on cards (avatar and name). */
   character: {
     /** Key for the ?character= filter. */
     key: string;
@@ -121,7 +127,28 @@ function shorten(text: string, max = 140): string {
   return `${cut.slice(0, cut.lastIndexOf(" ") > 80 ? cut.lastIndexOf(" ") : max).replace(/[\s,.;:]+$/, "")}…`;
 }
 
-/** sub_category can be "Luna the Cat" or "Anna, Daniel": match the first name. */
+/** One name from sub_category ("Luna the Cat" → Luna), matched case-insensitively. */
+function matchName(part: string, show: ShowKey): { key: string; name: string } {
+  const p = part.trim().toLowerCase();
+  const matches = (name: string) => p === name.toLowerCase() || p.startsWith(`${name.toLowerCase()} `);
+  const known =
+    show === "story-valley"
+      ? storyValleyCast.find((m) => matches(m.name))
+      : characters.find((c) => matches(c.name));
+  return known ? { key: known.slug, name: known.name } : { key: p, name: part.trim() };
+}
+
+/** Every character in the story: sub_category can list several ("Anna, Daniel"). */
+function charactersOf(post: PostRow, show: ShowKey) {
+  const parts = (post.sub_category ?? "").split(",").map((s) => s.trim()).filter(Boolean);
+  const found = parts.map((part) => matchName(part, show));
+  return {
+    characterKeys: Array.from(new Set(found.map((c) => c.key))),
+    characterNames: Object.fromEntries(found.map((c) => [c.key, c.name])),
+  };
+}
+
+/** The first character, shown on cards. */
 function characterOf(post: PostRow, show: ShowKey): StoryListItem["character"] {
   const raw = (post.sub_category ?? "").trim();
   if (!raw) return null;
@@ -165,6 +192,7 @@ function toItem(post: PostRow): StoryListItem {
     category: isStoryValley ? "Story Valley" : (style?.label ?? post.category ?? "Story"),
     categorySlug: isStoryValley ? null : slug,
     color: isStoryValley ? STORY_SHOWS["story-valley"].color : (style?.color ?? STORY_SHOWS[show].color),
+    ...charactersOf(post, show),
     character: characterOf(post, show),
     teaser: post.seo_description?.trim() || shorten(text),
     minutes: Math.max(2, Math.round(words / 130)),

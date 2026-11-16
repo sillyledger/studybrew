@@ -4,7 +4,13 @@ import Link from "next/link";
 import Nav from "@/components/Nav";
 import CharacterStories from "@/components/CharacterStories";
 import { Cover, LevelPill, StoryLink } from "@/components/StoryCards";
-import { characters, getCharacter, type Character } from "@/lib/characters";
+import {
+  characters,
+  comingSoonPill,
+  comingSoonSentence,
+  getCharacter,
+  type Character,
+} from "@/lib/characters";
 import { PLATFORMS, shows } from "@/lib/shows";
 import { STORY_SHOWS, getStoryList } from "@/lib/stories-list";
 import { APP_WELCOME_URL, SIGNUPS_OPEN } from "@/lib/site";
@@ -71,7 +77,7 @@ export default async function CharacterPage({ params }: Props) {
 
   // Same loader as /stories, filtered to this character (first-name match).
   const stories = (await getStoryList()).filter(
-    (s) => !s.isStoryValley && s.character?.key === character.slug
+    (s) => !s.isStoryValley && s.characterKeys.includes(character.slug)
   );
   const hasStories = stories.length > 0 && !character.comingSoon;
   const first = hasStories ? stories[stories.length - 1] : null; // oldest
@@ -230,7 +236,7 @@ export default async function CharacterPage({ params }: Props) {
           </>
         ) : (
           <section className="rounded-[18px] border border-dashed border-line-strong px-6 py-12 text-center">
-            <p className="text-[1.15rem] font-bold">{character.name}&apos;s first stories are coming soon.</p>
+            <p className="text-[1.15rem] font-bold">{comingSoonSentence(character)}</p>
             <Link
               href="/stories"
               className="mt-3 inline-block border-b border-teal-dim pb-0.5 text-[0.88rem] font-medium text-teal transition-colors hover:border-teal"
@@ -297,7 +303,14 @@ export default async function CharacterPage({ params }: Props) {
                   >
                     <PortraitAvatar character={c} size="h-14 w-14 shrink-0 rounded-full text-[1.4rem]" />
                     <div className="min-w-0 flex-1">
-                      <div className="text-[1rem] font-bold">{c.name}</div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[1rem] font-bold">{c.name}</span>
+                        {c.comingSoon && (
+                          <span className="rounded-full border border-line-strong px-2 py-0.5 text-[0.66rem] font-medium leading-none text-text-muted-2">
+                            {comingSoonPill(c)}
+                          </span>
+                        )}
+                      </div>
                       <div className="truncate text-[0.82rem] text-text-muted">{c.role}</div>
                     </div>
                     <span
