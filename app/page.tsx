@@ -1,8 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
-import CaptureDemo from "@/components/CaptureDemo";
-import WaitlistForm from "@/components/WaitlistForm";
+import Cup from "@/components/Cup";
+import {
+  BookIcon,
+  BookmarkIcon,
+  CupIcon,
+  FileIcon,
+  FolderIcon,
+  HeadphonesIcon,
+  ICON_TILE,
+  ImportIcon,
+  LinkIcon,
+  ListIcon,
+  PencilIcon,
+  type TileColor,
+} from "@/components/Icons";
+import { APP_WELCOME_URL, SIGNUPS_OPEN } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Study Brew | Note-Taking App for Language Learners",
@@ -34,36 +48,74 @@ const FLASHCARDS = [
   },
 ];
 
-const HOW_STEPS = [
+const SOURCES: {
+  icon: (p: { className?: string }) => React.ReactNode;
+  color: TileColor;
+  title: string;
+  sub: string;
+}[] = [
+  { icon: LinkIcon, color: "blue", title: "A web page", sub: "news-site.com/why-we-sleep" },
+  { icon: FileIcon, color: "coral", title: "A file", sub: "class-notes-week-3.docx" },
+  { icon: PencilIcon, color: "yellow", title: "Your own note", sub: "Write or paste any text" },
   {
-    tab: "01 — Capture",
-    tabBg: "bg-teal",
-    tabInk: "text-teal-ink",
-    title: "Tap any word",
-    body: "Reading a story or reviewing a deck, tap a word you don't know.",
+    icon: HeadphonesIcon,
+    color: "teal",
+    title: "Stories & reads",
+    sub: "Ready to read, at your level",
   },
-  {
-    tab: "02 — Save",
-    tabBg: "bg-blue",
-    tabInk: "text-[#04203e]",
-    title: "It becomes a note",
-    body: "Definition and the exact sentence it came from — saved as a flashcard.",
-  },
-  {
-    tab: "03 — Review",
-    tabBg: "bg-coral",
-    tabInk: "text-[#3a1608]",
-    title: "Keep it in your head",
-    body: "Spaced review brings it back right before you'd forget it.",
-  },
-] as const;
+];
 
-const TIMELINE = [
-  { label: "Stories & flashcards", status: "Live now", state: "done" },
-  { label: "Note capture, designed", status: "Complete", state: "done" },
-  { label: "Building the notes core", status: "In progress", state: "active" },
-  { label: "Private beta", status: "Up next", state: "upcoming" },
-] as const;
+const NOTE_WORDS = [
+  { word: "theory", def: "an idea that explains something" },
+  { word: "memory", def: "the ability to remember" },
+  { word: "argue", def: "to disagree in words" },
+];
+
+const FEATURES: {
+  icon: (p: { className?: string }) => React.ReactNode;
+  color: TileColor;
+  title: string;
+  body: string;
+  tag?: string;
+}[] = [
+  {
+    icon: ImportIcon,
+    color: "blue",
+    title: "Import anything",
+    body: "A link, a Word or text file, or pasted text becomes a clean note in seconds.",
+  },
+  {
+    icon: BookmarkIcon,
+    color: "teal",
+    title: "Tap a word, save it",
+    body: "Easy definitions written for learners, shown right under the word in your note. Our dictionary grows every week.",
+  },
+  {
+    icon: FolderIcon,
+    color: "yellow",
+    title: "Notebooks & folders",
+    body: "Keep notes by class, topic or goal. Search everything with ⌘K.",
+  },
+  {
+    icon: CupIcon,
+    color: "teal",
+    title: "A daily review",
+    body: "Your saved words fill a cup. Take a sip each day and keep your streak going.",
+  },
+  {
+    icon: BookIcon,
+    color: "coral",
+    title: "Stories & reads",
+    body: "Graded texts and stories at A1–A2 and B1–B2, ready when you need something to read.",
+    tag: "Some with audio",
+  },
+  {
+    icon: ListIcon,
+    color: "blue",
+    title: "Your words, your way",
+    body: "Every word in one list. Move them into decks, or export to CSV or Excel.",
+  },
+];
 
 const AVATARS = [
   { slug: "anna", name: "Anna" },
@@ -74,111 +126,231 @@ const AVATARS = [
   { slug: "caspian", name: "Caspian" },
 ];
 
+const BUTTON =
+  "inline-flex items-center justify-center rounded-[10px] px-6 py-3.5 text-[0.95rem] font-semibold transition-[opacity,background-color]";
+const BUTTON_PRIMARY = `${BUTTON} bg-teal text-teal-ink hover:opacity-90`;
+const BUTTON_OUTLINE = `${BUTTON} border border-line-strong text-text-primary hover:bg-panel-hover`;
+
+/** Teal-underlined saved word inside the demo note. */
+function Saved({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="underline decoration-teal decoration-2 underline-offset-[5px]">
+      {children}
+    </span>
+  );
+}
+
+function ColumnLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mb-3.5 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-text-muted-2">
+      {children}
+    </div>
+  );
+}
+
+/** Dashed connector between flow columns (desktop only). */
+function Connector({ side }: { side: "left" | "right" }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`pointer-events-none absolute top-1/2 hidden w-10 border-t-2 border-dashed border-line-strong min-[900px]:block ${
+        side === "left" ? "-left-10" : "-right-10"
+      }`}
+    />
+  );
+}
+
 export default function Home() {
   return (
     <main className="flex flex-1 flex-col">
       <Nav />
 
       {/* Hero */}
-      <section className="mx-auto grid w-full max-w-[1120px] grid-cols-1 items-center gap-12 px-6 pb-14 pt-12 md:grid-cols-[1.05fr_0.95fr] md:px-14 md:pb-24 md:pt-20">
-        <div className="min-w-0">
-          <div className="mb-5 flex items-center gap-2.5 font-medium text-[0.8rem] text-teal">
-            <span className="h-px w-5 shrink-0 bg-teal-dim" />
-            <span>Learn the language. Keep the words.</span>
-          </div>
-          <h1 className="text-[clamp(2.6rem,4.6vw,4.1rem)] font-bold leading-[0.98]">
-            A notebook for <span className="text-teal">language learners.</span>
-          </h1>
-          <p className="mt-5 max-w-[42ch] text-[1.06rem] leading-[1.65] text-text-muted">
-            Study Brew is becoming a notebook for language learners. A simple
-            place to save new words as you learn, and come back to them when
-            you&apos;re ready to review.
-          </p>
-          <WaitlistForm />
+      <section className="mx-auto flex w-full max-w-[1120px] flex-col items-center px-6 pb-16 pt-12 text-center md:px-14 md:pb-24 md:pt-20">
+        <div className="mb-6 flex items-center gap-2.5 text-[0.8rem] font-medium text-teal">
+          <span className="h-px w-5 shrink-0 bg-teal-dim" />
+          <span>Read anything. Keep the words.</span>
         </div>
+        <h1 className="text-[clamp(3rem,9vw,5.6rem)] font-bold leading-[0.95] tracking-[-0.035em] [text-wrap:balance]">
+          A note-taking app <br className="hidden sm:inline" />
+          for <span className="text-teal">English learners.</span>
+        </h1>
+        <p className="mt-7 max-w-[54ch] text-[1.06rem] leading-[1.65] text-text-muted">
+          Bring in a web page, a Word file, your class notes or one of our stories. Tap the
+          words you don&apos;t know, and Study Brew turns them into a quick daily review.
+        </p>
 
-        <CaptureDemo />
+        <div className="mt-9 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center">
+          {SIGNUPS_OPEN ? (
+            <a href={APP_WELCOME_URL} className={BUTTON_PRIMARY}>
+              Start learning, it&apos;s free
+            </a>
+          ) : (
+            <Link href="/roadmap" className={BUTTON_PRIMARY}>
+              See the roadmap
+            </Link>
+          )}
+          <a href="#how" className={BUTTON_OUTLINE}>
+            See how it works
+          </a>
+        </div>
+        {!SIGNUPS_OPEN && (
+          <p className="mt-4 text-[0.84rem] text-text-muted-2">
+            Opening soon. Follow along on the{" "}
+            <Link href="/roadmap" className="underline underline-offset-2 hover:text-text-primary">
+              roadmap
+            </Link>
+            .
+          </p>
+        )}
+
+        <ul className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2.5 text-[0.82rem] font-medium text-text-muted">
+          {(
+            [
+              ["bg-teal", "Free to start"],
+              ["bg-blue", "Works in China"],
+              ["bg-coral", "No ads, no AI"],
+            ] as const
+          ).map(([dot, label]) => (
+            <li key={label} className="flex items-center gap-2">
+              <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${dot}`} />
+              {label}
+            </li>
+          ))}
+        </ul>
       </section>
 
-      {/* How it works */}
-      <section id="how" className="bg-background px-6 py-14 md:px-14 md:py-24">
-        <div className="mx-auto max-w-[1120px]">
-          <div className="max-w-[46ch]">
-            <div className="mb-3 font-medium text-[0.8rem] text-teal">
-              How it works
-            </div>
-            <h2 className="text-[clamp(1.8rem,3vw,2.4rem)] font-bold">
-              Read it. Save it. <span className="text-teal">Keep it.</span>
-            </h2>
-            <p className="mt-3 text-text-muted">
-              This is the sequence we&apos;re building toward — each step
-              depends on the one before it.
-            </p>
+      {/* How it works: bring in → note → review */}
+      <section
+        id="how"
+        aria-label="How Study Brew works"
+        className="mx-auto w-full max-w-[1180px] scroll-mt-24 px-6 pb-16 md:px-14 md:pb-24"
+      >
+        <div className="grid grid-cols-1 items-center gap-10 min-[900px]:grid-cols-[240px_minmax(0,1fr)_200px]">
+          {/* Bring in */}
+          <div>
+            <ColumnLabel>Bring in</ColumnLabel>
+            <ul className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 min-[900px]:grid-cols-1">
+              {SOURCES.map(({ icon: Icon, color, title, sub }) => (
+                <li
+                  key={title}
+                  className="flex items-center gap-3 rounded-[14px] border border-line bg-panel-2 p-3"
+                >
+                  <span
+                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] ${ICON_TILE[color]}`}
+                  >
+                    <Icon />
+                  </span>
+                  <div className="min-w-0">
+                    <div className="text-[0.88rem] font-semibold">{title}</div>
+                    <div className="truncate text-[0.76rem] text-text-muted-2">{sub}</div>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <div className="relative mt-[3.2rem] grid grid-cols-1 gap-[1.6rem] md:grid-cols-3">
-            <div className="pointer-events-none absolute left-0 right-0 top-[38px] z-0 hidden border-t-2 border-dashed border-line-soft md:block" />
-
-            {HOW_STEPS.map((step, i) => (
-              <div
-                key={step.tab}
-                className="relative rounded-2xl border border-line bg-panel pt-[2.4rem] transition-transform duration-300 ease-out hover:-translate-y-[5px]"
-              >
-                <span
-                  className={`absolute -top-[14px] left-[1.6rem] z-[1] rounded-full px-[0.7rem] py-[0.35rem] text-[0.68rem] font-semibold ${step.tabBg} ${step.tabInk}`}
-                >
-                  {step.tab}
+          {/* The note */}
+          <div className="relative min-w-0">
+            <Connector side="left" />
+            <Connector side="right" />
+            <div className="overflow-hidden rounded-[20px] border border-line-strong bg-panel text-left shadow-[0_40px_80px_-30px_rgba(0,0,0,0.75)]">
+              <div className="flex items-center justify-between gap-3 border-b border-line px-5 py-3">
+                <div className="min-w-0 truncate text-[0.78rem] text-text-muted-2">
+                  My notebook <span className="px-1">/</span>
+                  <span className="text-text-muted">Why we sleep</span>
+                </div>
+                <span className="shrink-0 rounded-md border border-line px-2 py-0.5 text-[0.62rem] font-semibold tracking-[0.08em] text-text-muted-2">
+                  NEWS-SITE.COM
                 </span>
-
-                {i === 0 && (
-                  <div className="mx-[1.6rem] mb-[1.4rem] flex h-[120px] items-center justify-center overflow-hidden rounded-[10px] bg-panel-2">
-                    <div className="p-[0.9rem] text-[0.82rem] leading-[1.6] text-text-muted">
-                      Daniel felt completely{" "}
-                      <span className="rounded bg-teal-tint px-[3px] text-teal">
-                        overwhelmed
-                      </span>{" "}
-                      on his first morning.
-                    </div>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_175px]">
+                <div className="px-5 pb-10 pt-5 md:px-6">
+                  <h3 className="text-[1.45rem] font-bold leading-tight">Why we sleep</h3>
+                  <div className="mt-1.5 text-[0.74rem] text-text-muted-2">
+                    Imported from a link · 640 words · Saved
                   </div>
-                )}
-
-                {i === 1 && (
-                  <div className="mx-[1.6rem] mb-[1.4rem] flex h-[120px] flex-col items-start justify-center overflow-hidden rounded-[10px] border border-teal-dim bg-teal-tint p-[0.8rem]">
-                    <div className="font-medium text-[0.66rem] text-text-muted-2">
-                      New word
-                    </div>
-                    <div className="text-[1.15rem] font-bold">overwhelmed</div>
-                    <div className="mt-[0.3rem] text-[0.74rem] text-text-muted">
-                      <b className="text-teal">adj.</b> too much to deal with
-                      at once.
-                    </div>
-                  </div>
-                )}
-
-                {i === 2 && (
-                  <div className="mx-[1.6rem] mb-[1.4rem] flex h-[120px] items-center justify-center overflow-hidden rounded-[10px] bg-panel-2">
-                    <div className="flex gap-[10px]">
-                      <span className="h-[14px] w-[14px] rounded-full border-2 border-teal bg-teal" />
-                      <span className="h-[14px] w-[14px] rounded-full border-2 border-teal bg-teal" />
-                      <span className="h-[14px] w-[14px] rounded-full border-2 border-coral ring-[3px] ring-coral-tint" />
-                      <span className="h-[14px] w-[14px] rounded-full border-2 border-line" />
-                      <span className="h-[14px] w-[14px] rounded-full border-2 border-line" />
-                    </div>
-                  </div>
-                )}
-
-                <div className="px-[1.6rem] pb-[1.6rem]">
-                  <h3 className="mb-[0.4rem] text-[1.15rem] font-bold">
-                    {step.title}
-                  </h3>
-                  <p className="text-[0.85rem] leading-[1.55] text-text-muted">
-                    {step.body}
+                  <p className="mt-4 text-[0.95rem] leading-[1.85] text-text-muted">
+                    Scientists still <Saved>argue</Saved> about why we sleep. One{" "}
+                    <Saved>theory</Saved> says the brain uses the night to tidy up what it
+                    learned during the day. Without enough rest, our <Saved>memory</Saved> gets
+                    worse, and small tasks feel much{" "}
+                    <span className="relative inline-block rounded bg-blue/20 px-1 text-text-primary">
+                      harder
+                      <span className="absolute left-1/2 top-[calc(100%+6px)] -translate-x-1/2 whitespace-nowrap rounded-full bg-white px-2.5 py-1 text-[0.7rem] font-semibold leading-none text-ink shadow-[0_8px_20px_-6px_rgba(0,0,0,0.6)]">
+                        + Save word
+                      </span>
+                    </span>
+                    .
                   </p>
                 </div>
+                <div className="border-t border-line bg-panel-2 p-4 sm:border-l sm:border-t-0">
+                  <div className="mb-3 text-[0.64rem] font-semibold uppercase tracking-[0.1em] text-text-muted-2">
+                    Words in this note · {NOTE_WORDS.length}
+                  </div>
+                  <ul className="flex flex-col gap-3">
+                    {NOTE_WORDS.map(({ word, def }) => (
+                      <li key={word}>
+                        <div className="text-[0.88rem] font-semibold">{word}</div>
+                        <div className="text-[0.74rem] leading-snug text-text-muted">{def}</div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            ))}
+            </div>
+          </div>
+
+          {/* Then review */}
+          <div className="flex flex-col items-center text-center">
+            <div className="self-stretch text-left min-[900px]:text-center">
+              <ColumnLabel>Then review</ColumnLabel>
+            </div>
+            <Cup
+              id="home-cup"
+              fraction={0.5}
+              ariaLabel="A cup half full of words to review"
+              className="w-[150px]"
+            />
+            <div className="mt-3 text-[0.95rem] font-bold text-yellow">Espresso</div>
+            <div className="mt-0.5 text-[0.9rem] font-semibold">12 words in your cup</div>
+            <div className="mt-1 text-[0.8rem] text-text-muted">A quick sip and it&apos;s done.</div>
+            <span className="mt-4 inline-flex cursor-default select-none items-center rounded-[9px] border border-line-strong px-4 py-2 text-[0.8rem] font-semibold">
+              Take a sip
+            </span>
           </div>
         </div>
+      </section>
+
+      {/* Features */}
+      <section className="mx-auto w-full max-w-[1120px] px-6 py-14 md:px-14 md:py-20">
+        <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-10">
+          <h2 className="max-w-[18ch] text-[clamp(1.9rem,3.4vw,2.6rem)] font-bold leading-[1.05]">
+            Everything you read, <span className="text-teal">in one notebook.</span>
+          </h2>
+          <p className="max-w-[40ch] text-[0.98rem] leading-[1.6] text-text-muted md:text-right">
+            Notes come first. Stories and reads are there when you don&apos;t have anything to
+            read.
+          </p>
+        </div>
+        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {FEATURES.map(({ icon: Icon, color, title, body, tag }) => (
+            <li key={title} className="rounded-2xl border border-line bg-panel-2 p-6">
+              <span
+                className={`flex h-10 w-10 items-center justify-center rounded-[11px] ${ICON_TILE[color]}`}
+              >
+                <Icon className="h-5 w-5" />
+              </span>
+              <h3 className="mt-5 text-[1.12rem] font-bold">{title}</h3>
+              <p className="mt-1.5 text-[0.9rem] leading-[1.6] text-text-muted">{body}</p>
+              {tag && (
+                <span className="mt-4 inline-block rounded-full border border-line-strong px-2.5 py-1 text-[0.64rem] font-semibold uppercase tracking-[0.1em] text-text-muted-2">
+                  {tag}
+                </span>
+              )}
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* Flashcards teaser */}
@@ -262,55 +434,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* App status band */}
-      <section
-        id="waitlist"
-        className="bg-background px-6 py-14 md:px-14 md:py-24"
-      >
-        <div className="mx-auto grid max-w-[1120px] items-center gap-12 md:grid-cols-2">
-          <div>
-            <h2 className="text-[clamp(1.8rem,3vw,2.4rem)] font-bold leading-[1.08]">
-              The notes app is <span className="text-teal">in development.</span>
-            </h2>
-            <p className="mt-4 max-w-[38ch] leading-[1.65] text-text-muted">
-              Stories and flashcards are ready today. The part that ties them
-              together — your own running notebook of every word you&apos;ve
-              learned — is what we&apos;re building next.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-line bg-panel p-7">
-            {TIMELINE.map((item, i) => (
-              <div
-                key={item.label}
-                className={`relative border-l pl-6 ${
-                  i === TIMELINE.length - 1 ? "border-transparent" : "border-line pb-6"
-                }`}
-              >
-                <div
-                  className={`absolute -left-[5px] top-0.5 h-[9px] w-[9px] rounded-full border-2 border-panel ${
-                    item.state === "done"
-                      ? "bg-teal"
-                      : item.state === "active"
-                        ? "bg-coral ring-[3px] ring-coral-tint"
-                        : "bg-text-muted-2"
-                  }`}
-                />
-                <b className="mb-0.5 block text-[0.92rem] font-semibold">
-                  {item.label}
-                </b>
-                <span
-                  className={`font-medium text-[0.74rem] ${
-                    item.state === "active" ? "text-coral" : "text-text-muted"
-                  }`}
-                >
-                  {item.status}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
     </main>
   );
 }

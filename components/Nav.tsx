@@ -3,26 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-// TODO: word counts are placeholders. No flashcards/decks table is queried
-// anywhere in this codebase yet — wire these up to real deck counts once
-// one exists instead of hardcoding.
-const LANGUAGES = [
-  {
-    href: "/flashcards/english",
-    label: "English",
-    sub: "B1–B2 · 200 words",
-    tab: "bg-teal",
-    available: true,
-  },
-  {
-    href: "/flashcards/traditional-chinese",
-    label: "繁體中文",
-    sub: "Traditional Chinese · 0 words",
-    tab: "bg-blue",
-    available: true,
-  },
-];
+import { APP_LOGIN_URL, APP_WELCOME_URL, SIGNUPS_OPEN } from "@/lib/site";
 
 const PRACTICE_ITEMS = [
   {
@@ -40,6 +21,40 @@ const PRACTICE_ITEMS = [
     available: true,
   },
 ];
+
+const BTN =
+  "inline-flex items-center justify-center whitespace-nowrap rounded-[9px] px-4 py-2 text-[0.82rem] font-semibold transition-[opacity,background-color]";
+const BTN_OUTLINE = `${BTN} border border-line-strong text-text-primary hover:bg-panel-hover`;
+const BTN_LIGHT = `${BTN} bg-text-primary text-background hover:opacity-90`;
+
+/** Nav call-to-action: Log in + Start free once sign-ups open, otherwise Roadmap. */
+function NavActions({
+  className = "",
+  onNavigate,
+}: {
+  className?: string;
+  onNavigate?: () => void;
+}) {
+  if (SIGNUPS_OPEN) {
+    return (
+      <div className={`flex items-center gap-2 ${className}`}>
+        <a href={APP_LOGIN_URL} className={BTN_OUTLINE}>
+          Log in
+        </a>
+        <a href={APP_WELCOME_URL} className={BTN_LIGHT}>
+          Start free
+        </a>
+      </div>
+    );
+  }
+  return (
+    <div className={`flex items-center ${className}`}>
+      <Link href="/roadmap" onClick={onNavigate} className={BTN_OUTLINE}>
+        Roadmap
+      </Link>
+    </div>
+  );
+}
 
 type DropdownItem = {
   href?: string;
@@ -218,10 +233,6 @@ function MobileMenu({
       <Link href="/" onClick={onNavigate} className={linkClass(pathname === "/")}>
         Home
       </Link>
-
-      <MobileMenuSection label="Flashcards" items={LANGUAGES} onNavigate={onNavigate} />
-      <MobileMenuSection label="Practice" items={PRACTICE_ITEMS} onNavigate={onNavigate} />
-
       <Link
         href="/stories"
         onClick={onNavigate}
@@ -229,23 +240,26 @@ function MobileMenu({
       >
         Stories
       </Link>
-      <Link href="/app" onClick={onNavigate} className={linkClass(pathname === "/app")}>
-        App
-      </Link>
-      <Link href="/about" onClick={onNavigate} className={linkClass(pathname === "/about")}>
-        About
+
+      <MobileMenuSection label="Practice" items={PRACTICE_ITEMS} onNavigate={onNavigate} />
+
+      <Link href="/pricing" onClick={onNavigate} className={linkClass(pathname === "/pricing")}>
+        Pricing
       </Link>
       <Link href="/roadmap" onClick={onNavigate} className={linkClass(pathname === "/roadmap")}>
         Roadmap
+      </Link>
+      <Link href="/about" onClick={onNavigate} className={linkClass(pathname === "/about")}>
+        About
       </Link>
       <Link href="/contact" onClick={onNavigate} className={linkClass(pathname === "/contact")}>
         Contact
       </Link>
 
-      <div className="mt-6 flex items-center gap-2 border-t border-line-soft pt-6 font-medium text-[0.74rem] text-text-muted">
-        <span className="h-1.5 w-1.5 rounded-full bg-coral" />
-        App in development
-      </div>
+      <NavActions
+        onNavigate={onNavigate}
+        className="mt-6 border-t border-line-soft pt-6 [&>a]:flex-1 [&>a]:py-3 [&>a]:text-[0.92rem]"
+      />
     </div>
   );
 }
@@ -256,7 +270,6 @@ export default function Nav() {
   const [navHeight, setNavHeight] = useState(68);
   const navRef = useRef<HTMLElement>(null);
 
-  const isFlashcards = pathname.startsWith("/flashcards");
   const isPractice = pathname.startsWith("/practice");
 
   // Close the menu whenever the route changes.
@@ -315,31 +328,24 @@ export default function Nav() {
           <Link href="/" className={linkClass(pathname === "/")}>
             Home
           </Link>
-
-          <NavDropdown label="Flashcards" active={isFlashcards} items={LANGUAGES} />
-          <NavDropdown label="Practice" active={isPractice} items={PRACTICE_ITEMS} />
-
           <Link href="/stories" className={linkClass(pathname.startsWith("/stories"))}>
             Stories
           </Link>
-          <Link href="/app" className={linkClass(pathname === "/app")}>
-            App
-          </Link>
-          <Link href="/about" className={linkClass(pathname === "/about")}>
-            About
+
+          <NavDropdown label="Practice" active={isPractice} items={PRACTICE_ITEMS} />
+
+          <Link href="/pricing" className={linkClass(pathname === "/pricing")}>
+            Pricing
           </Link>
           <Link href="/roadmap" className={linkClass(pathname === "/roadmap")}>
             Roadmap
           </Link>
-          <Link href="/contact" className={linkClass(pathname === "/contact")}>
-            Contact
+          <Link href="/about" className={linkClass(pathname === "/about")}>
+            About
           </Link>
         </div>
 
-        <div className="hidden items-center gap-2 whitespace-nowrap font-medium text-[0.74rem] text-text-muted xl:flex">
-          <span className="h-1.5 w-1.5 rounded-full bg-coral" />
-          App in development
-        </div>
+        <NavActions className="hidden lg:flex" />
 
         <button
           type="button"

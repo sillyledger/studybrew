@@ -4,6 +4,7 @@ const PRODUCT_LINKS = [
   { href: "/flashcards", label: "Flashcards" },
   { href: "/stories", label: "Stories" },
   { href: "/practice", label: "Practice" },
+  { href: "/pricing", label: "Pricing" },
   { href: "/app", label: "App" },
 ];
 

@@ -29,6 +29,9 @@
 html {
   font-size: 113%; /* bumps every rem-based text size site-wide, e.g. text-sm/base/lg/xl etc */
 }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; } /* "See how it works" on the home page */
+}
 
 body {
   background-color: var(--color-background);
