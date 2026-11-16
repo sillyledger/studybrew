@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { createClient } from '@/lib/supabase'
 import Nav from '@/components/Nav'
-import Cup from '@/components/Cup'
 import LegacyStory from '@/components/story/LegacyStory'
 import ListenBox from '@/components/story/ListenBox'
 import StoryQuiz from '@/components/story/StoryQuiz'
@@ -165,15 +164,25 @@ export default async function StoryPage({ params }: Props) {
             )}
 
             {/* End card */}
-            <section className="mt-6 flex flex-col items-center rounded-[20px] border border-line bg-panel-2 px-6 py-9 text-center">
-              <Cup fraction={0.62} id="story-end-cup" ariaLabel="Study Brew cup" className="w-[64px]" />
-              <h2 className="mt-4 text-[1.3rem] font-bold tracking-[-0.03em]">Keep the words from this story</h2>
-              <p className="mt-2 max-w-[400px] text-[0.92rem] leading-[1.6] text-text-muted">
-                Save the words you tap, then see them again in a short daily review. That&apos;s how they stick.
-              </p>
+            <section className="mt-6 flex flex-col items-start gap-5 rounded-[20px] border border-teal/30 bg-[linear-gradient(135deg,#1f2b27,#242426_60%)] p-6 sm:flex-row sm:items-center sm:gap-6 sm:p-7">
+              <svg width="88" height="80" viewBox="0 0 88 80" aria-hidden="true" className="shrink-0">
+                <path d="M30 8c-4 6 4 8 0 14M44 4c-4 6 4 8 0 14" stroke="#9a9894" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+                <path d="M14 28h52v20c0 14-11 24-26 24S14 62 14 48z" fill="none" stroke="#ECEAE6" strokeWidth="3" />
+                <path d="M17 36h46v12c0 12-10 21-23 21S17 60 17 48z" fill="#5a3a26" />
+                <path d="M17 36h46" stroke="#c49a6c" strokeWidth="3" />
+                <path d="M66 34c10 0 10 16 0 16" fill="none" stroke="#ECEAE6" strokeWidth="3" />
+                <path d="M6 76h76" stroke="#ECEAE6" strokeWidth="3" strokeLinecap="round" />
+              </svg>
+              <div className="min-w-0 flex-1">
+                <h2 className="text-[1.35rem] font-bold leading-[1.2] tracking-[-0.02em]">Keep the words from this story</h2>
+                <p className="mt-1.5 text-[0.92rem] leading-[1.5] text-text-muted">
+                  Save words as you read, see them again in a short daily review, and take notes on anything you read
+                  in English. Free to start.
+                </p>
+              </div>
               <a
                 href={SIGNUP.href}
-                className="mt-5 inline-flex h-11 items-center justify-center rounded-[12px] bg-teal px-6 text-[0.92rem] font-semibold text-teal-ink hover:opacity-90"
+                className="inline-flex h-11 shrink-0 items-center justify-center whitespace-nowrap rounded-[12px] bg-teal px-5 text-[0.9rem] font-semibold text-teal-ink hover:opacity-90"
               >
                 {SIGNUP.label}
               </a>

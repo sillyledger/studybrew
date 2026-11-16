@@ -213,11 +213,15 @@ export function SavedWords() {
         </p>
       ) : (
         <>
-          <ul className="mt-3 flex flex-col gap-2">
+          <ul className="mt-3 flex flex-wrap gap-1.5">
             {saved.map((w) => (
-              <li key={w.word} className="rounded-[12px] bg-panel-2 px-3.5 py-2.5">
-                <span className="block text-[0.88rem] font-semibold">{w.word}</span>
-                <span className="mt-0.5 block text-[0.78rem] leading-[1.45] text-text-muted">{w.meaning}</span>
+              <li
+                key={w.word}
+                title={w.meaning}
+                className="inline-flex items-center gap-1.5 rounded-full border border-line-strong bg-panel-hover px-3 py-1 text-[0.82rem]"
+              >
+                <span aria-hidden="true" className="h-[7px] w-[7px] rounded-full bg-yellow" />
+                {w.word}
               </li>
             ))}
           </ul>
