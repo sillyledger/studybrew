@@ -10,6 +10,8 @@ import { characters } from "./characters";
 const API = "https://app.studybrew.co/api/public";
 
 export const ONE_OFF_SLUG = "one-off";
+/** show.slug of Story Valley for Kids (its stories live under /stories/story-valley). */
+export const STORY_VALLEY_SHOW = "story-valley";
 
 export interface PublicStory {
   slug: string;

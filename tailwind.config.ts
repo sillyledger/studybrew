@@ -15,6 +15,10 @@ const config: Config = {
         line: "var(--color-border)",
         "line-strong": "var(--color-border-strong)",
         teal: "#5DCAA5",
+        // Page accent: teal, or a show colour set with --accent on a parent
+        // (Story Valley pages use #8FCB6E). Solid colour only, no /opacity.
+        accent: "var(--accent, #5DCAA5)",
+        "accent-tint": "color-mix(in srgb, var(--accent, #5DCAA5) 14%, transparent)",
         "teal-dim": "#2f6b53",
         "teal-tint": "rgba(93,202,165,0.14)",
         "teal-ink": "#06291d",

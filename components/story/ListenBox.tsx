@@ -8,6 +8,9 @@ import { useEffect, useRef, useState } from "react";
 // Apple loads on a page view. The audio file isn't fetched either until play
 // is pressed (preload="none"). The page leaves out the Spotify/Apple URLs in
 // mainland China, so only Play here shows there.
+//
+// Story Valley passes no embeds, only `links`: plain outline pills that open
+// the platform in a new tab (no iframes, nothing loads from them on the page).
 
 type Tab = "here" | "spotify" | "apple";
 
@@ -26,11 +29,14 @@ export default function ListenBox({
   audioUrl,
   spotifyEmbed,
   appleEmbed,
+  links = [],
 }: {
   title: string;
   audioUrl: string | null;
   spotifyEmbed: string | null;
   appleEmbed: string | null;
+  /** Platforms as plain links that open in a new tab. */
+  links?: { label: string; href: string }[];
 }) {
   const tabs: { value: Tab; label: string }[] = [
     ...(audioUrl ? [{ value: "here" as const, label: "▶ Play here" }] : []),
@@ -39,7 +45,7 @@ export default function ListenBox({
   ];
   // Only Play here can be selected on load: an embed waits for its click.
   const [selected, setSelected] = useState<Tab | null>(audioUrl ? "here" : null);
-  if (!tabs.length) return null;
+  if (!tabs.length && !links.length) return null;
 
   return (
     <section aria-labelledby="listen" className="mt-8 rounded-[20px] bg-panel p-5 sm:p-6">
@@ -56,15 +62,28 @@ export default function ListenBox({
               aria-pressed={on}
               onClick={() => setSelected(tab.value)}
               className={`inline-flex h-9 items-center rounded-full px-3.5 text-[0.8rem] sm:px-4 sm:text-[0.84rem] font-semibold transition-colors ${
-                on ? "bg-teal text-teal-ink" : "border border-line-strong text-text-primary hover:bg-panel-hover"
+                on ? "bg-accent text-teal-ink" : "border border-line-strong text-text-primary hover:bg-panel-hover"
               }`}
             >
               {tab.label}
             </button>
           );
         })}
+        {links.map((link) => (
+          <a
+            key={link.href}
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-9 items-center gap-1 rounded-full border border-line-strong px-3.5 text-[0.8rem] font-semibold text-text-primary transition-colors hover:bg-panel-hover sm:px-4 sm:text-[0.84rem]"
+          >
+            {link.label}
+            <span aria-hidden="true" className="text-[0.75em] text-text-muted">↗</span>
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
+        ))}
       </div>
-      {selected === null && (
+      {selected === null && tabs.length > 0 && (
         <p className="mt-3.5 text-[0.85rem] text-text-muted">Choose where to listen.</p>
       )}
       {/* One player at a time: switching unmounts the other one. */}
@@ -171,7 +190,7 @@ function Player({ src, title }: { src: string; title: string }) {
           onClick={toggle}
           aria-label={playing ? "Pause" : "Play"}
           aria-busy={loading}
-          className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-teal text-teal-ink hover:opacity-90"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-accent text-teal-ink hover:opacity-90"
         >
           <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="currentColor" aria-hidden="true">
             {playing ? <path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" /> : <path d="M8 4.8v14.4L19.5 12z" />}
@@ -196,7 +215,7 @@ function Player({ src, title }: { src: string; title: string }) {
               }}
               aria-label="Progress"
               aria-valuetext={`${time(current)} of ${time(duration)}`}
-              className="h-1 min-w-0 flex-1 cursor-pointer accent-[#5DCAA5]"
+              className="h-1 min-w-0 flex-1 cursor-pointer accent-[var(--accent,#5DCAA5)]"
             />
             <span>{time(duration)}</span>
           </div>

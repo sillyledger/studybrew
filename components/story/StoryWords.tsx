@@ -8,6 +8,9 @@ import { SIGNUP } from "@/lib/site";
 // (one handler, no per-word JS), looks the word up on tap only, and keeps the
 // results in memory. Saved words live in this page's state only (nothing is
 // stored): saving opens the sign-up sheet.
+//
+// Story Valley uses TappableText with canSave={false} and no provider: the
+// popover shows the word and its meaning with only a Close button.
 
 const DEFINE_URL = "https://app.studybrew.co/api/public/define?word=";
 const POPOVER_WIDTH = 300;
@@ -68,8 +71,13 @@ export function StoryWordsProvider({ children }: { children: React.ReactNode }) 
 
 type Open = { key: string; label: string; top: number; left: number; width: number };
 
-export function TappableText({ children }: { children: React.ReactNode }) {
-  const { saved, save } = useWords();
+const NO_SAVED: SavedWord[] = [];
+
+export function TappableText({ children, canSave = true }: { children: React.ReactNode; canSave?: boolean }) {
+  // Without a provider (Story Valley) there's no saving.
+  const words = useContext(WordsContext);
+  const saved = words?.saved ?? NO_SAVED;
+  const save = canSave ? words?.save : undefined;
   const wrapRef = useRef<HTMLDivElement>(null);
   const popRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState<Open | null>(null);
@@ -160,9 +168,9 @@ export function TappableText({ children }: { children: React.ReactNode }) {
         >
           <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
             <span className="text-[1.15rem] font-bold tracking-[-0.02em] text-text-primary">{def?.word ?? open.key}</span>
-            {def?.part_of_speech && <span className="text-[0.8rem] italic text-text-muted">{def.part_of_speech}</span>}
+            {save && def?.part_of_speech && <span className="text-[0.8rem] italic text-text-muted">{def.part_of_speech}</span>}
           </div>
-          {def?.phonetic && <p className="mt-0.5 text-[0.82rem] text-text-muted-2">{def.phonetic}</p>}
+          {save && def?.phonetic && <p className="mt-0.5 text-[0.82rem] text-text-muted-2">{def.phonetic}</p>}
           <p className="mt-2 text-[0.92rem] leading-[1.55] text-text-primary/90" aria-live="polite">
             {!lookup || lookup.status === "loading"
               ? <span className="text-text-muted">Loading…</span>
@@ -171,14 +179,14 @@ export function TappableText({ children }: { children: React.ReactNode }) {
                 : <span className="text-text-muted">No meaning found for this word.</span>}
           </p>
           <div className="mt-3.5 flex gap-2">
-            {def && (
+            {save && def && (
               <button
                 type="button"
                 onClick={() => {
                   save({ word: open.key, meaning: def.meaning });
                   close();
                 }}
-                className="inline-flex h-9 items-center rounded-[10px] bg-teal px-3.5 text-[0.82rem] font-semibold text-teal-ink hover:opacity-90"
+                className="inline-flex h-9 items-center rounded-[10px] bg-accent px-3.5 text-[0.82rem] font-semibold text-teal-ink hover:opacity-90"
               >
                 {isSaved ? "✓ Saved" : "+ Save word"}
               </button>
