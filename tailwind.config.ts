@@ -22,6 +22,7 @@ const config: Config = {
         coral: "#F0997B",
         "coral-tint": "rgba(240,153,123,0.16)",
         yellow: "#F2C46B",
+        purple: "#B9A3E8",
         cream: {
           DEFAULT: "#F2EBDD",
           ink: "#2a241c",

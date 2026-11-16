@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Nav from "@/components/Nav";
+import TongueTwisters, { type Twister } from "@/components/TongueTwisters";
 
 export const metadata: Metadata = {
   title: "Tongue Twisters Practice | Study Brew",
@@ -7,23 +8,7 @@ export const metadata: Metadata = {
     "Classic English tongue twisters to sharpen your pronunciation, sound by sound.",
 };
 
-type Difficulty = "Easy" | "Medium" | "Hard";
-
-const CHIP_CLASSES = ["bg-teal/10 text-teal", "bg-blue/10 text-blue", "bg-coral/10 text-coral"];
-
-const DIFFICULTY_CLASSES: Record<Difficulty, string> = {
-  Easy: "bg-teal/10 text-teal",
-  Medium: "bg-blue/10 text-blue",
-  Hard: "bg-coral/10 text-coral",
-};
-
-const TWISTERS: {
-  title: string;
-  difficulty: Difficulty;
-  focus: string;
-  lines: string[];
-  note?: string;
-}[] = [
+const TWISTERS: Twister[] = [
   {
     title: "She Sells Seashells",
     difficulty: "Easy",
@@ -86,78 +71,8 @@ export default function TongueTwistersPage() {
   return (
     <main className="flex flex-1 flex-col">
       <Nav />
-
-      {/* Hero */}
-      <div className="mx-auto w-full max-w-[1180px] px-6 pb-10 pt-10 text-center md:px-14 md:pt-16">
-        <div className="mb-[1.1rem] font-medium text-[0.8rem] text-teal">
-          Practice
-        </div>
-        <h1 className="mx-auto max-w-[20ch] text-[clamp(2.2rem,4vw,3.1rem)] font-bold leading-[1.02]">
-          Twist your <span className="text-teal">tongue.</span>
-        </h1>
-        <p className="mx-auto mt-4 max-w-[54ch] text-[1.02rem] leading-[1.6] text-text-muted">
-          Classic English tongue twisters — the same ones native speakers
-          grew up stumbling over. Read them out loud, slow at first, to
-          sharpen pronunciation and mouth muscle memory for tricky sound
-          pairs.
-        </p>
-      </div>
-
-      {/* Twisters */}
-      <div className="mx-auto w-full max-w-[820px] px-6 pb-20 md:px-14">
-        <div className="flex flex-col gap-5">
-          {TWISTERS.map((twister, i) => {
-            const chipClass = CHIP_CLASSES[i % CHIP_CLASSES.length];
-            const num = String(i + 1).padStart(2, "0");
-
-            return (
-              <div
-                key={twister.title}
-                className="rounded-2xl border border-line bg-panel p-6 md:p-8"
-              >
-                <div className="flex items-center gap-4">
-                  <span
-                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-[0.8rem] font-bold ${chipClass}`}
-                  >
-                    {num}
-                  </span>
-                  <h2 className="text-[1.2rem] font-bold text-text-primary">
-                    {twister.title}
-                  </h2>
-                </div>
-
-                <div className="mt-4 flex items-center justify-between border-t border-dashed border-line-soft pt-4">
-                  <span
-                    className={`rounded-full px-[0.6rem] py-[0.25rem] font-medium text-[0.74rem] ${DIFFICULTY_CLASSES[twister.difficulty]}`}
-                  >
-                    {twister.difficulty}
-                  </span>
-                  <span className="font-medium text-[0.78rem] text-text-muted-2">
-                    Focus:{" "}
-                    <span className="text-text-muted">{twister.focus}</span>
-                  </span>
-                </div>
-
-                <div className="mt-5 border-l-2 border-line pl-5">
-                  {twister.lines.map((line, li) => (
-                    <p
-                      key={li}
-                      className="italic leading-[1.7] text-text-muted"
-                    >
-                      {line}
-                    </p>
-                  ))}
-                </div>
-
-                {twister.note && (
-                  <p className="mt-3 text-[0.78rem] text-text-muted-2">
-                    {twister.note}
-                  </p>
-                )}
-              </div>
-            );
-          })}
-        </div>
+      <div className="mx-auto w-full max-w-[1180px] px-6 md:px-14">
+        <TongueTwisters twisters={TWISTERS} />
       </div>
     </main>
   );

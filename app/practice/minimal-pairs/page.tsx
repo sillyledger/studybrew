@@ -1,32 +1,11 @@
 import type { Metadata } from "next";
 import Nav from "@/components/Nav";
-import PlayButton from "@/components/PlayButton";
+import MinimalPairs, { type Group } from "@/components/MinimalPairs";
 
 export const metadata: Metadata = {
   title: "Minimal Pairs Practice | Study Brew",
   description:
     "Word pairs that sound almost identical except for one sound — sharpen your ear for tricky English contrasts.",
-};
-
-const CHIP_CLASSES = [
-  { chip: "bg-teal/10 text-teal", accent: "text-teal" },
-  { chip: "bg-blue/10 text-blue", accent: "text-blue" },
-  { chip: "bg-coral/10 text-coral", accent: "text-coral" },
-];
-
-type Pair = {
-  word1: string;
-  respelling1: string;
-  highlight1: string;
-  word2: string;
-  respelling2: string;
-  highlight2: string;
-  sound: string;
-};
-
-type Group = {
-  title: string;
-  pairs: Pair[];
 };
 
 const GROUPS: Group[] = [
@@ -82,121 +61,12 @@ const GROUPS: Group[] = [
   },
 ];
 
-function Respelling({
-  text,
-  highlight,
-  accentClass,
-}: {
-  text: string;
-  highlight: string;
-  accentClass: string;
-}) {
-  const idx = text.indexOf(highlight);
-  if (idx === -1) return <>{text}</>;
-  const before = text.slice(0, idx);
-  const after = text.slice(idx + highlight.length);
-  return (
-    <>
-      {before}
-      <span className={`font-bold ${accentClass}`}>{highlight}</span>
-      {after}
-    </>
-  );
-}
-
 export default function MinimalPairsPage() {
   return (
     <main className="flex flex-1 flex-col">
       <Nav />
-
-      {/* Hero */}
-      <div className="mx-auto w-full max-w-[1180px] px-6 pb-10 pt-10 text-center md:px-14 md:pt-16">
-        <div className="mb-[1.1rem] font-medium text-[0.8rem] text-blue">
-          Practice
-        </div>
-        <h1 className="mx-auto max-w-[20ch] text-[clamp(2.2rem,4vw,3.1rem)] font-bold leading-[1.02]">
-          Hear the <span className="text-blue">difference.</span>
-        </h1>
-        <p className="mx-auto mt-4 max-w-[54ch] text-[1.02rem] leading-[1.6] text-text-muted">
-          Word pairs that sound almost identical — except for one sound.
-          Listen to each word, then read the respelling out loud to train
-          your ear on the contrasts that trip learners up most.
-        </p>
-      </div>
-
-      {/* Groups */}
-      <div className="mx-auto w-full max-w-[820px] px-6 pb-20 md:px-14">
-        <div className="flex flex-col gap-12">
-          {GROUPS.map((group, gi) => {
-            const { chip, accent } = CHIP_CLASSES[gi % CHIP_CLASSES.length];
-
-            return (
-              <section key={group.title}>
-                <div className="mb-5 flex items-center gap-4">
-                  <span
-                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-[0.8rem] font-bold ${chip}`}
-                  >
-                    {String(gi + 1).padStart(2, "0")}
-                  </span>
-                  <h2 className="text-[1.2rem] font-bold text-text-primary">
-                    {group.title}
-                  </h2>
-                </div>
-
-                <div className="flex flex-col gap-3">
-                  {group.pairs.map((pair) => (
-                    <div
-                      key={`${pair.word1}-${pair.word2}`}
-                      className="rounded-2xl border border-line bg-panel p-5 md:p-6"
-                    >
-                      <div className="flex items-center justify-between border-b border-dashed border-line-soft pb-4">
-                        <span
-                          className={`rounded-full px-[0.6rem] py-[0.25rem] font-medium text-[0.74rem] ${chip}`}
-                        >
-                          {pair.sound}
-                        </span>
-                      </div>
-
-                      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                        <div className="flex items-center gap-3">
-                          <PlayButton text={pair.word1} label={`Play ${pair.word1}`} />
-                          <div>
-                            <div className="text-[1.05rem] font-bold text-text-primary">
-                              {pair.word1}
-                            </div>
-                            <div className="font-medium text-[0.8rem] text-text-muted">
-                              <Respelling
-                                text={pair.respelling1}
-                                highlight={pair.highlight1}
-                                accentClass={accent}
-                              />
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                          <PlayButton text={pair.word2} label={`Play ${pair.word2}`} />
-                          <div>
-                            <div className="text-[1.05rem] font-bold text-text-primary">
-                              {pair.word2}
-                            </div>
-                            <div className="font-medium text-[0.8rem] text-text-muted">
-                              <Respelling
-                                text={pair.respelling2}
-                                highlight={pair.highlight2}
-                                accentClass={accent}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            );
-          })}
-        </div>
+      <div className="mx-auto w-full max-w-[1180px] px-6 md:px-14">
+        <MinimalPairs groups={GROUPS} />
       </div>
     </main>
   );
