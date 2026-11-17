@@ -23,7 +23,7 @@ export function confirmEmailHtml(confirmUrl: string): string {
             </tr>
             <tr>
               <td style="padding:0 0 28px 0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#a0a0a0;">
-                One click and you're on the list. We'll email you when the notes app opens. This link expires in 48 hours.
+                Thanks for joining the Study Brew tutor waitlist. Confirm your email below and we'll let you know when the tutor workspace is ready. Early tutors get a say in how it works.
               </td>
             </tr>
             <tr>

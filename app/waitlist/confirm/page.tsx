@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const CONTENT = {
   success: {
     heading: "You're confirmed.",
-    body: "You're on the list. We'll email you when the notes app opens.",
+    body: "You're on the tutor waitlist. We'll email you when the tutor workspace is ready.",
     link: "Back to homepage",
   },
   invalid: {
