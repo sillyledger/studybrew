@@ -21,7 +21,7 @@ import { STORY_COLUMNS, toStoryItem, type PostRow } from "../../../lib/stories-l
 export const metadata: Metadata = {
   title: "Story Valley | Study Brew",
   description:
-    "Easy A1–A2 English stories with Sara, Lucy and Tom, read by a real person. Made to share with your child.",
+    "Easy A1–A2 English stories with Sara, Lucy and Tom, read by a non-native speaker who learned English too. Made to share with your child.",
 };
 
 const GREEN = "#8FCB6E";
@@ -265,7 +265,7 @@ export default async function StoryValley({
                 Easy English stories to share with your child
               </h1>
               <p className="mt-4 max-w-[48ch] text-[1rem] leading-[1.65] text-text-muted">
-                Short stories about Sara, Lucy and Tom, read slowly by a real person. Listen
+                Short stories about Sara, Lucy and Tom, read slowly by a non-native speaker who learned English too. Listen
                 together, and learn the words yourself along the way.
               </p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">

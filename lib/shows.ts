@@ -45,7 +45,7 @@ export const shows: Show[] = [
     id: "kids",
     name: "Story Valley for Kids",
     tagline: "English stories for kids",
-    description: "Simple English stories to share with your child. Read aloud by a real person, not an AI voice.",
+    description: "Simple English stories to share with your child. Read aloud by a non-native speaker, not an AI voice.",
     dot: "bg-coral",
     level: "A1-A2",
     audience: "For parents and kids",

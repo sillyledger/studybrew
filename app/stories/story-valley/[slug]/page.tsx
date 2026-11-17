@@ -29,7 +29,7 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
-const DEFAULT_DESCRIPTION = "A simple A1-A2 English story for kids, read aloud by a real person.";
+const DEFAULT_DESCRIPTION = "A simple A1-A2 English story for kids, read aloud by a non-native speaker. No AI voices.";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
