@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { resend, WAITLIST_AUDIENCE_ID } from "@/lib/resend";
+import { resend, audienceFor } from "@/lib/resend";
 import { verifyConfirmToken } from "@/lib/waitlist-token";
 
 export const dynamic = "force-dynamic";
@@ -10,13 +10,13 @@ export async function GET(request: Request) {
     NextResponse.redirect(new URL(`/waitlist/confirm?status=${status}`, url));
 
   const token = url.searchParams.get("token") ?? "";
-  const { valid, email } = verifyConfirmToken(token);
+  const { valid, email, list } = verifyConfirmToken(token);
   if (!valid || !email) return redirectTo("invalid");
 
   try {
     const { error } = await resend.contacts.update({
       email,
-      audienceId: WAITLIST_AUDIENCE_ID,
+      audienceId: audienceFor(list ?? "waitlist"),
       unsubscribed: false,
     });
     if (error) throw error;

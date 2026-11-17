@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { resend, WAITLIST_AUDIENCE_ID } from "@/lib/resend";
+import { resend, audienceFor, type WaitlistList } from "@/lib/resend";
 import { createConfirmToken } from "@/lib/waitlist-token";
 import { confirmEmailHtml } from "@/lib/waitlist-email";
 
@@ -7,9 +7,11 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(request: Request) {
   let email: string;
+  let list: WaitlistList;
   try {
     const body = await request.json();
     email = typeof body?.email === "string" ? body.email.trim() : "";
+    list = body?.list === "tutor" ? "tutor" : "waitlist";
   } catch {
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
   }
@@ -21,7 +23,7 @@ export async function POST(request: Request) {
   try {
     const { error } = await resend.contacts.create({
       email,
-      audienceId: WAITLIST_AUDIENCE_ID,
+      audienceId: audienceFor(list),
       unsubscribed: true,
     });
     if (error) throw error;
@@ -31,12 +33,15 @@ export async function POST(request: Request) {
   }
 
   try {
-    const token = createConfirmToken(email);
+    const token = createConfirmToken(email, list === "tutor" ? "tutor" : undefined);
     const confirmUrl = `https://www.studybrew.co/api/waitlist/confirm?token=${encodeURIComponent(token)}`;
     const { error } = await resend.emails.send({
       from: "Study Brew <hello@studybrew.co>",
       to: email,
-      subject: "Confirm your spot on the Study Brew waitlist",
+      subject:
+        list === "tutor"
+          ? "Confirm your spot on the Study Brew tutor waitlist"
+          : "Confirm your spot on the Study Brew waitlist",
       html: confirmEmailHtml(confirmUrl),
     });
     if (error) throw error;

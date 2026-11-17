@@ -2,7 +2,7 @@ import { createHmac, timingSafeEqual } from "crypto";
 
 const TOKEN_TTL_MS = 48 * 60 * 60 * 1000;
 
-type TokenPayload = { email: string; exp: number };
+type TokenPayload = { email: string; exp: number; list?: "tutor" };
 
 function getSecret(): string | undefined {
   return process.env.CONFIRM_TOKEN_SECRET;
@@ -12,11 +12,12 @@ function sign(payload: string, secret: string): string {
   return createHmac("sha256", secret).update(payload).digest("base64url");
 }
 
-export function createConfirmToken(email: string): string {
+export function createConfirmToken(email: string, list?: "tutor"): string {
   const secret = getSecret();
   if (!secret) throw new Error("CONFIRM_TOKEN_SECRET is not set");
 
   const payload: TokenPayload = { email, exp: Date.now() + TOKEN_TTL_MS };
+  if (list) payload.list = list;
   const encoded = Buffer.from(JSON.stringify(payload)).toString("base64url");
   return `${encoded}.${sign(encoded, secret)}`;
 }
@@ -24,6 +25,7 @@ export function createConfirmToken(email: string): string {
 export function verifyConfirmToken(token: string): {
   valid: boolean;
   email?: string;
+  list?: "tutor";
 } {
   try {
     const secret = getSecret();
@@ -62,7 +64,11 @@ export function verifyConfirmToken(token: string): {
       return { valid: false };
     }
 
-    return { valid: true, email: payload.email };
+    return {
+      valid: true,
+      email: payload.email,
+      list: payload.list === "tutor" ? "tutor" : undefined,
+    };
   } catch (err) {
     console.error("[waitlist-token] Failed to verify token", err);
     return { valid: false };

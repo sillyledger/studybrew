@@ -4,7 +4,24 @@ import { useState } from "react";
 
 type Status = "idle" | "loading" | "success" | "error";
 
-export default function WaitlistForm() {
+type Props = {
+  /** Which list to join. "tutor" goes to the tutor waitlist audience. */
+  list?: "waitlist" | "tutor";
+  /** "light" matches the site's light buttons; default is the teal pill. */
+  tone?: "teal" | "light";
+  submitLabel?: string;
+  /** Small line under the form; null hides it. */
+  note?: string | null;
+  className?: string;
+};
+
+export default function WaitlistForm({
+  list = "waitlist",
+  tone = "teal",
+  submitLabel = "Join waitlist",
+  note = "No spam. One email, when notes are ready.",
+  className = "mt-8 w-full max-w-[400px]",
+}: Props = {}) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
@@ -18,7 +35,7 @@ export default function WaitlistForm() {
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify(list === "tutor" ? { email, list } : { email }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
@@ -33,23 +50,23 @@ export default function WaitlistForm() {
 
   if (status === "success") {
     return (
-      <p className="mt-8 font-medium text-[0.82rem] text-teal">
+      <p className={`${className} font-medium text-[0.82rem] text-teal`}>
         Check your inbox to confirm your spot.
       </p>
     );
   }
 
   return (
-    <div className="mt-8 w-full max-w-[400px]">
+    <div className={className}>
       <form
         onSubmit={handleSubmit}
-        className="flex rounded-full border border-line p-[5px]"
+        className={`flex rounded-full border p-[5px] ${tone === "light" ? "border-line-strong" : "border-line"}`}
       >
-        <label htmlFor="waitlist-email" className="sr-only">
+        <label htmlFor={`${list}-email`} className="sr-only">
           Email address
         </label>
         <input
-          id="waitlist-email"
+          id={`${list}-email`}
           type="email"
           required
           placeholder="you@email.com"
@@ -60,14 +77,16 @@ export default function WaitlistForm() {
         <button
           type="submit"
           disabled={status === "loading"}
-          className="whitespace-nowrap rounded-full bg-teal px-5 py-2.5 text-[0.8rem] font-bold text-teal-ink hover:opacity-90 disabled:opacity-60"
+          className={`whitespace-nowrap rounded-full px-5 py-2.5 text-[0.8rem] font-bold hover:opacity-90 disabled:opacity-60 ${
+            tone === "light" ? "bg-text-primary text-background" : "bg-teal text-teal-ink"
+          }`}
         >
-          {status === "loading" ? "Joining..." : "Join waitlist"}
+          {status === "loading" ? "Joining..." : submitLabel}
         </button>
       </form>
-      <p className="mt-3 font-medium text-[0.72rem] text-text-muted-2">
-        No spam. One email, when notes are ready.
-      </p>
+      {note && (
+        <p className="mt-3 font-medium text-[0.72rem] text-text-muted-2">{note}</p>
+      )}
       {status === "error" && (
         <p className="mt-2 font-medium text-[0.72rem] text-coral">{error}</p>
       )}
