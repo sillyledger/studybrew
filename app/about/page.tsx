@@ -105,9 +105,9 @@ export default function About() {
             <p className="mt-6 max-w-[52ch] text-[1.05rem] leading-[1.65] text-text-muted">
               I&apos;m Pieter. The idea came from my own frustration learning Traditional
               Chinese. A dictionary app to look words up, a flashcard app to review them, a
-              notes app to write things down. None of them talked to each other. I kept
-              re-learning words I&apos;d already saved. Study Brew is the tool I wished existed:
-              one place where the words you save stick.
+              notes app to write things down. None of them talked to each other. Half the time
+              I&apos;d look up a word I had already saved weeks before. So I started building
+              something for myself, and it slowly turned into Study Brew.
             </p>
           </div>
           <CastAvatars />
