@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
+import CastAvatars from "@/components/CastAvatars";
 import CharacterCard from "@/components/CharacterCard";
 import StoryValleyCastCard from "@/components/StoryValleyCastCard";
 import StoriesBrowser, { type ShowCard } from "@/components/StoriesBrowser";
@@ -16,15 +17,6 @@ export const metadata: Metadata = {
   description:
     "Short English stories read by a fellow learner, from A1 to B2. Listen, read along and keep the words you want to remember.",
 };
-
-const HEADER_CAST = [
-  { slug: "anna", name: "Anna" },
-  { slug: "luna", name: "Luna" },
-  { slug: "sara", name: "Sara" },
-  { slug: "lisa", name: "Lisa" },
-  { slug: "caspian", name: "Caspian" },
-  { slug: "tom", name: "Tom" },
-];
 
 const linksFor = (id: "study" | "story") => {
   const show = shows.find((s) => s.id === id);
@@ -116,23 +108,7 @@ export default async function StoriesPage() {
               English, not AI voices. Listen, read along, and keep the words you want to remember.
             </p>
           </div>
-          <div className="flex justify-start md:justify-end">
-            <div className="flex">
-              {HEADER_CAST.map((c, i) => (
-                <img
-                  key={c.slug}
-                  src={`/characters/${c.slug}.svg`}
-                  alt={c.name}
-                  title={c.name}
-                  width={76}
-                  height={76}
-                  className={`h-[58px] w-[58px] rounded-full bg-panel-2 ring-4 ring-background sm:h-[76px] sm:w-[76px] ${
-                    i ? "-ml-3 sm:-ml-4" : ""
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
+          <CastAvatars />
         </section>
 
         {/* Shows, filters, featured story and grid */}
