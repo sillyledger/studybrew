@@ -14,7 +14,7 @@ export const revalidate = 60;
 export const metadata: Metadata = {
   title: "Short English Stories for Learners | Study Brew",
   description:
-    "Short English stories read by a real person, from A1 to B2. Listen, read along and keep the words you want to remember.",
+    "Short English stories read by a fellow learner, from A1 to B2. Listen, read along and keep the words you want to remember.",
 };
 
 const HEADER_CAST = [
@@ -108,11 +108,12 @@ export default async function StoriesPage() {
             <h1 className="text-[clamp(2.8rem,7.5vw,5.2rem)] font-bold leading-[0.95] tracking-[-0.035em]">
               Short stories,
               <br />
-              <span className="text-teal">read by a real person.</span>
+              <span className="text-teal">read by a fellow learner.</span>
             </h1>
             <p className="mt-6 max-w-[52ch] text-[1.05rem] leading-[1.65] text-text-muted">
               English stories with characters you&apos;ll get to know, from easy A1 to confident
-              B2. No AI voices. Listen, read along, and keep the words you want to remember.
+              B2. Read by a non-native speaker who learned English too, so you hear clear, real
+              English, not AI voices. Listen, read along, and keep the words you want to remember.
             </p>
           </div>
           <div className="flex justify-start md:justify-end">
