@@ -29,6 +29,8 @@ export interface PublicStory {
   audio_url: string | null;
   spotify_url: string | null;
   apple_url: string | null;
+  /** The episode on 小宇宙; empty or missing → the show's link (lib/shows.ts). */
+  xiaoyuzhou_url?: string | null;
 }
 
 /** The story by its app slug, or null when the API doesn't have it (404) or

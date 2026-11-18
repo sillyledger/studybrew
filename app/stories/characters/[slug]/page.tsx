@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 const SHOW_KEY = { study: "study-brew", story: "story-brew" } as const;
 
-/** Spotify, Apple and YouTube links for the character's show. */
+/** The character's show on every platform except Castbox (lib/shows.ts). */
 function alsoOn(character: Character) {
   const show = shows.find((s) => s.id === character.show);
   if (!show) return [];

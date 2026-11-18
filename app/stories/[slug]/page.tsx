@@ -4,12 +4,14 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase'
 import Nav from '@/components/Nav'
 import LegacyStory from '@/components/story/LegacyStory'
+import AlsoOn, { xiaoyuzhouLink } from '@/components/story/AlsoOn'
 import ListenBox from '@/components/story/ListenBox'
 import StoryQuiz from '@/components/story/StoryQuiz'
 import { SavedWords, StoryWordsProvider } from '@/components/story/StoryWords'
 import { KeyWordsCard, MoreStories, StoryHeader, StoryText, type MoreItem } from '@/components/story/StoryParts'
 import { getStoryList, STORY_SHOWS } from '@/lib/stories-list'
 import { SIGNUP } from '@/lib/site'
+import { shows } from '@/lib/shows'
 import {
   appleEmbedUrl,
   categoryHref,
@@ -66,8 +68,10 @@ export default async function StoryPage({ params }: Props) {
   if (!story) return <LegacyStory slug={slug} />
   if (story.show.slug === STORY_VALLEY_SHOW) redirect(`/stories/story-valley/${story.slug}`)
 
-  // Spotify and Apple can't be reached from mainland China: only Play here.
+  // Spotify, Apple and the "Also on" sites can't be reached from mainland
+  // China: only Play here and 小宇宙 there.
   const inChina = (await headers()).get('x-vercel-ip-country') === 'CN'
+  const show = shows.find((s) => s.id === (story.show.slug === 'story-brew' ? 'story' : 'study'))
   const character = mainCharacter(story)
   const more = await moreStories(story, slug, character?.slug ?? null)
 
@@ -93,6 +97,7 @@ export default async function StoryPage({ params }: Props) {
               audioUrl={story.audio_url}
               spotifyEmbed={inChina ? null : spotifyEmbedUrl(story.spotify_url)}
               appleEmbed={inChina ? null : appleEmbedUrl(story.apple_url)}
+              links={xiaoyuzhouLink(story.xiaoyuzhou_url, show)}
             />
 
             <KeyWordsCard keyWords={story.key_words} />
@@ -106,6 +111,8 @@ export default async function StoryPage({ params }: Props) {
                 correctIndex={story.quiz.correct_index}
               />
             )}
+
+            {!inChina && <AlsoOn show={show} />}
 
             {/* End card */}
             <section className="mt-6 flex flex-col items-start gap-5 rounded-[20px] border border-teal/30 bg-[linear-gradient(135deg,#1f2b27,#242426_60%)] p-6 sm:flex-row sm:items-center sm:gap-6 sm:p-7">

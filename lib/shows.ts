@@ -28,6 +28,8 @@ export const shows: Show[] = [
     appleUrl: "https://podcasts.apple.com/podcast/study-brew-english-stories-for-learners-b1-b2/id6820542456",
     youtubeUrl: "https://www.youtube.com/@studybrewcontent",
     castboxUrl: "https://castbox.fm/vh/7445980",
+    kkboxUrl: "https://podcast.kkbox.com/channel/5Xkztj1nIIEb5-iTfP",
+    xiaoyuzhouUrl: "https://www.xiaoyuzhoufm.com/podcast/6afa6ffceb0ec5ac6d19758b",
   },
   {
     id: "story",
@@ -40,6 +42,8 @@ export const shows: Show[] = [
     appleUrl: "https://podcasts.apple.com/podcast/story-brew-b1-b2-english-bedtime-stories-for-learners/id1893692455",
     youtubeUrl: "https://www.youtube.com/@storybrewcontent",
     castboxUrl: "https://castbox.fm/vh/7168522",
+    kkboxUrl: "https://podcast.kkbox.com/channel/LYE_sOoO1jY45OabSV",
+    xiaoyuzhouUrl: "https://www.xiaoyuzhoufm.com/podcast/6afa6fb5eb0ec5ac6d197190",
   },
   {
     id: "kids",

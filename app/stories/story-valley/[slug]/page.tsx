@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import Nav from "@/components/Nav";
 import { ShieldIcon } from "@/components/Icons";
 import LegacyStoryValley from "@/components/story/LegacyStoryValley";
+import AlsoOn, { xiaoyuzhouLink } from "@/components/story/AlsoOn";
 import ListenBox from "@/components/story/ListenBox";
 import StoryQuiz from "@/components/story/StoryQuiz";
 import { KeyWordsCard, MoreStories, StoryHeader, StoryText, type MoreItem } from "@/components/story/StoryParts";
@@ -58,7 +59,7 @@ export default async function StoryValleyEpisode({ params }: Props) {
   const story = await getPublicStory(slug);
   if (!story || story.show.slug !== STORY_VALLEY_SHOW) return <LegacyStoryValley slug={slug} />;
 
-  // Spotify, Apple, YouTube and KKBOX: only Play here in mainland China.
+  // Mainland China: only Play here and 小宇宙 (no Spotify, Apple or "Also on").
   const inChina = (await headers()).get("x-vercel-ip-country") === "CN";
   const character = valleyCharacter(story);
   const { items: more, sameCharacter } = await moreEpisodes(story, character?.slug ?? null);
@@ -84,7 +85,7 @@ export default async function StoryValleyEpisode({ params }: Props) {
             audioUrl={story.audio_url}
             spotifyEmbed={null}
             appleEmbed={null}
-            links={inChina ? [] : listenLinks(story)}
+            links={listenLinks(story, inChina)}
           />
 
           <KeyWordsCard keyWords={story.key_words} />
@@ -98,6 +99,8 @@ export default async function StoryValleyEpisode({ params }: Props) {
               correctIndex={story.quiz.correct_index}
             />
           )}
+
+          {!inChina && <AlsoOn show={KIDS} />}
 
           {/* For grown-ups */}
           <section className="mt-6 flex flex-col gap-4 rounded-[20px] bg-cream p-6 text-cream-ink sm:flex-row sm:items-start">
@@ -149,15 +152,16 @@ function valleyCharacter(story: PublicStory) {
   return { slug: c.slug, name: c.name, avatar: known ? `/characters/${known.slug}.svg` : null };
 }
 
-/** Platform links (new tab, never embedded): the episode's own Spotify and
-    Apple links, else the show's; YouTube and KKBOX from lib/shows.ts. */
-function listenLinks(story: PublicStory): { label: string; href: string }[] {
-  return [
-    { label: "Spotify", href: story.spotify_url || KIDS?.spotifyUrl },
-    { label: "Apple", href: story.apple_url || KIDS?.appleUrl },
-    { label: "YouTube", href: KIDS?.youtubeUrl },
-    { label: "KKBOX", href: KIDS?.kkboxUrl },
-  ].filter((l): l is { label: string; href: string } => Boolean(l.href));
+/** Platform links (new tab, never embedded): the episode's own Spotify,
+    Apple and 小宇宙 links, else the show's (lib/shows.ts). */
+function listenLinks(story: PublicStory, inChina: boolean): { label: string; href: string }[] {
+  const links = inChina
+    ? []
+    : [
+        { label: "Spotify", href: story.spotify_url || KIDS?.spotifyUrl },
+        { label: "Apple", href: story.apple_url || KIDS?.appleUrl },
+      ].filter((l): l is { label: string; href: string } => Boolean(l.href));
+  return [...links, ...xiaoyuzhouLink(story.xiaoyuzhou_url, KIDS)];
 }
 
 /** Three more Story Valley episodes with the same character (else any). */

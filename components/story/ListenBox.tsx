@@ -2,15 +2,16 @@
 
 import { useEffect, useRef, useState } from "react";
 
-// "Listen to this story" on /stories/[slug]: ▶ Play here (our own player for
-// the story's audio file), Spotify and Apple. The Spotify and Apple iframes
+// "Listen to this story" on story pages: ▶ Play here (our own player for the
+// story's audio file), Spotify, Apple and 小宇宙. The Spotify and Apple iframes
 // are only rendered after their tab is clicked, so nothing from Spotify or
 // Apple loads on a page view. The audio file isn't fetched either until play
 // is pressed (preload="none"). The page leaves out the Spotify/Apple URLs in
-// mainland China, so only Play here shows there.
+// mainland China, so only Play here and 小宇宙 show there.
 //
-// Story Valley passes no embeds, only `links`: plain outline pills that open
-// the platform in a new tab (no iframes, nothing loads from them on the page).
+// `links` are plain outline pills that open in a new tab (no iframes, nothing
+// loads from them on the page): 小宇宙 everywhere, and on Story Valley also
+// Spotify and Apple (it passes no embeds).
 
 type Tab = "here" | "spotify" | "apple";
 
