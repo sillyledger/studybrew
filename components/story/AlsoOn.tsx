@@ -36,8 +36,20 @@ export default function AlsoOn({ show }: { show: Show | undefined }) {
   );
 }
 
-/** The 小宇宙 link for one story: its own, else the show's. */
+/** The 小宇宙 link for one story: its own /episode/ link, else the show's,
+    without the ?s= share parameter (it tags who shared the link). */
 export function xiaoyuzhouLink(storyUrl: string | null | undefined, show: Show | undefined) {
-  const href = storyUrl || show?.xiaoyuzhouUrl;
+  const href = withoutShareParam(storyUrl?.trim() || show?.xiaoyuzhouUrl);
   return href ? [{ label: "小宇宙", href }] : [];
+}
+
+function withoutShareParam(href: string | undefined): string | undefined {
+  if (!href) return undefined;
+  try {
+    const url = new URL(href);
+    url.searchParams.delete("s");
+    return url.toString();
+  } catch {
+    return undefined; // not a valid URL: fall back to no link
+  }
 }

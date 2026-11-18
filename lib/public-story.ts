@@ -39,7 +39,12 @@ export async function getPublicStory(slug: string): Promise<PublicStory | null> 
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return null;
   const url = `${API}/stories/${slug}`;
   try {
-    const res = await fetch(url, { next: { revalidate: 300 } });
+    // No Data Cache here: the story pages render per request anyway (they read
+    // the country header), and the API is already cached by its CDN for 5
+    // minutes. A second, stale-while-revalidate cache on top kept serving an
+    // old copy after the app added a field (xiaoyuzhou_url): the first visit
+    // after a change got the old story, only the next one the new.
+    const res = await fetch(url, { cache: "no-store" });
     if (!res.ok) {
       if (res.status !== 404) console.warn(`[public-story] ${url} → ${res.status}`);
       return null;
