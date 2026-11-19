@@ -198,14 +198,10 @@ export default async function PricingPage() {
           </p>
         </section>
 
-        {/* Founding members */}
+        {/* Beta */}
         <div className="mb-5 flex flex-wrap items-center gap-x-5 gap-y-3 rounded-2xl border border-yellow/35 bg-gradient-to-r from-yellow/[0.09] to-coral/[0.06] px-5 py-4">
-          <span className="rounded-full border border-yellow/40 px-2.5 py-1 text-[0.7rem] font-bold uppercase tracking-[0.08em] text-yellow">
-            Founding members
-          </span>
           <p className="min-w-[240px] flex-1 text-[0.92rem] leading-[1.5] text-text-primary">
-            The first 100 students get Plus free, for life.{" "}
-            <span className="text-text-muted">No card needed, nothing to cancel.</span>
+            Study Brew is in Beta. Sign up free and use it while we keep building.
           </p>
         </div>
 
@@ -256,10 +252,16 @@ export default async function PricingPage() {
               One payment a year · about {price.symbol}
               {price.plusMonthly} a month
             </p>
-            <SignupButton
-              openLabel="Get Plus"
-              className={`${BTN} mt-6 w-full bg-teal px-4 py-3 text-[0.9rem] text-teal-ink`}
-            />
+            <span
+              role="button"
+              aria-disabled="true"
+              className="mt-6 inline-flex w-full cursor-default select-none items-center justify-center rounded-[9px] border border-line bg-panel-hover px-4 py-3 text-[0.9rem] font-semibold text-text-muted-2"
+            >
+              Coming soon
+            </span>
+            <p className="mt-2.5 text-center text-[0.78rem] leading-[1.45] text-text-muted-2">
+              Have a Beta code? Sign up free, then enter it in Settings → Plan.
+            </p>
             <FeatureList features={PLUS_FEATURES} />
           </div>
 
