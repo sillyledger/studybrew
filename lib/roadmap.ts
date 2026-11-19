@@ -22,7 +22,7 @@ export type BetaMilestone = {
 };
 
 /** Shown in the page header: "Public roadmap, updated …". */
-export const ROADMAP_UPDATED = "Nov 16, 2026";
+export const ROADMAP_UPDATED = "Nov 19, 2026";
 
 /** Milestones on the road to beta. The cup fills by done / total. */
 export const BETA_MILESTONES: BetaMilestone[] = [
@@ -78,6 +78,13 @@ export const ROADMAP_ITEMS: RoadmapItem[] = [
       "Read any public story, tap a word to see what it means, and save it with a free account.",
     progress: { done: 0, total: 3 },
     date: "Started Nov 16",
+  },
+  {
+    stage: "brewing",
+    title: "Chinese for the app, site and dictionary",
+    description:
+      "We're adding Simplified Chinese (简体) and Traditional Chinese (繁體). Tap a word and see its meaning in Chinese too, and use the app and website in your own language.",
+    date: "Started Nov 19",
   },
 
   // Next pour
