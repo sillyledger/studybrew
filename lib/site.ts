@@ -12,3 +12,6 @@ export const APP_LOGIN_URL = "https://app.studybrew.co/login";
 export const SIGNUP = SIGNUPS_OPEN
   ? { open: true, label: "Sign up free", href: APP_WELCOME_URL, loginHref: APP_LOGIN_URL as string | null }
   : { open: false, label: "Sign-ups open soon", href: "/roadmap", loginHref: null as string | null };
+
+/** Beta invite code, shown on /beta. Redeemed in the app under Settings → Plan. */
+export const BETA_CODE = "STUDYBREW168";
