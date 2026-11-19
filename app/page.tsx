@@ -167,6 +167,10 @@ export default function Home() {
 
       {/* Hero */}
       <section className="mx-auto flex w-full max-w-[1120px] flex-col items-center px-6 pb-16 pt-12 text-center md:px-14 md:pb-24 md:pt-20">
+        <span className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-[rgba(242,196,107,0.45)] px-4 py-2 text-[15px] font-semibold leading-none text-[#F2C46B] md:mb-8 md:px-5 md:py-2.5 md:text-[16px]">
+          <span aria-hidden="true" className="h-[7px] w-[7px] shrink-0 rounded-full bg-[#F2C46B]" />
+          Now in Beta
+        </span>
         <div className="mb-6 flex items-center gap-2.5 text-[0.8rem] font-medium text-teal">
           <span className="h-px w-5 shrink-0 bg-teal-dim" />
           <span>Read anything. Keep the words.</span>
