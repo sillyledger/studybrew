@@ -33,7 +33,7 @@ export const BETA_MILESTONES: BetaMilestone[] = [
   { title: "Review that sticks", done: true },
   { title: "A library to read from", done: true },
   { title: "Listen while you read", done: true },
-  { title: "Works from anywhere", done: false },
+  { title: "Works from anywhere", done: true },
 ];
 
 /** Section copy for each stage, in the order the sections appear on the page. */
@@ -73,33 +73,24 @@ export const ROADMAP_ITEMS: RoadmapItem[] = [
   // Brewing now
   {
     stage: "brewing",
-    title: "Stories you can try",
-    description:
-      "Read any public story, tap a word to see what it means, and save it with a free account.",
-    progress: { done: 0, total: 3 },
-    date: "Started Nov 16",
-  },
-  {
-    stage: "brewing",
     title: "Chinese for the app, site and dictionary",
     description:
       "We're adding Simplified Chinese (简体) and Traditional Chinese (繁體). Tap a word and see its meaning in Chinese too, and use the app and website in your own language.",
     date: "Started Nov 19",
   },
+  {
+    stage: "brewing",
+    title: "Plans and pricing",
+    description:
+      "Free and Plus are live. Plus is free with a Beta code for now; paying for Plus comes later.",
+  },
+  {
+    stage: "brewing",
+    title: "Made for your phone",
+    description: "The app now has a phone menu. The full phone layout is next.",
+  },
 
   // Next pour
-  {
-    stage: "next",
-    title: "Plans and pricing",
-    description: "One simple free plan, and a paid plan for the full library.",
-    date: "Up next",
-  },
-  {
-    stage: "next",
-    title: "Works from anywhere",
-    description: "Built and being tested for learners in mainland China.",
-    date: "Testing",
-  },
   {
     stage: "next",
     title: "Flashcards, made over",
@@ -118,14 +109,21 @@ export const ROADMAP_ITEMS: RoadmapItem[] = [
     description: "See how much of a text you already know, and get the right next read.",
     date: "Planned",
   },
-  {
-    stage: "next",
-    title: "Made for your phone",
-    description: "A layout built for learning on the go.",
-    date: "Planned",
-  },
 
   // Served, newest first
+  {
+    stage: "served",
+    title: "Open Beta",
+    description: "Sign up free, and Beta codes for Plus.",
+    date: "Nov 19",
+  },
+  {
+    stage: "served",
+    title: "Stories you can try",
+    description:
+      "Read any public story, tap a word to see what it means, and save it with a free account.",
+    date: "Nov 18",
+  },
   {
     stage: "served",
     title: "Settings that fit you",
@@ -175,7 +173,7 @@ export const ROADMAP_ITEMS: RoadmapItem[] = [
   {
     stage: "served",
     title: "Import into notes",
-    description: "Bring in a web page, a Word or text file, or pasted text as a note.",
+    description: "Bring in a web page, a PDF, a Word or text file, or pasted text as a note.",
     date: "Nov 14",
   },
   {
@@ -260,11 +258,6 @@ export const ROADMAP_ITEMS: RoadmapItem[] = [
     stage: "someday",
     title: "Profile photos",
     description: "Make your account yours.",
-  },
-  {
-    stage: "someday",
-    title: "Chinese translations",
-    description: "See words in Traditional or Simplified Chinese.",
   },
   {
     stage: "someday",
