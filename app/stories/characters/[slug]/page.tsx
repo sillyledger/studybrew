@@ -267,7 +267,7 @@ export default async function CharacterPage({ params }: Props) {
                 href={APP_WELCOME_URL}
                 className="inline-flex shrink-0 items-center justify-center self-start rounded-[9px] border border-line-strong px-4 py-2.5 text-[0.85rem] font-semibold transition-colors hover:bg-panel-hover sm:self-auto"
               >
-                Start learning, it&apos;s free
+                Sign up free
               </a>
             ) : (
               <Link

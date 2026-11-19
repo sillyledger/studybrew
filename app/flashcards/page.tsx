@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
+import { APP_WELCOME_URL } from "@/lib/site";
 import { CATEGORIES } from "./english/data";
 
 export const metadata: Metadata = {
@@ -141,12 +142,12 @@ export default function FlashcardsPage() {
                 a daily review.
               </p>
             </div>
-            <Link
-              href="/roadmap"
+            <a
+              href={APP_WELCOME_URL}
               className="inline-flex shrink-0 items-center justify-center self-start rounded-[9px] border border-line-strong px-4 py-2.5 text-[0.85rem] font-semibold transition-colors hover:bg-panel-hover sm:self-auto"
             >
-              See the roadmap
-            </Link>
+              Sign up free
+            </a>
           </div>
         </section>
       </div>

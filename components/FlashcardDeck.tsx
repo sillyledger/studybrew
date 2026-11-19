@@ -348,7 +348,7 @@ export default function FlashcardDeck({ name, cards }: Props) {
                   href={APP_WELCOME_URL}
                   className="mt-4 inline-flex items-center justify-center rounded-[9px] bg-teal px-4 py-2.5 text-[0.85rem] font-semibold text-teal-ink transition-opacity hover:opacity-90"
                 >
-                  Start free
+                  Sign up free
                 </a>
               </div>
             )}

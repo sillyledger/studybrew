@@ -224,7 +224,7 @@ export default async function PricingPage() {
               &nbsp;
             </p>
             <SignupButton
-              openLabel="Start free"
+              openLabel="Sign up free"
               className={`${BTN} mt-6 w-full border border-line-strong px-4 py-3 text-[0.9rem] text-text-primary hover:bg-panel-hover hover:opacity-100`}
             />
             <FeatureList features={FREE_FEATURES} />
@@ -360,7 +360,7 @@ export default async function PricingPage() {
               </p>
             </div>
             <SignupButton
-              openLabel="Start free"
+              openLabel="Sign up free"
               className={`${BTN} shrink-0 self-start bg-text-primary px-5 py-3 text-[0.9rem] text-background md:self-auto`}
             />
           </div>

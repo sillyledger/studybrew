@@ -183,7 +183,7 @@ export default function Home() {
         <div className="mt-9 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center">
           {SIGNUPS_OPEN ? (
             <a href={APP_WELCOME_URL} className={BUTTON_PRIMARY}>
-              Start learning, it&apos;s free
+              Sign up free
             </a>
           ) : (
             <Link href="/roadmap" className={BUTTON_PRIMARY}>

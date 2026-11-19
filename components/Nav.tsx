@@ -32,9 +32,9 @@ const PRACTICE_ITEMS = [
 const BTN =
   "inline-flex items-center justify-center whitespace-nowrap rounded-[9px] px-4 py-2 text-[0.82rem] font-semibold transition-[opacity,background-color]";
 const BTN_OUTLINE = `${BTN} border border-line-strong text-text-primary hover:bg-panel-hover`;
-const BTN_LIGHT = `${BTN} bg-text-primary text-background hover:opacity-90`;
+const BTN_PRIMARY = `${BTN} bg-teal text-teal-ink hover:opacity-90`;
 
-/** Nav call-to-action: Log in + Start free once sign-ups open, otherwise Roadmap. */
+/** Nav call-to-action: Log in + Sign up free once sign-ups open, otherwise Roadmap. */
 function NavActions({
   className = "",
   onNavigate,
@@ -45,11 +45,11 @@ function NavActions({
   if (SIGNUPS_OPEN) {
     return (
       <div className={`flex items-center gap-2 ${className}`}>
-        <a href={APP_LOGIN_URL} className={BTN_OUTLINE}>
+        <a href={APP_LOGIN_URL} onClick={onNavigate} className={BTN_OUTLINE}>
           Log in
         </a>
-        <a href={APP_WELCOME_URL} className={BTN_LIGHT}>
-          Start free
+        <a href={APP_WELCOME_URL} onClick={onNavigate} className={BTN_PRIMARY}>
+          Sign up free
         </a>
       </div>
     );
@@ -329,6 +329,12 @@ export default function Nav() {
         <SiteLink href="/" className="flex items-center gap-3">
           <img src="/studybrew-logo.svg" alt="Study Brew logo" width={26} height={26} />
           <span className="whitespace-nowrap text-xl font-bold">Study Brew</span>
+          <span
+            title="Study Brew is in beta"
+            className="rounded-full border border-[rgba(242,196,107,0.45)] px-[6px] py-[3px] text-[10.5px] font-semibold uppercase leading-none tracking-[0.06em] text-[#F2C46B]"
+          >
+            Beta
+          </span>
         </SiteLink>
 
         <div className="hidden items-center gap-5 font-medium text-[0.84rem] lg:flex lg:gap-7">
