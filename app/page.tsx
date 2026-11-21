@@ -2,17 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import Cup from "@/components/Cup";
+import FeatureShowcase from "@/components/FeatureShowcase";
 import {
-  BookIcon,
-  BookmarkIcon,
-  CupIcon,
   FileIcon,
-  FolderIcon,
   HeadphonesIcon,
   ICON_TILE,
-  ImportIcon,
   LinkIcon,
-  ListIcon,
   PencilIcon,
   type TileColor,
 } from "@/components/Icons";
@@ -69,52 +64,6 @@ const NOTE_WORDS = [
   { word: "theory", def: "an idea that explains something" },
   { word: "memory", def: "the ability to remember" },
   { word: "argue", def: "to disagree in words" },
-];
-
-const FEATURES: {
-  icon: (p: { className?: string }) => React.ReactNode;
-  color: TileColor;
-  title: string;
-  body: string;
-  tag?: string;
-}[] = [
-  {
-    icon: ImportIcon,
-    color: "blue",
-    title: "Import anything",
-    body: "A link, a Word or text file, or pasted text becomes a clean note in seconds.",
-  },
-  {
-    icon: BookmarkIcon,
-    color: "teal",
-    title: "Tap a word, save it",
-    body: "Easy definitions written for learners, shown right under the word in your note. Our dictionary grows every week.",
-  },
-  {
-    icon: FolderIcon,
-    color: "yellow",
-    title: "Notebooks & folders",
-    body: "Keep notes by class, topic or goal. Search everything with ⌘K.",
-  },
-  {
-    icon: CupIcon,
-    color: "teal",
-    title: "A daily review",
-    body: "Your saved words fill a cup. Take a sip each day and keep your streak going.",
-  },
-  {
-    icon: BookIcon,
-    color: "coral",
-    title: "Stories & reads",
-    body: "Graded texts and stories at A1–A2 and B1–B2, ready when you need something to read.",
-    tag: "Some with audio",
-  },
-  {
-    icon: ListIcon,
-    color: "blue",
-    title: "Your words, your way",
-    body: "Every word in one list. Move them into decks, or export to CSV or Excel.",
-  },
 ];
 
 const AVATARS = [
@@ -326,36 +275,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features */}
-      <section className="mx-auto w-full max-w-[1120px] px-6 py-14 md:px-14 md:py-20">
-        <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-10">
-          <h2 className="max-w-[18ch] text-[clamp(1.9rem,3.4vw,2.6rem)] font-bold leading-[1.05]">
-            Everything you read, <span className="text-teal">in one notebook.</span>
-          </h2>
-          <p className="max-w-[40ch] text-[0.98rem] leading-[1.6] text-text-muted md:text-right">
-            Notes come first. Stories and reads are there when you don&apos;t have anything to
-            read.
-          </p>
-        </div>
-        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.map(({ icon: Icon, color, title, body, tag }) => (
-            <li key={title} className="rounded-2xl border border-line bg-panel-2 p-6">
-              <span
-                className={`flex h-10 w-10 items-center justify-center rounded-[11px] ${ICON_TILE[color]}`}
-              >
-                <Icon className="h-5 w-5" />
-              </span>
-              <h3 className="mt-5 text-[1.12rem] font-bold">{title}</h3>
-              <p className="mt-1.5 text-[0.9rem] leading-[1.6] text-text-muted">{body}</p>
-              {tag && (
-                <span className="mt-4 inline-block rounded-full border border-line-strong px-2.5 py-1 text-[0.64rem] font-semibold uppercase tracking-[0.1em] text-text-muted-2">
-                  {tag}
-                </span>
-              )}
-            </li>
-          ))}
-        </ul>
-      </section>
+      {/* Product features: interactive showcase */}
+      <FeatureShowcase />
 
       {/* Flashcards teaser */}
       <section className="mx-auto w-full max-w-[1120px] px-6 py-14 md:px-14 md:py-24">
