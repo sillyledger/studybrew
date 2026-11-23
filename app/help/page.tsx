@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Nav from "@/components/Nav";
 import {
   BookIcon,
@@ -10,6 +11,9 @@ import {
   ShieldIcon,
   SproutIcon,
 } from "@/components/Icons";
+import { helpArticleHref } from "@/lib/help";
+
+const IMPORT_ARTICLE = helpArticleHref({ topic: "notes-notebooks", slug: "import-into-a-note" });
 
 export const metadata: Metadata = {
   title: "Help | Study Brew",
@@ -26,7 +30,14 @@ const RAIL = [
   { label: "Privacy & data", count: 5, color: "bg-blue" },
 ];
 
-const GUIDES = [
+const GUIDES: {
+  number: string;
+  icon: (p: { className?: string }) => React.ReactNode;
+  color: string;
+  title: string;
+  body: string;
+  href?: string;
+}[] = [
   {
     number: "01",
     icon: BookIcon,
@@ -40,6 +51,7 @@ const GUIDES = [
     color: "blue",
     title: "Bring in your own text",
     body: "Import a web page, PDF, Word file or pasted text as a note.",
+    href: IMPORT_ARTICLE,
   },
   {
     number: "03",
@@ -100,6 +112,7 @@ const TOPICS: {
   color: keyof typeof TILE;
   count: number;
   demo: DemoKind;
+  href?: string;
 }[] = [
   {
     title: "Getting started",
@@ -116,6 +129,7 @@ const TOPICS: {
     color: "blue",
     count: 9,
     demo: "import",
+    href: IMPORT_ARTICLE,
   },
   {
     title: "Words & review",
@@ -243,7 +257,14 @@ const FAQ = [
   },
 ];
 
-const CHIPS = ["Import a note", "Definitions", "The cup", "Beta codes"];
+const CHIPS: { label: string; href?: string }[] = [
+  { label: "Import a note", href: IMPORT_ARTICLE },
+  { label: "Definitions" },
+  { label: "The cup" },
+  { label: "Beta codes" },
+];
+
+const CHIP_CLASS = "rounded-full border border-line px-3 py-1.5 text-[0.75rem] text-text-muted";
 
 export default function HelpPage() {
   return (
@@ -280,11 +301,17 @@ export default function HelpPage() {
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2">
-              {CHIPS.map((chip) => (
-                <span key={chip} className="rounded-full border border-line px-3 py-1.5 text-[0.75rem] text-text-muted">
-                  {chip}
-                </span>
-              ))}
+              {CHIPS.map((chip) =>
+                chip.href ? (
+                  <Link key={chip.label} href={chip.href} className={CHIP_CLASS}>
+                    {chip.label}
+                  </Link>
+                ) : (
+                  <span key={chip.label} className={CHIP_CLASS}>
+                    {chip.label}
+                  </span>
+                )
+              )}
             </div>
           </div>
 
@@ -345,11 +372,9 @@ export default function HelpPage() {
             <div className="overflow-hidden rounded-2xl border border-line bg-panel-2">
               {GUIDES.map((guide) => {
                 const Icon = guide.icon;
-                return (
-                  <div
-                    key={guide.number}
-                    className="flex items-center gap-3.5 border-b border-line px-4 py-4 last:border-b-0"
-                  >
+                const rowClass = "flex items-center gap-3.5 border-b border-line px-4 py-4 last:border-b-0";
+                const inner = (
+                  <>
                     <span className="w-5 shrink-0 text-[0.72rem] font-bold text-text-muted-2">{guide.number}</span>
                     <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[11px] ${TILE[guide.color]}`}>
                       <Icon className="h-[19px] w-[19px]" />
@@ -361,6 +386,15 @@ export default function HelpPage() {
                     <span className="shrink-0 text-teal" aria-hidden="true">
                       →
                     </span>
+                  </>
+                );
+                return guide.href ? (
+                  <Link key={guide.number} href={guide.href} className={rowClass}>
+                    {inner}
+                  </Link>
+                ) : (
+                  <div key={guide.number} className={rowClass}>
+                    {inner}
                   </div>
                 );
               })}
@@ -375,8 +409,9 @@ export default function HelpPage() {
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {TOPICS.map((topic) => {
                   const Icon = topic.icon;
-                  return (
-                    <div key={topic.title} className="rounded-[15px] border border-line bg-panel-2 p-4">
+                  const cardClass = "rounded-[15px] border border-line bg-panel-2 p-4";
+                  const inner = (
+                    <>
                       <span className={`mb-3 flex h-[38px] w-[38px] items-center justify-center rounded-[10px] ${TILE[topic.color]}`}>
                         <Icon className="h-[19px] w-[19px]" />
                       </span>
@@ -388,6 +423,15 @@ export default function HelpPage() {
                       <span className="mt-3 inline-flex gap-1.5 text-[0.74rem] font-semibold text-teal">
                         {topic.count} answers →
                       </span>
+                    </>
+                  );
+                  return topic.href ? (
+                    <Link key={topic.title} href={topic.href} className={`block ${cardClass}`}>
+                      {inner}
+                    </Link>
+                  ) : (
+                    <div key={topic.title} className={cardClass}>
+                      {inner}
                     </div>
                   );
                 })}
