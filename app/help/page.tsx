@@ -15,6 +15,7 @@ import { helpArticleHref } from "@/lib/help";
 
 const IMPORT_ARTICLE = helpArticleHref({ topic: "notes-notebooks", slug: "import-into-a-note" });
 const GET_STARTED_ARTICLE = helpArticleHref({ topic: "getting-started", slug: "get-started-in-5-minutes" });
+const REVIEW_ARTICLE = helpArticleHref({ topic: "words-review", slug: "how-reviewing-works" });
 
 export const metadata: Metadata = {
   title: "Help | Study Brew",
@@ -61,6 +62,7 @@ const GUIDES: {
     color: "yellow",
     title: "How reviewing works",
     body: "Why saved words return tomorrow, what the cup means, how streaks count.",
+    href: REVIEW_ARTICLE,
   },
 ];
 
@@ -141,6 +143,7 @@ const TOPICS: {
     color: "coral",
     count: 11,
     demo: "definition",
+    href: REVIEW_ARTICLE,
   },
   {
     title: "Stories & audio",
@@ -263,7 +266,7 @@ const FAQ = [
 const CHIPS: { label: string; href?: string }[] = [
   { label: "Import a note", href: IMPORT_ARTICLE },
   { label: "Definitions" },
-  { label: "The cup" },
+  { label: "The cup", href: REVIEW_ARTICLE },
   { label: "Beta codes" },
 ];
 

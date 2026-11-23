@@ -29,6 +29,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/practice/minimal-pairs`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE_URL}/help/getting-started/get-started-in-5-minutes`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE_URL}/help/notes-notebooks/import-into-a-note`, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${BASE_URL}/help/words-review/how-reviewing-works`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE_URL}/privacy`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${BASE_URL}/terms`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${BASE_URL}/cookies`, changeFrequency: "yearly", priority: 0.2 },

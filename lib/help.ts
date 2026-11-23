@@ -77,6 +77,7 @@ export const HELP_TOPICS: HelpTopic[] = [
       slug: "how-reviewing-works",
       title: "How reviewing works",
       description: "Why saved words return tomorrow, what the cup means, how streaks count.",
+      live: true,
     },
     {
       slug: "export-your-words",
