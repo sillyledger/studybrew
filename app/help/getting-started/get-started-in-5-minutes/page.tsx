@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Fragment } from "react";
 import HelpArticleLayout from "@/components/help/HelpArticleLayout";
-import HelpArticleList from "@/components/help/HelpArticleList";
 import HelpFeedback from "@/components/help/HelpFeedback";
 import HelpPrevNext from "@/components/help/HelpPrevNext";
 import HelpTip from "@/components/help/HelpTip";
@@ -148,14 +147,6 @@ export default function GetStartedPage() {
 
       <HelpTip variant="tip">All email works, including QQ, 163, Gmail and Outlook.</HelpTip>
       <HelpTip variant="note">Without an account, your words are on this device only.</HelpTip>
-
-      <h2 className={H2}>What&apos;s next</h2>
-      <HelpArticleList
-        articles={[
-          { topic: "notes-notebooks", slug: "import-into-a-note" },
-          { topic: "words-review", slug: "how-reviewing-works" },
-        ]}
-      />
 
       <HelpPrevNext topic={TOPIC} article={ARTICLE} />
       <HelpFeedback />
