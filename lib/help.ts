@@ -72,6 +72,7 @@ export const HELP_TOPICS: HelpTopic[] = [
       slug: "tap-a-word-save-it",
       title: "Tap a word, save it",
       description: "See a meaning right under the word and save it to your list.",
+      live: true,
     },
     {
       slug: "how-reviewing-works",
