@@ -36,6 +36,7 @@ export const HELP_TOPICS: HelpTopic[] = [
       slug: "get-started-in-5-minutes",
       title: "Get started in 5 minutes",
       description: "Read a short story, tap a word and save it, no account needed.",
+      live: true,
     },
     {
       slug: "trying-without-an-account",

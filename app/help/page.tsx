@@ -14,6 +14,7 @@ import {
 import { helpArticleHref } from "@/lib/help";
 
 const IMPORT_ARTICLE = helpArticleHref({ topic: "notes-notebooks", slug: "import-into-a-note" });
+const GET_STARTED_ARTICLE = helpArticleHref({ topic: "getting-started", slug: "get-started-in-5-minutes" });
 
 export const metadata: Metadata = {
   title: "Help | Study Brew",
@@ -44,6 +45,7 @@ const GUIDES: {
     color: "teal",
     title: "Get started in 5 minutes",
     body: "Read a short story, tap a word and save it — no account needed.",
+    href: GET_STARTED_ARTICLE,
   },
   {
     number: "02",
@@ -121,6 +123,7 @@ const TOPICS: {
     color: "teal",
     count: 6,
     demo: "skeleton",
+    href: GET_STARTED_ARTICLE,
   },
   {
     title: "Notes & notebooks",

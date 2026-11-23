@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { HELP_TOPICS, helpArticleHref, type HelpDot } from "@/lib/help";
+import SoonTag from "./SoonTag";
 
 const DOT: Record<HelpDot, string> = {
   teal: "bg-teal",
@@ -43,9 +44,7 @@ export default function HelpSidebar({
                       className="flex items-center gap-2 py-1.5 pl-3.5 text-[0.8rem] text-text-muted opacity-50"
                     >
                       <span className="min-w-0">{article.title}</span>
-                      <span className="shrink-0 rounded border border-line-strong px-1 py-px text-[0.55rem] font-bold uppercase tracking-[0.08em]">
-                        Soon
-                      </span>
+                      <SoonTag />
                     </li>
                   );
                 }
