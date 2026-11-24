@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HELP_TOPICS, helpArticleHref, type HelpDot } from "@/lib/help";
+import { HELP_TOPICS, helpArticleHref, helpTopicHref, type HelpDot } from "@/lib/help";
 import SoonTag from "./SoonTag";
 
 const DOT: Record<HelpDot, string> = {
@@ -28,12 +28,13 @@ export default function HelpSidebar({
       <nav aria-label="Help articles" className="mt-6 flex flex-col gap-6">
         {HELP_TOPICS.map((topic) => (
           <div key={topic.slug}>
-            <div className="mb-2 flex items-center gap-2">
+            <Link
+              href={helpTopicHref(topic.slug)}
+              className="mb-2 flex items-center gap-2 text-text-muted-2 transition-colors hover:text-text-primary"
+            >
               <span aria-hidden="true" className={`h-1.5 w-1.5 shrink-0 rounded-[2px] ${DOT[topic.dot]}`} />
-              <span className="text-[0.64rem] font-bold uppercase tracking-[0.14em] text-text-muted-2">
-                {topic.title}
-              </span>
-            </div>
+              <span className="text-[0.64rem] font-bold uppercase tracking-[0.14em]">{topic.title}</span>
+            </Link>
             <ul className="border-l border-line">
               {topic.articles.map((article) => {
                 const active = article.topic === activeTopic && article.slug === activeArticle;

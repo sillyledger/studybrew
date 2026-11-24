@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { createClient } from "@/lib/supabase";
 import { characters } from "@/lib/characters";
 import { CATEGORIES } from "@/app/flashcards/english/data";
+import { HELP_ARTICLES, HELP_TOPICS, helpArticleHref, helpTopicHref } from "@/lib/help";
 
 export const revalidate = 3600;
 
@@ -27,13 +28,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/practice`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE_URL}/practice/tongue-twisters`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE_URL}/practice/minimal-pairs`, changeFrequency: "monthly", priority: 0.5 },
-    { url: `${BASE_URL}/help/getting-started/get-started-in-5-minutes`, changeFrequency: "monthly", priority: 0.5 },
-    { url: `${BASE_URL}/help/notes-notebooks/import-into-a-note`, changeFrequency: "monthly", priority: 0.5 },
-    { url: `${BASE_URL}/help/words-review/tap-a-word-save-it`, changeFrequency: "monthly", priority: 0.5 },
-    { url: `${BASE_URL}/help/words-review/how-reviewing-works`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE_URL}/privacy`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${BASE_URL}/terms`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${BASE_URL}/cookies`, changeFrequency: "yearly", priority: 0.2 },
+  ];
+
+  const helpRoutes: MetadataRoute.Sitemap = [
+    { url: `${BASE_URL}/help`, changeFrequency: "monthly", priority: 0.5 },
+    ...HELP_TOPICS.map((topic) => ({
+      url: `${BASE_URL}${helpTopicHref(topic.slug)}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.5,
+    })),
+    ...HELP_ARTICLES.filter((a) => a.live).map((article) => ({
+      url: `${BASE_URL}${helpArticleHref(article)}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.5,
+    })),
   ];
 
   const deckRoutes: MetadataRoute.Sitemap = CATEGORIES.filter(
@@ -83,5 +94,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // routes above rather than failing the whole sitemap.
   }
 
-  return [...staticRoutes, ...deckRoutes, ...characterRoutes, ...storyRoutes, ...storyValleyRoutes];
+  return [...staticRoutes, ...helpRoutes, ...deckRoutes, ...characterRoutes, ...storyRoutes, ...storyValleyRoutes];
 }

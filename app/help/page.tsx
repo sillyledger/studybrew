@@ -11,12 +11,13 @@ import {
   ShieldIcon,
   SproutIcon,
 } from "@/components/Icons";
-import { helpArticleHref } from "@/lib/help";
+import { helpArticleHref, helpTopicCount, helpTopicHref } from "@/lib/help";
 
 const IMPORT_ARTICLE = helpArticleHref({ topic: "notes-notebooks", slug: "import-into-a-note" });
 const GET_STARTED_ARTICLE = helpArticleHref({ topic: "getting-started", slug: "get-started-in-5-minutes" });
 const REVIEW_ARTICLE = helpArticleHref({ topic: "words-review", slug: "how-reviewing-works" });
 const TAP_WORD_ARTICLE = helpArticleHref({ topic: "words-review", slug: "tap-a-word-save-it" });
+const BETA_CODES_ARTICLE = helpArticleHref({ topic: "account-plans", slug: "beta-codes" });
 
 export const metadata: Metadata = {
   title: "Help | Study Brew",
@@ -24,13 +25,17 @@ export const metadata: Metadata = {
     "Short guides for notes, words, reviews, stories and your account — with previews of where each thing happens in the app.",
 };
 
-const RAIL = [
-  { label: "Start here", count: 3, color: "bg-teal", active: true },
-  { label: "Notes & notebooks", count: 9, color: "bg-blue" },
-  { label: "Words & review", count: 11, color: "bg-coral" },
-  { label: "Stories & audio", count: 7, color: "bg-yellow" },
-  { label: "Account & plans", count: 8, color: "bg-teal" },
-  { label: "Privacy & data", count: 5, color: "bg-blue" },
+const RAIL: { label: string; count: number; color: string; href: string; active?: boolean }[] = [
+  { label: "Start here", count: 3, color: "bg-teal", href: "#start-here", active: true },
+  ...(
+    [
+      ["Notes & notebooks", "notes-notebooks", "bg-blue"],
+      ["Words & review", "words-review", "bg-coral"],
+      ["Stories & audio", "stories-audio", "bg-yellow"],
+      ["Account & plans", "account-plans", "bg-teal"],
+      ["Privacy & data", "privacy-data", "bg-blue"],
+    ] as const
+  ).map(([label, slug, color]) => ({ label, count: helpTopicCount(slug), color, href: helpTopicHref(slug) })),
 ];
 
 const GUIDES: {
@@ -115,43 +120,39 @@ const TOPICS: {
   body: string;
   icon: (p: { className?: string }) => React.ReactNode;
   color: keyof typeof TILE;
-  count: number;
+  slug: string;
   demo: DemoKind;
-  href?: string;
 }[] = [
   {
     title: "Getting started",
     body: "First five minutes, guest mode, making an account.",
     icon: SproutIcon,
     color: "teal",
-    count: 6,
+    slug: "getting-started",
     demo: "skeleton",
-    href: GET_STARTED_ARTICLE,
   },
   {
     title: "Notes & notebooks",
     body: "Importing links and files, folders, search and trash.",
     icon: FolderIcon,
     color: "blue",
-    count: 9,
+    slug: "notes-notebooks",
     demo: "import",
-    href: IMPORT_ARTICLE,
   },
   {
     title: "Words & review",
     body: "Definitions, statuses, decks, exports and the cup.",
     icon: BookmarkIcon,
     color: "coral",
-    count: 11,
+    slug: "words-review",
     demo: "definition",
-    href: REVIEW_ARTICLE,
   },
   {
     title: "Stories & audio",
     body: "Listening with the transcript, levels, saved words.",
     icon: HeadphonesIcon,
     color: "yellow",
-    count: 7,
+    slug: "stories-audio",
     demo: "audio",
   },
   {
@@ -159,7 +160,7 @@ const TOPICS: {
     body: "Beta codes, Plus, details and deleting your data.",
     icon: UserIcon,
     color: "teal",
-    count: 8,
+    slug: "account-plans",
     demo: "plan",
   },
   {
@@ -167,7 +168,7 @@ const TOPICS: {
     body: "What Study Brew stores, and how to export or delete it.",
     icon: ShieldIcon,
     color: "blue",
-    count: 5,
+    slug: "privacy-data",
     demo: "privacy",
   },
 ];
@@ -264,11 +265,11 @@ const FAQ = [
   },
 ];
 
-const CHIPS: { label: string; href?: string }[] = [
+const CHIPS: { label: string; href: string }[] = [
   { label: "Import a note", href: IMPORT_ARTICLE },
   { label: "Definitions", href: TAP_WORD_ARTICLE },
   { label: "The cup", href: REVIEW_ARTICLE },
-  { label: "Beta codes" },
+  { label: "Beta codes", href: BETA_CODES_ARTICLE },
 ];
 
 const CHIP_CLASS = "rounded-full border border-line px-3 py-1.5 text-[0.75rem] text-text-muted";
@@ -308,17 +309,11 @@ export default function HelpPage() {
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2">
-              {CHIPS.map((chip) =>
-                chip.href ? (
-                  <Link key={chip.label} href={chip.href} className={CHIP_CLASS}>
-                    {chip.label}
-                  </Link>
-                ) : (
-                  <span key={chip.label} className={CHIP_CLASS}>
-                    {chip.label}
-                  </span>
-                )
-              )}
+              {CHIPS.map((chip) => (
+                <Link key={chip.label} href={chip.href} className={CHIP_CLASS}>
+                  {chip.label}
+                </Link>
+              ))}
             </div>
           </div>
 
@@ -333,9 +328,12 @@ export default function HelpPage() {
                 <span className="border-b-2 border-teal pb-px">theory</span> says the brain uses the night to tidy up.
               </p>
             </div>
-            <span className="mt-3.5 inline-flex items-center gap-2 text-[0.8rem] font-semibold text-teal">
+            <Link
+              href={GET_STARTED_ARTICLE}
+              className="mt-3.5 inline-flex items-center gap-2 text-[0.8rem] font-semibold text-teal"
+            >
               Take the 2-minute tour →
-            </span>
+            </Link>
           </div>
         </div>
       </section>
@@ -347,18 +345,27 @@ export default function HelpPage() {
           <aside className="self-start min-[820px]:sticky min-[820px]:top-24">
             <div className="mb-3 text-[0.66rem] font-bold uppercase tracking-[0.14em] text-text-muted-2">Topics</div>
             <div className="flex flex-col gap-0.5">
-              {RAIL.map((item) => (
-                <div
-                  key={item.label}
-                  className={`flex items-center gap-2.5 rounded-[9px] px-2.5 py-2 text-[0.8rem] ${
-                    item.active ? "bg-panel text-text-primary" : "text-text-muted"
-                  }`}
-                >
-                  <span aria-hidden="true" className={`h-[7px] w-[7px] shrink-0 rounded-full ${item.color}`} />
-                  <span className="truncate">{item.label}</span>
-                  <span className="ml-auto text-[0.7rem] text-text-muted-2">{item.count}</span>
-                </div>
-              ))}
+              {RAIL.map((item) => {
+                const className = `flex items-center gap-2.5 rounded-[9px] px-2.5 py-2 text-[0.8rem] ${
+                  item.active ? "bg-panel text-text-primary" : "text-text-muted"
+                }`;
+                const inner = (
+                  <>
+                    <span aria-hidden="true" className={`h-[7px] w-[7px] shrink-0 rounded-full ${item.color}`} />
+                    <span className="truncate">{item.label}</span>
+                    <span className="ml-auto text-[0.7rem] text-text-muted-2">{item.count}</span>
+                  </>
+                );
+                return item.href.startsWith("#") ? (
+                  <a key={item.label} href={item.href} className={className}>
+                    {inner}
+                  </a>
+                ) : (
+                  <Link key={item.label} href={item.href} className={className}>
+                    {inner}
+                  </Link>
+                );
+              })}
             </div>
 
             <div className="mt-6 rounded-[14px] border border-line-strong bg-panel-2 p-4">
@@ -366,15 +373,20 @@ export default function HelpPage() {
               <p className="mt-1.5 text-[0.76rem] leading-[1.55] text-text-muted">
                 Real questions shape what gets fixed next.
               </p>
-              <span className="mt-3 block w-full rounded-[9px] bg-teal px-3.5 py-2 text-center text-[0.78rem] font-semibold text-teal-ink">
+              <Link
+                href="/contact"
+                className="mt-3 block w-full rounded-[9px] bg-teal px-3.5 py-2 text-center text-[0.78rem] font-semibold text-teal-ink"
+              >
                 Contact us →
-              </span>
+              </Link>
             </div>
           </aside>
 
           <div>
             {/* Start here */}
-            <h2 className="text-[1.35rem] font-bold tracking-[-0.03em]">Start with these</h2>
+            <h2 id="start-here" className="scroll-mt-24 text-[1.35rem] font-bold tracking-[-0.03em]">
+              Start with these
+            </h2>
             <p className="mb-4 mt-1 text-[0.82rem] text-text-muted">The three things worth knowing in your first week.</p>
             <div className="overflow-hidden rounded-2xl border border-line bg-panel-2">
               {GUIDES.map((guide) => {
@@ -428,18 +440,14 @@ export default function HelpPage() {
                         <TopicDemo kind={topic.demo} />
                       </div>
                       <span className="mt-3 inline-flex gap-1.5 text-[0.74rem] font-semibold text-teal">
-                        {topic.count} answers →
+                        {helpTopicCount(topic.slug)} articles →
                       </span>
                     </>
                   );
-                  return topic.href ? (
-                    <Link key={topic.title} href={topic.href} className={`block ${cardClass}`}>
+                  return (
+                    <Link key={topic.title} href={helpTopicHref(topic.slug)} className={`block ${cardClass}`}>
                       {inner}
                     </Link>
-                  ) : (
-                    <div key={topic.title} className={cardClass}>
-                      {inner}
-                    </div>
                   );
                 })}
               </div>

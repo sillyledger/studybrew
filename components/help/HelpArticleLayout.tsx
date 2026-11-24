@@ -11,7 +11,7 @@ export default function HelpArticleLayout({
   children,
 }: {
   topic: string;
-  article: string;
+  article?: string;
   children: React.ReactNode;
 }) {
   return (
