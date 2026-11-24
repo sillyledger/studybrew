@@ -19,6 +19,7 @@ const LEGAL_LINKS = [
   { href: "/privacy", label: "Privacy Policy" },
   { href: "/terms", label: "Terms of Service" },
   { href: "/cookies", label: "Cookie Policy" },
+  { href: "https://app.studybrew.co/credits", label: "Credits" },
 ];
 
 function FooterColumn({
