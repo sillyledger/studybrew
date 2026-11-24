@@ -22,7 +22,7 @@ export type BetaMilestone = {
 };
 
 /** Shown in the page header: "Public roadmap, updated …". */
-export const ROADMAP_UPDATED = "Nov 19, 2026";
+export const ROADMAP_UPDATED = "Nov 25, 2026";
 
 /** Milestones on the road to beta. The cup fills by done / total. */
 export const BETA_MILESTONES: BetaMilestone[] = [
@@ -75,7 +75,8 @@ export const ROADMAP_ITEMS: RoadmapItem[] = [
     stage: "brewing",
     title: "The Study Brew Dictionary",
     description:
-      "Our own dictionary, built for learners. It grows from our stories and reads, and from the words learners look up. Started Nov 25.",
+      "Our own dictionary, built for learners. It grows from our stories and reads, and from the words learners look up.",
+    date: "Started Nov 25",
   },
   {
     stage: "brewing",
