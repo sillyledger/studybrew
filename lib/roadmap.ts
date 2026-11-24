@@ -116,6 +116,13 @@ export const ROADMAP_ITEMS: RoadmapItem[] = [
     description: "See how much of a text you already know, and get the right next read.",
     date: "Planned",
   },
+  {
+    stage: "next",
+    title: "Sign in with an email code",
+    description:
+      "No password needed. Type your email, get a 6-digit code, and you're in. Works with QQ Mail too.",
+    date: "Planned",
+  },
 
   // Served, newest first
   {
