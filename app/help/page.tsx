@@ -22,7 +22,7 @@ const BETA_CODES_ARTICLE = helpArticleHref({ topic: "account-plans", slug: "beta
 export const metadata: Metadata = {
   title: "Help | Study Brew",
   description:
-    "Short guides for notes, words, reviews, stories and your account — with previews of where each thing happens in the app.",
+    "Short guides for notes, words, review, stories and your account, with previews of where each thing happens in the app.",
 };
 
 const RAIL: { label: string; count: number; color: string; href: string; active?: boolean }[] = [
@@ -51,7 +51,7 @@ const GUIDES: {
     icon: BookIcon,
     color: "teal",
     title: "Get started in 5 minutes",
-    body: "Read a short story, tap a word and save it — no account needed.",
+    body: "Read a short story, tap a word and save it. No account needed.",
     href: GET_STARTED_ARTICLE,
   },
   {
@@ -253,7 +253,7 @@ const FAQ = [
   },
   {
     q: "Where does story audio load from?",
-    a: "From Study Brew itself. You don't need another account or app to listen — just press play next to the story.",
+    a: "From Study Brew itself. You don't need another account or app to listen. Just press play next to the story.",
   },
   {
     q: "When do saved words come back?",
@@ -289,7 +289,7 @@ export default function HelpPage() {
               you figure out?
             </h1>
             <p className="mt-3 max-w-[48ch] text-[0.95rem] leading-[1.6] text-text-muted">
-              Pick a topic and see the answers in context — with little previews of where each thing happens in the app.
+              Pick a topic and see the answers in context, with little previews of where each thing happens in the app.
             </p>
 
             <div className="mt-6 flex max-w-[540px] items-center gap-3 rounded-[13px] border border-line-strong bg-panel-2 px-4 py-3.5 text-left text-[0.9rem] text-text-muted-2">

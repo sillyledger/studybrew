@@ -259,6 +259,9 @@ function MobileMenu({
       <SiteLink href="/about" onClick={onNavigate} className={linkClass(pathname === "/about")}>
         About
       </SiteLink>
+      <SiteLink href="/help" onClick={onNavigate} className={linkClass(pathname.startsWith("/help"))}>
+        Help
+      </SiteLink>
       <SiteLink href="/contact" onClick={onNavigate} className={linkClass(pathname === "/contact")}>
         Contact
       </SiteLink>
@@ -355,6 +358,9 @@ export default function Nav() {
           </SiteLink>
           <SiteLink href="/about" className={linkClass(pathname === "/about")}>
             About
+          </SiteLink>
+          <SiteLink href="/help" className={linkClass(pathname.startsWith("/help"))}>
+            Help
           </SiteLink>
         </div>
 

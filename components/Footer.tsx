@@ -12,6 +12,7 @@ const COMPANY_LINKS = [
   { href: "/about", label: "About" },
   { href: "/roadmap", label: "Roadmap" },
   { href: "/contact", label: "Contact" },
+  { href: "/help", label: "Help" },
 ];
 
 const LEGAL_LINKS = [
