@@ -286,7 +286,7 @@ export default function Home() {
               Public decks, free to browse.
             </h2>
             <p className="mt-2 max-w-[40ch] leading-[1.6] text-text-muted">
-              Verbs, everyday words, and grammar — no signup needed to start
+              Verbs, everyday words, and grammar. No signup needed to start
               learning.
             </p>
           </div>
@@ -327,7 +327,7 @@ export default function Home() {
               Stories are still here.
             </h2>
             <p className="mt-1.5 max-w-[38ch] text-[0.92rem] text-text-muted-2">
-              Short, calm audio stories — where a lot of your flashcards will
+              Short, calm audio stories, where a lot of your flashcards will
               come from.
             </p>
           </div>

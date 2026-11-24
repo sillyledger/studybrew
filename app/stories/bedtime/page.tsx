@@ -8,7 +8,7 @@ export const revalidate = 60
 export const metadata: Metadata = {
   title: 'Bedtime Stories | Study Brew',
   description:
-    'Wind down with calm, slow B1–B2 English audio stories — perfect for falling asleep in English.',
+    'Wind down with calm, slow B1–B2 English audio stories, perfect for falling asleep in English.',
 }
 
 export default async function BedtimeStories() {

@@ -5,7 +5,7 @@ import MinimalPairs, { type Group } from "@/components/MinimalPairs";
 export const metadata: Metadata = {
   title: "Minimal Pairs Practice | Study Brew",
   description:
-    "Word pairs that sound almost identical except for one sound — sharpen your ear for tricky English contrasts.",
+    "Word pairs that sound almost identical except for one sound. Sharpen your ear for tricky English contrasts.",
 };
 
 const GROUPS: Group[] = [

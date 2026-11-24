@@ -62,7 +62,7 @@ const FEATURES: {
     icon: BookIcon,
     color: "coral",
     title: "Stories & reads",
-    body: "Graded texts, read or listen — then save words from them.",
+    body: "Graded texts, read or listen, then save words from them.",
     label: "STORIES · AUDIO",
   },
   {
@@ -204,7 +204,7 @@ function NotebooksPreview() {
         </ul>
       </div>
       <Caption lead="AT HOME IN A NOTEBOOK.">
-        Learners who go DIY take notes — so notes and folders lead, not a curriculum. Every saved word remembers where it
+        Learners who go DIY take notes, so notes and folders lead, not a curriculum. Every saved word remembers where it
         came from.{" "}
         <a href={APP_WELCOME_URL} className={CAP_LINK}>
           Open the app →

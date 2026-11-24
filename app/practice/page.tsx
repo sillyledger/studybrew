@@ -5,7 +5,7 @@ import Nav from "@/components/Nav";
 export const metadata: Metadata = {
   title: "Practice | Study Brew",
   description:
-    "Drills and exercises to sharpen your ear and pronunciation. Free to browse — no account needed.",
+    "Drills and exercises to sharpen your ear and pronunciation. Free to browse. No account needed.",
 };
 
 const DRILLS = [
@@ -20,7 +20,7 @@ const DRILLS = [
   {
     slug: "minimal-pairs",
     name: "Minimal Pairs",
-    description: "Word pairs that sound almost identical — except for one sound.",
+    description: "Word pairs that sound almost identical, except for one sound.",
     count: "25 pairs across 5 sound contrasts",
     tab: "bg-blue",
     available: true,
@@ -38,7 +38,7 @@ export default function PracticePage() {
         </h1>
         <p className="mt-4 max-w-[54ch] text-[1.02rem] leading-[1.6] text-text-muted">
           Drills and exercises to sharpen your ear and pronunciation. Free to
-          browse — no account needed.
+          browse. No account needed.
         </p>
       </div>
 

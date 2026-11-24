@@ -8,7 +8,7 @@ export const revalidate = 60
 export const metadata: Metadata = {
   title: 'Daily Life Stories | Study Brew',
   description:
-    'Real conversations, routines, and moments from daily life — told at a calm pace for B1–B2 learners.',
+    'Real conversations, routines, and moments from daily life, told at a calm pace for B1–B2 learners.',
 }
 
 export default async function DailyLifeStories() {
@@ -35,7 +35,7 @@ export default async function DailyLifeStories() {
           Everyday situations, natural English.
         </h1>
         <p className="text-white/60 text-base md:text-lg mb-12 md:mb-16 max-w-xl">
-          Real conversations, routines, and moments from daily life — told at a calm pace for B1–B2 learners.
+          Real conversations, routines, and moments from daily life, told at a calm pace for B1–B2 learners.
         </p>
 
         {!stories || stories.length === 0 ? (

@@ -4,7 +4,7 @@ import Nav from "@/components/Nav";
 export const metadata: Metadata = {
   title: "Contact | Study Brew",
   description:
-    "Questions, feedback, or just want to say hi — get in touch with the Study Brew team.",
+    "Questions, feedback, or just want to say hi: get in touch with the Study Brew team.",
 };
 
 export default function ContactPage() {
@@ -21,7 +21,7 @@ export default function ContactPage() {
           Say hello.
         </h1>
         <p className="mt-4 max-w-[54ch] text-[1.02rem] leading-[1.6] text-text-muted">
-          No forms, no bots — just an inbox with a real human on the other end.
+          No forms, no bots. Just an inbox with a real human on the other end.
         </p>
       </div>
 
@@ -39,7 +39,7 @@ export default function ContactPage() {
             p@ryoka.xyz
           </a>
           <p className="mt-4 max-w-[40ch] text-[0.9rem] leading-[1.6] text-text-muted">
-            Questions, feedback, or just want to say hi — this inbox is
+            Questions, feedback, or just want to say hi: this inbox is
             read by a real person.
           </p>
         </div>

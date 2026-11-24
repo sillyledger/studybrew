@@ -8,7 +8,7 @@ export const revalidate = 60
 export const metadata: Metadata = {
   title: 'Fantasy Stories | Study Brew',
   description:
-    'Imaginative stories with a calm pace — perfect for B1–B2 learners who want something a little different.',
+    'Imaginative stories with a calm pace, perfect for B1–B2 learners who want something a little different.',
 }
 
 export default async function FantasyStories() {
@@ -35,7 +35,7 @@ export default async function FantasyStories() {
           Magical worlds and unexpected adventures.
         </h1>
         <p className="text-white/60 text-base md:text-lg mb-12 md:mb-16 max-w-xl">
-          Imaginative stories with a calm pace — perfect for B1–B2 learners who want something a little different.
+          Imaginative stories with a calm pace, perfect for B1–B2 learners who want something a little different.
         </p>
 
         {!stories || stories.length === 0 ? (

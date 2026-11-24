@@ -111,7 +111,7 @@ export default function CaptureDemo() {
               </div>
               <div className="relative mt-2 text-[0.82rem] leading-[1.5] text-text-muted">
                 <b className="font-semibold text-teal">adj.</b> having too much to
-                deal with at once — from Daniel&apos;s story.
+                deal with at once. From Daniel&apos;s story.
               </div>
             </div>
           </div>

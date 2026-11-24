@@ -69,7 +69,7 @@ const EVERYDAY_WORDS_CARDS: FlashcardCard[] = [
     word: "reliable",
     pos: "adjective",
     definition: "able to be trusted; consistent",
-    example: "He's a reliable person — he always keeps his word.",
+    example: "He's a reliable person. He always keeps his word.",
   },
   {
     word: "generous",
@@ -372,7 +372,7 @@ export const CATEGORIES: FlashcardCategory[] = [
   {
     slug: "everyday-words",
     name: "Everyday Words",
-    description: "The words that come up constantly — start here.",
+    description: "The words that come up constantly. Start here.",
     tab: "bg-teal",
     available: true,
     count: EVERYDAY_WORDS_CARDS.length,

@@ -187,7 +187,7 @@ export default function About() {
                 Say hi
               </h2>
               <p className="mt-2.5 max-w-[48ch] text-[0.98rem] leading-[1.6] text-text-muted">
-                Questions, feedback, or just want to say hi — this inbox is read by a real person.
+                Questions, feedback, or just want to say hi: this inbox is read by a real person.
               </p>
             </div>
             <Link

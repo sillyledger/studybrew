@@ -52,8 +52,8 @@ export default function TermsOfServicePage() {
       <h2 id="refunds" className={h2}>Refund Policy</h2>
       <p className={p}>
         Once paid plans are live, payments will be processed by Paddle. If
-        you're charged and have a valid reason to request a refund —
-        for example, a billing error or a service issue — contact us at{" "}
+        you're charged and have a valid reason to request a refund,
+        for example, a billing error or a service issue, contact us at{" "}
         <a className={a} href="mailto:p@ryoka.xyz">p@ryoka.xyz</a>{" "}
         within 14 days of the charge, and we'll review your request.
       </p>
