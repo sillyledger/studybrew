@@ -9,6 +9,7 @@ import {
   type RoadmapItem,
   type Stage,
 } from "@/lib/roadmap";
+import { APP_WELCOME_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Roadmap | Study Brew",
@@ -249,24 +250,23 @@ export default function RoadmapPage() {
           );
         })}
 
-        {/* Follow the build */}
+        {/* Brew along with us */}
         <section className="pb-20 pt-4 md:pb-24">
           <div className="flex flex-col gap-6 rounded-[22px] border border-teal/40 bg-gradient-to-r from-teal/[0.08] to-blue/[0.08] p-7 md:flex-row md:items-center md:justify-between md:gap-10 md:p-10">
             <div>
               <h2 className="text-[clamp(1.7rem,3vw,2.2rem)] font-bold leading-[1.05]">
-                Follow the build.
+                Brew along with us.
               </h2>
               <p className="mt-2.5 max-w-[48ch] text-[0.98rem] leading-[1.6] text-text-muted">
-                Every step of Study Brew, written up as it happens in the build series.
+                Study Brew is in Beta. Sign up free, use it while we build, and see every new
+                feature first.
               </p>
             </div>
             <a
-              href="https://www.pieterborremans.com/series"
-              target="_blank"
-              rel="noopener noreferrer"
+              href={APP_WELCOME_URL}
               className="inline-flex shrink-0 items-center justify-center self-start rounded-[9px] bg-text-primary px-5 py-3 text-[0.9rem] font-semibold text-background transition-opacity hover:opacity-90 md:self-auto"
             >
-              Read the series ↗
+              Sign up free
             </a>
           </div>
         </section>
