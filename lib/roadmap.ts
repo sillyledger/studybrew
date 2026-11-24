@@ -73,6 +73,12 @@ export const ROADMAP_ITEMS: RoadmapItem[] = [
   // Brewing now
   {
     stage: "brewing",
+    title: "The Study Brew Dictionary",
+    description:
+      "Our own dictionary, built for learners. It grows from our stories and reads, and from the words learners look up. Started Nov 25.",
+  },
+  {
+    stage: "brewing",
     title: "Chinese for the app, site and dictionary",
     description:
       "We're adding Simplified Chinese (简体) and Traditional Chinese (繁體). Tap a word and see its meaning in Chinese too, and use the app and website in your own language.",
@@ -111,6 +117,13 @@ export const ROADMAP_ITEMS: RoadmapItem[] = [
   },
 
   // Served, newest first
+  {
+    stage: "served",
+    title: "A much bigger dictionary",
+    description:
+      'Meanings for about 156,000 words and phrases, from open dictionaries. Phrases like "look after" and forms like "ran" now work too.',
+    date: "Nov 25",
+  },
   {
     stage: "served",
     title: "Open Beta",
