@@ -5,8 +5,8 @@ import { useEffect, useRef, useState } from "react";
 // "Listen to this story" on story pages: ▶ Play here (our own player for the
 // story's audio file), Spotify, Apple and 小宇宙. The Spotify and Apple iframes
 // are only rendered after their tab is clicked, so nothing from Spotify or
-// Apple loads on a page view. The audio file isn't fetched either until play
-// is pressed (preload="none"). The page leaves out the Spotify/Apple URLs in
+// Apple loads on a page view. Only the audio file's length is read on page
+// load (preload="metadata"), not the whole file, until play is pressed. The page leaves out the Spotify/Apple URLs in
 // mainland China, so only Play here and 小宇宙 show there.
 //
 // `links` are plain outline pills that open in a new tab (no iframes, nothing
@@ -140,6 +140,13 @@ function Player({ src, title }: { src: string; title: string }) {
     audio.playbackRate = speed;
   }, [speed]);
 
+  // The length can load before hydration (file in the HTTP cache), so its
+  // events are missed: read it once on mount.
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (audio && audio.readyState >= 1 && Number.isFinite(audio.duration) && audio.duration > 0) setDuration(audio.duration);
+  }, []);
+
   function fail() {
     const audio = audioRef.current;
     audio?.pause();
@@ -186,7 +193,7 @@ function Player({ src, title }: { src: string; title: string }) {
       <audio
         ref={audioRef}
         src={src}
-        preload="none"
+        preload="metadata"
         onPlay={() => setPlaying(true)}
         onPlaying={() => setLoading(false)}
         onCanPlay={(e) => !e.currentTarget.paused && setLoading(false)}
@@ -198,10 +205,14 @@ function Player({ src, title }: { src: string; title: string }) {
         onEnded={() => setPlaying(false)}
         onTimeUpdate={(e) => setCurrent(e.currentTarget.currentTime)}
         onLoadedMetadata={(e) => {
-          setDuration(e.currentTarget.duration);
+          const length = e.currentTarget.duration;
+          if (Number.isFinite(length) && length > 0) setDuration(length);
           e.currentTarget.playbackRate = speed;
         }}
-        onDurationChange={(e) => setDuration(e.currentTarget.duration)}
+        onDurationChange={(e) => {
+          const length = e.currentTarget.duration;
+          if (Number.isFinite(length) && length > 0) setDuration(length);
+        }}
         onError={fail}
       />
       <div className="flex flex-wrap items-center gap-x-1.5 gap-y-2 sm:flex-nowrap sm:gap-x-2.5">
